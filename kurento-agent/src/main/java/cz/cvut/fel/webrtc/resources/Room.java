@@ -113,17 +113,20 @@ public class Room {
 		createPipeline();
 
 		participants.put(participantId,
-				new Participant(participantId, userName, this, getPipeline(), webParticipant, this.composite));
+				new Participant(participantId, userName, this, getPipeline(), webParticipant, composite));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
 
 		// Record
-		this.hubPort = new HubPort.Builder(this.composite).build();
-		this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
-				"C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM)
-						.build();
-		this.hubPort.connect(this.recorderEndpoint);
-		this.recorderEndpoint.record();
+		if (participants.size() == 1) {
+
+			this.hubPort = new HubPort.Builder(this.composite).build();
+			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
+					"C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm")
+							.withMediaProfile(MediaProfileSpecType.WEBM).build();
+			this.hubPort.connect(this.recorderEndpoint);
+			this.recorderEndpoint.record();
+		}
 	}
 
 	public void newPublisher(Participant participant) {
@@ -313,8 +316,8 @@ public class Room {
 				}
 			});
 		}
-		//Record
-		this.composite=new Composite.Builder(getPipeline()).build();
+		// Record
+		this.composite = new Composite.Builder(getPipeline()).build();
 	}
 
 	private void closePipeline() {

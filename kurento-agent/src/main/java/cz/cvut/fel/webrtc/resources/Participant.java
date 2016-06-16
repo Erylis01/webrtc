@@ -80,6 +80,8 @@ public class Participant {
     this.pipeline = pipeline;
     this.room = room;
     this.publisher = new PublisherEndpoint(web, this, name, pipeline);
+    
+    //Record
     this.passThru= new PassThrough.Builder(pipeline).build();
     this.hubPort = new HubPort.Builder(composite).build();
 
