@@ -30,6 +30,7 @@ import org.kurento.client.IceCandidate;
 import org.kurento.client.MediaElement;
 import org.kurento.client.MediaPipeline;
 import org.kurento.client.MediaType;
+import org.kurento.client.PassThrough;
 import org.kurento.client.SdpEndpoint;
 import org.kurento.client.internal.server.KurentoServerException;
 import org.kurento.room.api.MutedMediaType;
@@ -70,6 +71,7 @@ public class Participant {
   
   //Record
   private HubPort hubPort;
+  private PassThrough passThru;
 
   public Participant(String id, String name, Room room, MediaPipeline pipeline, boolean web,Hub composite) {
     this.web = web;
@@ -77,8 +79,9 @@ public class Participant {
     this.name = name;
     this.pipeline = pipeline;
     this.room = room;
-    this.hubPort = new HubPort.Builder(composite).build();
     this.publisher = new PublisherEndpoint(web, this, name, pipeline);
+    this.passThru= new PassThrough.Builder(pipeline).build();
+    this.hubPort = new HubPort.Builder(composite).build();
 
     for (Participant other : room.getParticipants()) {
       if (!other.getName().equals(this.name)) {
@@ -108,8 +111,6 @@ public class Participant {
     } else {
       this.publisher.apply(element, type);
     }
-    this.hubPort.connect(publisher.getEndpoint());
-    this.publisher.connect(hubPort);
   }
 
   public PublisherEndpoint getPublisher() {
@@ -185,6 +186,10 @@ public class Participant {
     log.trace("USER {}: Publishing Sdp ({}) is {}", this.name, sdpType, sdpResponse);
     log.info("USER {}: Is now publishing video in room {}", this.name, this.room.getName());
 
+    //Record
+    this.publisher.apply(passThru);
+    this.passThru.connect(hubPort);
+    
     return sdpResponse;
   }
 
