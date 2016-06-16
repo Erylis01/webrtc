@@ -124,6 +124,7 @@ public class Room {
 		if (participants.size() == 1) {
 			       
 			JFrame fenetre = new JFrame();
+			fenetre.setVisible(true);
 			JOptionPane.showMessageDialog(fenetre,"Marre du record");
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
