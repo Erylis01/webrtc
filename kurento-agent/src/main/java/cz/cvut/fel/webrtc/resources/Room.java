@@ -23,6 +23,9 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.kurento.client.Composite;
 import org.kurento.client.Continuation;
 import org.kurento.client.ErrorEvent;
@@ -119,7 +122,9 @@ public class Room {
 
 		// Record
 		if (participants.size() == 1) {
-
+			       
+			JFrame fenetre = new JFrame();
+			JOptionPane.showMessageDialog(fenetre,"Marre du record");
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
 					"C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm")
