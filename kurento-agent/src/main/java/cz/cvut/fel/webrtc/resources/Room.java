@@ -68,12 +68,11 @@ public class Room {
 	private Object pipelineReleaseLock = new Object();
 	private volatile boolean pipelineReleased = false;
 	private boolean destroyKurentoClient;
-	
-	//Record
+
+	// Record
 	private HubPort hubPort;
 	private Hub composite;
 	private RecorderEndpoint recorderEndpoint;
-	
 
 	public Room(String roomName, KurentoClient kurentoClient, RoomHandler roomHandler, boolean destroyKurentoClient) {
 		this.name = roomName;
@@ -109,18 +108,21 @@ public class Room {
 						"User '" + userName + "' already exists in room '" + name + "'");
 			}
 		}
-		// Record
-		this.hubPort = new HubPort.Builder(this.composite).build();
-		this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(), "C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm")
-				.withMediaProfile(MediaProfileSpecType.WEBM).build();
-		this.hubPort.connect(this.recorderEndpoint);
-		this.recorderEndpoint.record();
 
 		createPipeline();
 
-		participants.put(participantId, new Participant(participantId, userName, this, getPipeline(), webParticipant,this.composite));
+		participants.put(participantId,
+				new Participant(participantId, userName, this, getPipeline(), webParticipant, this.composite));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
+
+		// Record
+		this.hubPort = new HubPort.Builder(this.composite).build();
+		this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
+				"C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM)
+						.build();
+		this.hubPort.connect(this.recorderEndpoint);
+		this.recorderEndpoint.record();
 	}
 
 	public void newPublisher(Participant participant) {
