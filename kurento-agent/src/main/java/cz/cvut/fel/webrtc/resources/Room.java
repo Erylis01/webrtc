@@ -23,6 +23,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.kurento.client.Composite;
 import org.kurento.client.Continuation;
 import org.kurento.client.ErrorEvent;
 import org.kurento.client.EventListener;
@@ -312,6 +313,8 @@ public class Room {
 				}
 			});
 		}
+		//Record
+		this.composite=new Composite.Builder(getPipeline()).build();
 	}
 
 	private void closePipeline() {
