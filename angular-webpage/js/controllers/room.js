@@ -390,7 +390,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		$scope.participantNames.push(request.name);
 		updateScope();
 
-		notifications.notify(request.name + ' has joined the room', 'account-plus');
+		notifications.notify(request.name + ' has joined the room ! Welcome him', 'account-plus');
 
 		console.log(request.name + " has just arrived ! Welcome him !");
 
