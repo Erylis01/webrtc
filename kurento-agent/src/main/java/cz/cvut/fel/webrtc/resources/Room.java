@@ -23,9 +23,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import org.kurento.client.Composite;
 import org.kurento.client.Continuation;
 import org.kurento.client.ErrorEvent;
@@ -119,8 +116,8 @@ public class Room {
 				new Participant(participantId, userName, this, getPipeline(), webParticipant, composite));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
-		JFrame fenetre = new JFrame();
-		fenetre.setVisible(true);
+
+		
 		// Record
 		if (participants.size() == 1) {
 			       
