@@ -230,6 +230,14 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		participants.clear();
 	}
 
+	$scope.record = function () {
+		record();		
+	};
+
+	function record() {
+		console.log("C'est bon !");
+	}
+
 	$scope.$on('$destroy', function() {
 		constraints.setType('composite');
 		participants.clear();
@@ -384,7 +392,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 		notifications.notify(request.name + ' has joined the room', 'account-plus');
 
-		console.log(request.name + " has just arrived");
+		console.log(request.name + " has just arrived ! Welcome him !");
 
 	}
 

@@ -3,7 +3,7 @@ from debian:jessie
 RUN apt-get update
 RUN apt-get install -y nodejs npm git
 RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN git clone -b master https://github.com/charllie/webrtc
+RUN git clone -b master "https://github.com/Erylis01/webrtc"
 WORKDIR "/webrtc/upload-speed-tester"
 
 RUN echo "#!/bin/bash" > start.sh
