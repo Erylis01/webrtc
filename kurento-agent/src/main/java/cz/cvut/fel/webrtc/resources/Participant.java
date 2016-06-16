@@ -24,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.kurento.client.Continuation;
 import org.kurento.client.ErrorEvent;
+import org.kurento.client.Hub;
+import org.kurento.client.HubPort;
 import org.kurento.client.IceCandidate;
 import org.kurento.client.MediaElement;
 import org.kurento.client.MediaPipeline;
@@ -65,13 +67,17 @@ public class Participant {
 
   private volatile boolean streaming = false;
   private volatile boolean closed;
+  
+  //Record
+  private HubPort hubPort;
 
-  public Participant(String id, String name, Room room, MediaPipeline pipeline, boolean web) {
+  public Participant(String id, String name, Room room, MediaPipeline pipeline, boolean web,Hub composite) {
     this.web = web;
     this.id = id;
     this.name = name;
     this.pipeline = pipeline;
     this.room = room;
+    this.hubPort = new HubPort.Builder(composite).build();
     this.publisher = new PublisherEndpoint(web, this, name, pipeline);
 
     for (Participant other : room.getParticipants()) {
@@ -102,6 +108,8 @@ public class Participant {
     } else {
       this.publisher.apply(element, type);
     }
+    this.hubPort.connect(publisher.getEndpoint());
+    this.publisher.connect(hubPort);
   }
 
   public PublisherEndpoint getPublisher() {
