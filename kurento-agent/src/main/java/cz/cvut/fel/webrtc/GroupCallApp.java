@@ -20,6 +20,8 @@ import cz.cvut.fel.webrtc.db.WebRegistry;
 import cz.cvut.fel.webrtc.handlers.SipHandler;
 import cz.cvut.fel.webrtc.handlers.WebHandler;
 import org.kurento.client.KurentoClient;
+import org.kurento.room.api.KurentoClientProvider;
+import org.kurento.room.api.RoomHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -45,6 +47,9 @@ import java.util.ArrayList;
 @EnableAutoConfiguration
 public class GroupCallApp implements WebSocketConfigurer {
 
+	private RoomHandler roomHandler;
+	private KurentoClientProvider kcProvider;
+	  
 	@Value("${kurento.websocket}")
 	private String kms_uri;
 	
@@ -67,7 +72,7 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public RoomManager roomManager() {
-		return new RoomManager();
+		return new RoomManager(roomHandler, kcProvider);
 	}
 
 	@Bean
