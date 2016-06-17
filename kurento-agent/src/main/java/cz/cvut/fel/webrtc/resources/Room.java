@@ -117,12 +117,9 @@ public class Room {
 
 		log.info("ROOM {}: Added participant {}", name, userName);
 
-		
 		// Record
 		if (participants.size() == 1) {
-			       
-			
-			JOptionPane.showMessageDialog(fenetre,"Marre du record");
+
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
 					"C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm")
