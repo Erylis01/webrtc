@@ -15,7 +15,9 @@
  */
 package cz.cvut.fel.webrtc.resources;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -35,6 +37,7 @@ import org.kurento.client.MediaPipeline;
 import org.kurento.client.MediaProfileSpecType;
 import org.kurento.client.RecorderEndpoint;
 import org.kurento.room.api.RoomHandler;
+import org.kurento.room.endpoint.PublisherEndpoint;
 import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
 import org.slf4j.Logger;
@@ -116,9 +119,12 @@ public class Room {
 				new Participant(participantId, userName, this, getPipeline(), webParticipant, composite));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
-
+		
 		// Record
-		if (participants.size() == 1) {
+		
+		this.recorderEndpoint = recordVideo(participantId);
+		
+		/*if (participants.size() == 1) {
 
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
@@ -126,7 +132,7 @@ public class Room {
 							.withMediaProfile(MediaProfileSpecType.WEBM).build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
-		}
+		}*/
 	}
 
 	public void newPublisher(Participant participant) {
@@ -341,4 +347,37 @@ public class Room {
 			});
 		}
 	}
+	
+	public RecorderEndpoint recordVideo(String participantId)
+    {
+        String RECORDING_EXT = ".webm";
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
+        String RECORDING_PATH = "C:\\Utilisateurs\\Pierre\\Bureau";
+        MediaPipeline pipeline = getPipeline();
+        Composite composite = new Composite.Builder(pipeline).build();
+
+        Participant recordInitiator = getParticipant(participantId);
+        HubPort callerHubPort = new HubPort.Builder(composite).build();
+
+        PublisherEndpoint publisher = recordInitiator.getPublisher();
+        publisher.connect(callerHubPort);
+
+        for (String participantKey : participants.keySet())
+        {
+            Participant participant = participants.get(participantKey);
+            if (!recordInitiator.equals(participant))
+            {
+                HubPort participantHubPort = new HubPort.Builder(composite).build();
+                participant.getPublisher().connect(participantHubPort/*, MediaType.AUDIO*/);
+            }
+        }
+        String now = df.format(new Date());
+        String filePath = RECORDING_PATH + now + "-" + recordInitiator.getName() + RECORDING_EXT;
+        MediaProfileSpecType profile = MediaProfileSpecType.WEBM;
+        RecorderEndpoint recorder = new RecorderEndpoint.Builder(pipeline, filePath).withMediaProfile(profile).build();
+        HubPort recorderHubPort = new HubPort.Builder(composite).build();
+        recorderHubPort.connect(recorder);
+        recorder.record();
+        return recorder;
+    }
 }
