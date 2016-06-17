@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.kurento.room.endpoint;
+package cz.cvut.fel.webrtc.endpoint;
 
 import java.util.LinkedList;
 import java.util.concurrent.CountDownLatch;

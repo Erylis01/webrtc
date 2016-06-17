@@ -15,7 +15,7 @@
  *
  */
 
-package org.kurento.room.endpoint;
+package cz.cvut.fel.webrtc.endpoint;
 
 public enum SdpType {
   OFFER, ANSWER;
