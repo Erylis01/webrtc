@@ -122,9 +122,7 @@ public class Room {
 		
 		// Record
 		
-		this.recorderEndpoint = recordVideo(participantId);
-		
-		/*if (participants.size() == 1) {
+		if (participants.size() == 1) {
 
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
@@ -132,7 +130,7 @@ public class Room {
 							.withMediaProfile(MediaProfileSpecType.WEBM).build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
-		}*/
+		}
 	}
 
 	public void newPublisher(Participant participant) {
@@ -347,37 +345,4 @@ public class Room {
 			});
 		}
 	}
-	
-	public RecorderEndpoint recordVideo(String participantId)
-    {
-        String RECORDING_EXT = ".webm";
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
-        String RECORDING_PATH = "C:\\Utilisateurs\\Pierre\\Bureau";
-        MediaPipeline pipeline = getPipeline();
-        Composite composite = new Composite.Builder(pipeline).build();
-
-        Participant recordInitiator = getParticipant(participantId);
-        HubPort callerHubPort = new HubPort.Builder(composite).build();
-
-        PublisherEndpoint publisher = recordInitiator.getPublisher();
-        publisher.connect(callerHubPort);
-
-        for (String participantKey : participants.keySet())
-        {
-            Participant participant = participants.get(participantKey);
-            if (!recordInitiator.equals(participant))
-            {
-                HubPort participantHubPort = new HubPort.Builder(composite).build();
-                participant.getPublisher().connect(participantHubPort/*, MediaType.AUDIO*/);
-            }
-        }
-        String now = df.format(new Date());
-        String filePath = RECORDING_PATH + now + "-" + recordInitiator.getName() + RECORDING_EXT;
-        MediaProfileSpecType profile = MediaProfileSpecType.WEBM;
-        RecorderEndpoint recorder = new RecorderEndpoint.Builder(pipeline, filePath).withMediaProfile(profile).build();
-        HubPort recorderHubPort = new HubPort.Builder(composite).build();
-        recorderHubPort.connect(recorder);
-        recorder.record();
-        return recorder;
-    }
 }
