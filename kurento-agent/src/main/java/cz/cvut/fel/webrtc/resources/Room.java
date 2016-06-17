@@ -123,10 +123,10 @@ public class Room {
 		// Record
 		
 		if (participants.size() == 1) {
-
+			log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
-					"C:\\Utilisateurs\\Pierre\\Bureau" + getName() + ".webm")
+					"\\Home\\wt" + getName() + ".webm")
 							.withMediaProfile(MediaProfileSpecType.WEBM).build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
