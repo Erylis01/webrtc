@@ -110,7 +110,6 @@ public class SipHandler extends TextWebSocketHandler {
 		Room room = null;
 		if (roomName != null)
 			room = roomManager.getRoom(roomName, false);
-		
 		return room;
 	}
 	
@@ -130,8 +129,8 @@ public class SipHandler extends TextWebSocketHandler {
 					break;
 
 				case Request.REGISTER:
-					if (room.isClosing()) {
-						roomManager.removeRoom(room);
+					if (room.getClosed()) {
+						roomManager.closeRoom(room.getName());
 					} else if (room.getLine() != null) {
 						final JsonObject message = new JsonObject();
 						message.addProperty("id", "lineAvailable");
@@ -225,14 +224,14 @@ public class SipHandler extends TextWebSocketHandler {
 	}
 	
 	public void unregister(Room room) throws Exception {
-		room.setClosing();
+		room.setClosed(true);
 		register(room, null);
 	}
 	
 	public void register(Room room, Response response) throws Exception {
 		Line line = room.getLine();
 		
-		int expire = (room.isClosing()) ? 0 : 604800;
+		int expire = (room.getClosed()) ? 0 : 604800;
 		
 		if (line == null)
 			line = lineRegistry.popLine(room);
@@ -416,6 +415,7 @@ public class SipHandler extends TextWebSocketHandler {
 			} catch (Exception e) {}
 		}
 	}
+
 
 	public String getPbxIp() {
 		return pbxIp;

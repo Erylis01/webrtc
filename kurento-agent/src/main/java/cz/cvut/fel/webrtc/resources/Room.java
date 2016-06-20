@@ -15,10 +15,12 @@
  */
 package cz.cvut.fel.webrtc.resources;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CountDownLatch;
@@ -42,6 +44,12 @@ import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.socket.WebSocketSession;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 /**
  * @author Ivan Gracia (izanmail@gmail.com)
@@ -73,6 +81,11 @@ public class Room {
 	private volatile boolean pipelineReleased = false;
 	private boolean destroyKurentoClient;
 
+	// --
+	private Line line;
+	private long cseq;
+	private final String callId;
+
 	// Record
 	private HubPort hubPort;
 	private Hub composite;
@@ -84,6 +97,7 @@ public class Room {
 		this.destroyKurentoClient = destroyKurentoClient;
 		this.roomHandler = roomHandler;
 		log.debug("New ROOM instance, named '{}'", roomName);
+		this.callId = UUID.randomUUID().toString();
 	}
 
 	public String getName() {
@@ -119,20 +133,59 @@ public class Room {
 				new Participant(participantId, userName, this, getPipeline(), webParticipant, composite));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
-		
+
 		// Record
-		
+
 		if (participants.size() == 1) {
 			log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
-			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(),
-					"\\Home\\wt" + getName() + ".webm")
-							.withMediaProfile(MediaProfileSpecType.WEBM).build();
+			this.recorderEndpoint = new RecorderEndpoint.Builder(getPipeline(), "\\Home\\wt" + getName() + ".webm")
+					.withMediaProfile(MediaProfileSpecType.WEBM).build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
 		}
 	}
 
+	public Participant join(String userId, WebSocketSession session, Class<? extends Participant> sessionClass) {
+		log.info("ROOM {}: adding participant {}", name, userId);
+
+		Participant participant = null;
+
+		try {
+
+			participant = sessionClass
+					.getConstructor(String.class, String.class, WebSocketSession.class, MediaPipeline.class,
+							MediaPipeline.class, Hub.class)
+					.newInstance(userId, this.name, session, this.pipeline, this.composite);
+
+			add(participant);
+			sendInformation(participant, "compositeInfo");
+
+		} catch (Exception e) {
+			log.info("ROOM {}: adding participant {} failed: {}", name, userId, e);
+		}
+
+		return participant;
+	}
+
+	public void sendInformation(Participant user, String id) throws IOException {
+
+		final JsonArray participantsArray = new JsonArray();
+
+		for (final Participant participant : this.getParticipants()) {
+			if (!participant.equals(user)) {
+				final JsonElement participantName = new JsonPrimitive(participant.getName());
+				participantsArray.add(participantName);
+			}
+		}
+	}
+
+	public void add(Participant participant) {
+		if (participant != null)
+			participants.put(participant.getId(), participant);
+	}
+
+	
 	public void newPublisher(Participant participant) {
 		registerPublisher();
 
@@ -311,6 +364,7 @@ public class Room {
 			}
 
 			pipeline.addErrorListener(new EventListener<ErrorEvent>() {
+
 				@Override
 				public void onEvent(ErrorEvent event) {
 					String desc = event.getType() + ": " + event.getDescription() + "(errCode=" + event.getErrorCode()
@@ -318,6 +372,7 @@ public class Room {
 					log.warn("ROOM {}: Pipeline error encountered: {}", name, desc);
 					roomHandler.onPipelineError(name, getParticipantIds(), desc);
 				}
+
 			});
 		}
 		// Record
@@ -345,4 +400,61 @@ public class Room {
 			});
 		}
 	}
+
+	private void broadcast(JsonObject message, Participant exception) {
+
+		for (final Participant participant : participants.values()) {
+
+			if (participant.equals(exception) || !(participant instanceof WebUser))
+				continue;
+
+			try {
+				participant.sendMessage(message);
+			} catch (final IOException e) {
+				log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
+			}
+
+		}
+	}
+
+	public void joinRoom(Participant newParticipant) {
+		final JsonObject newParticipantMsg = new JsonObject();
+		newParticipantMsg.addProperty("id", "newParticipantArrived");
+		newParticipantMsg.addProperty("name", newParticipant.getName());
+		newParticipantMsg.addProperty("userId", newParticipant.getId());
+		broadcast(newParticipantMsg, newParticipant);
+	}
+
+	public void broadcast(JsonObject message) {
+		broadcast(message, null);
+	}
+
+	public Line getLine() {
+		return this.line;
+	}
+
+	public void setLine(Line line) {
+		this.line = line;
+	}
+
+	public void setClosed(boolean closed) {
+		this.closed = closed;
+	}
+
+	public boolean getClosed() {
+		return closed;
+	}
+
+	public long setCSeq(long cseq) {
+		this.cseq = cseq;
+		return cseq;
+	}
+
+	public long getCSeq() {
+		return this.cseq;
+	}
+	
+	public String getCallId() {
+		return this.callId;
+}
 }
