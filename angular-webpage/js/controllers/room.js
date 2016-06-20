@@ -235,7 +235,26 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	};
 
 	function record() {
-		console.log("C'est bon !");
+		console.log("Envoi des commandes de recording");
+        var options = {
+            localVideo: videoInput,
+            remoteVideo: videoOutput
+        };
+
+        if (args.ice_servers) {
+            console.log("Use ICE servers: " + args.ice_servers);
+            options.configuration = {
+                iceServers : JSON.parse(args.ice_servers)
+            };
+        } else {
+        console.log("Use freeice")
+  }
+
+  webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(error)
+  {
+    if(error) return onError(error)
+
+this.generateOffer(onOffer)
 	}
 
 	$scope.$on('$destroy', function() {
