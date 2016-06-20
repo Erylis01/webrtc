@@ -295,7 +295,7 @@ public class WebHandler extends TextWebSocketHandler {
 
 	private void leaveRoom(Participant user) throws Exception {
 		if (user != null) {
-			final Room room = roomManager.getRoom(user.getRoomName());
+			final Room room = roomManager.getRoom(user.getName());
 			room.leave(user);
 			if (room.getParticipants().isEmpty()) {
 				if (room.getLine() == null)

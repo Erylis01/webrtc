@@ -85,6 +85,7 @@ public class Room {
 	private Line line;
 	private long cseq;
 	private final String callId;
+	private WebUser screensharer;
 
 	// Record
 	private HubPort hubPort;
@@ -113,7 +114,7 @@ public class Room {
 		return this.pipeline;
 	}
 
-	public void join(String participantId, String userName, boolean webParticipant) throws RoomException {
+	public void join(String participantId, String userName,String roomName, boolean webParticipant) throws RoomException {
 
 		checkClosed();
 
@@ -130,7 +131,7 @@ public class Room {
 		createPipeline();
 
 		participants.put(participantId,
-				new Participant(participantId, userName, this, getPipeline(), webParticipant, composite));
+				new Participant(participantId, userName,roomName, this, getPipeline(), webParticipant, composite));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
 
@@ -185,7 +186,6 @@ public class Room {
 			participants.put(participant.getId(), participant);
 	}
 
-	
 	public void newPublisher(Participant participant) {
 		registerPublisher();
 
@@ -425,6 +425,24 @@ public class Room {
 		broadcast(newParticipantMsg, newParticipant);
 	}
 
+	public void cancelPresentation() throws IOException {
+		if (screensharer != null) {
+			final JsonObject cancelPresentationMsg = new JsonObject();
+			cancelPresentationMsg.addProperty("id", "cancelPresentation");
+			cancelPresentationMsg.addProperty("userId", screensharer.getId());
+
+			for (final Participant participant : participants.values()) {
+				if (participant instanceof WebUser) {
+					final WebUser webParticipant = (WebUser) participant;
+					webParticipant.cancelPresentation();
+					webParticipant.sendMessage(cancelPresentationMsg);
+				}
+			}
+
+			screensharer = null;
+		}
+	}
+
 	public void broadcast(JsonObject message) {
 		broadcast(message, null);
 	}
@@ -453,8 +471,16 @@ public class Room {
 	public long getCSeq() {
 		return this.cseq;
 	}
-	
+
 	public String getCallId() {
 		return this.callId;
+	}
+	
+	public void setScreensharer(WebUser user) {
+		this.screensharer = user;
+	}
+
+	public boolean hasScreensharer() {
+		return (screensharer != null);
 }
 }

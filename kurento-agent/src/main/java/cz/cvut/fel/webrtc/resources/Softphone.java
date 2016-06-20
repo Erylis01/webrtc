@@ -17,10 +17,10 @@ public class Softphone extends Participant {
 	
 	private final RtpEndpoint rtpEndpoint;
 	
-	public Softphone(String id, String roomName, WebSocketSession session, MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
-		super(id, roomName, session, compositePipeline, presentationPipeline, hub);
+	public Softphone(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite) {
+		super(id, name, roomName,room, pipeline, web, composite);
 		
-		rtpEndpoint = new RtpEndpoint.Builder(compositePipeline).build();
+		rtpEndpoint = new RtpEndpoint.Builder(pipeline).build();
 		
 		rtpEndpoint.connect(hubPort);
 		hubPort.connect(rtpEndpoint);

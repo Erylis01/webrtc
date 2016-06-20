@@ -74,17 +74,22 @@ public class Participant {
 
 	private volatile boolean streaming = false;
 	private volatile boolean closed;
-
+	
+	//
+	private final Hub hub;
+	protected final String roomName;
+	
 	// Record
 	protected HubPort hubPort;
 	private PassThrough passThru;
 
-	public Participant(String id, String name, Room room, MediaPipeline pipeline, boolean web, Hub composite) {
+	public Participant(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite) {
 		this.web = web;
 		this.id = id;
 		this.name = name;
 		this.pipeline = pipeline;
 		this.room = room;
+		this.roomName=roomName;
 		this.publisher = new PublisherEndpoint(web, this, name, pipeline);
 
 		// Record
@@ -97,7 +102,7 @@ public class Participant {
 			}
 		}
 	}
-
+	
 	public void createPublishingEndpoint() {
 		publisher.createEndpoint(endPointLatch);
 		if (getPublisher().getEndpoint() == null) {
@@ -107,10 +112,6 @@ public class Participant {
 
 	public String getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public void shapePublisherMedia(MediaElement element, MediaType type) {
@@ -492,4 +493,39 @@ public class Participant {
 	public WebSocketSession getSession() {
 		return session;
 	}
+
+	private void newHubPort() {
+		if (hubPort == null)
+			this.hubPort = new HubPort.Builder(hub).build();
+	}
+
+	protected void releaseHubPort() {
+		hubPort.release();
+		hubPort = null;
+	}
+
+	protected void renewHubPort() {
+		releaseHubPort();
+		newHubPort();
+	}
+	
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+}
+	
+	/**
+	 * The room to which the user is currently attending
+	 * 
+	 * @return The room
+	 */
+	public String getRoomName() {
+		return this.roomName;
+}
 }

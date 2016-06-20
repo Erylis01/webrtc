@@ -67,9 +67,7 @@ public class RoomManager {
 	@Autowired
 	private SipHandler sipHandler;
 	private LineRegistry sipRegistry;
-	
-	
-	
+
 	private final Logger log = LoggerFactory.getLogger(RoomManager.class);
 
 	private RoomHandler roomHandler;
@@ -1001,11 +999,11 @@ public class RoomManager {
 			}
 			rooms.put(roomName, room);
 		}
-		
+
 		log.debug("Room {} found!", roomName);
 		return room;
 	}
-	
+
 	public Room getRoom(String roomName, boolean create) {
 		log.debug("Searching for room {}", roomName);
 		Room room = rooms.get(roomName);
@@ -1020,10 +1018,10 @@ public class RoomManager {
 			}
 			rooms.put(roomName, room);
 		}
-		
+
 		if (room != null)
 			log.debug("Room {} found!", roomName);
-		
+
 		return room;
 	}
 
@@ -1036,18 +1034,19 @@ public class RoomManager {
 	public void removeRoom(Room room) {
 		if (room != null) {
 			this.rooms.remove(room.getName());
-			
+
 			room.getPipeline().release();
-			
+
 			if (room.getLine() != null) {
 				sipRegistry.pushLine(room.getLine());
 			}
-			
+
 			room.close();
-			
+
 			log.info("Room {} removed and closed", room.getName());
 		}
-}
+	}
+
 
 	// ------------------ HELPERS ------------------------------------------
 
