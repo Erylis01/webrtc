@@ -34,16 +34,17 @@ import org.kurento.room.api.KurentoClientProvider;
 import org.kurento.room.api.KurentoClientSessionInfo;
 import org.kurento.room.api.MutedMediaType;
 import org.kurento.room.api.pojo.UserParticipant;
+import org.kurento.room.endpoint.SdpType;
 import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cz.cvut.fel.webrtc.endpoint.*;
+
 import cz.cvut.fel.webrtc.handlers.*;
 import cz.cvut.fel.webrtc.resources.*;
-import cz.cvut.fel.webrtc.utils.*;
+
 
 /**
  * The Kurento room manager represents an SDK for any developer that wants to
