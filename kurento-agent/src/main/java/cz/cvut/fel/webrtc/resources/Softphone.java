@@ -51,7 +51,7 @@ public class Softphone extends Participant {
 	}
 
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		log.debug("PARTICIPANT {}: Releasing resources", this.getName());
 		super.releaseHubPort();
 		

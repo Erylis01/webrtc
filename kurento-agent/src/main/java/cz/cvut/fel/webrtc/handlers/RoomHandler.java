@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cz.cvut.fel.webrtc.resources;
+package cz.cvut.fel.webrtc.handlers;
 
 import java.util.Set;
 

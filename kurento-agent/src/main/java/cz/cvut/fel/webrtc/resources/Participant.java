@@ -55,7 +55,7 @@ public class Participant {
   private boolean web = false;
 
   private String id;
-  private String name;
+  protected String name;
 
   private final Room room;
 
@@ -70,7 +70,7 @@ public class Participant {
   private volatile boolean closed;
   
   //Record
-  private HubPort hubPort;
+  protected HubPort hubPort;
   private PassThrough passThru;
 
   public Participant(String id, String name, Room room, MediaPipeline pipeline, boolean web,Hub composite) {
