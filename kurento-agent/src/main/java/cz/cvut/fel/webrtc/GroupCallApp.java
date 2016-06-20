@@ -14,11 +14,12 @@
  */
 package cz.cvut.fel.webrtc;
 
-import cz.cvut.fel.webrtc.db.LineRegistry;
-import cz.cvut.fel.webrtc.db.RoomManager;
-import cz.cvut.fel.webrtc.db.WebRegistry;
-import cz.cvut.fel.webrtc.handlers.SipHandler;
-import cz.cvut.fel.webrtc.handlers.WebHandler;
+import cz.cvut.fel.webrtc.db.*;
+import cz.cvut.fel.webrtc.endpoint.*;
+import cz.cvut.fel.webrtc.handlers.*;
+import cz.cvut.fel.webrtc.resources.*;
+import cz.cvut.fel.webrtc.utils.*;
+
 import org.kurento.client.KurentoClient;
 import org.kurento.room.api.KurentoClientProvider;
 import org.kurento.room.api.RoomHandler;

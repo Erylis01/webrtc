@@ -7,9 +7,8 @@ import org.kurento.client.RtpEndpoint;
 import org.kurento.client.internal.server.KurentoServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.socket.WebSocketSession;
 
-import java.io.IOException;
+
 
 public class Softphone extends Participant {
 	

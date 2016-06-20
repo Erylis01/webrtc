@@ -47,6 +47,12 @@ import org.springframework.web.socket.WebSocketSession;
 
 import com.google.gson.JsonObject;
 
+import cz.cvut.fel.webrtc.*;
+import cz.cvut.fel.webrtc.db.*;
+import cz.cvut.fel.webrtc.endpoint.*;
+import cz.cvut.fel.webrtc.handlers.*;
+import cz.cvut.fel.webrtc.utils.*;
+
 /**
  * @author Ivan Gracia (izanmail@gmail.com)
  * @author Micael Gallego (micael.gallego@gmail.com)

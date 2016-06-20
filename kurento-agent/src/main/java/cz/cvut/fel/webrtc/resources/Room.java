@@ -16,9 +16,7 @@
 package cz.cvut.fel.webrtc.resources;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,8 +36,6 @@ import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaPipeline;
 import org.kurento.client.MediaProfileSpecType;
 import org.kurento.client.RecorderEndpoint;
-import org.kurento.room.api.RoomHandler;
-import org.kurento.room.endpoint.PublisherEndpoint;
 import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
 import org.slf4j.Logger;
@@ -50,6 +46,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+
+
+import cz.cvut.fel.webrtc.handlers.*;
+
+
 
 /**
  * @author Ivan Gracia (izanmail@gmail.com)

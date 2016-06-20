@@ -26,7 +26,6 @@ import org.kurento.client.IceCandidate;
 import org.kurento.client.ListenerSubscription;
 import org.kurento.client.MediaElement;
 import org.kurento.client.MediaPipeline;
-import org.kurento.client.OnIceCandidateEvent;
 import org.kurento.client.RtpEndpoint;
 import org.kurento.client.SdpEndpoint;
 import org.kurento.client.WebRtcEndpoint;
@@ -36,6 +35,12 @@ import org.kurento.room.exception.RoomException.Code;
 import org.kurento.room.internal.Participant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import cz.cvut.fel.webrtc.*;
+import cz.cvut.fel.webrtc.db.*;
+import cz.cvut.fel.webrtc.handlers.*;
+import cz.cvut.fel.webrtc.resources.*;
+import cz.cvut.fel.webrtc.utils.*;
 
 /**
  * {@link WebRtcEndpoint} wrapper that supports buffering of {@link IceCandidate}s until the

@@ -6,10 +6,10 @@ import org.kurento.jsonrpc.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.util.Calendar;
+
 
 public class WebUser extends Participant {
 

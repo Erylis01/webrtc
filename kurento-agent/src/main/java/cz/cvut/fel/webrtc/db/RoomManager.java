@@ -30,24 +30,20 @@ import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaElement;
 import org.kurento.client.MediaPipeline;
 import org.kurento.client.MediaType;
-import org.kurento.client.RtpEndpoint;
-import org.kurento.client.WebRtcEndpoint;
 import org.kurento.room.api.KurentoClientProvider;
 import org.kurento.room.api.KurentoClientSessionInfo;
 import org.kurento.room.api.MutedMediaType;
-import org.kurento.room.api.RoomHandler;
 import org.kurento.room.api.pojo.UserParticipant;
-import org.kurento.room.endpoint.SdpType;
 import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
-import org.kurento.room.internal.Participant;
-import org.kurento.room.internal.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import cz.cvut.fel.webrtc.endpoint.*;
 import cz.cvut.fel.webrtc.handlers.*;
 import cz.cvut.fel.webrtc.resources.*;
+import cz.cvut.fel.webrtc.utils.*;
 
 /**
  * The Kurento room manager represents an SDK for any developer that wants to
@@ -140,7 +136,7 @@ public class RoomManager {
 					"'" + userName + "' is trying to join room '" + roomName + "' but it is closing");
 		}
 		Set<UserParticipant> existingParticipants = getParticipants(roomName);
-		room.join(participantId, userName, webParticipant);
+		room.join(participantId, userName,roomName, webParticipant);
 		return existingParticipants;
 	}
 

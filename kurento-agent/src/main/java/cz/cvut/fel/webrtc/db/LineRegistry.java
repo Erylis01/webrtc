@@ -18,7 +18,6 @@ import org.apache.http.auth.MalformedChallengeException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -40,6 +39,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cz.cvut.fel.webrtc.*;
+import cz.cvut.fel.webrtc.endpoint.*;
+import cz.cvut.fel.webrtc.handlers.*;
+import cz.cvut.fel.webrtc.resources.*;
+import cz.cvut.fel.webrtc.utils.*;
 
 public class LineRegistry {
 

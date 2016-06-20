@@ -38,6 +38,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cz.cvut.fel.webrtc.*;
+import cz.cvut.fel.webrtc.db.*;
+import cz.cvut.fel.webrtc.endpoint.*;
+import cz.cvut.fel.webrtc.resources.*;
+import cz.cvut.fel.webrtc.utils.*;
 /**
  * 
  * @author Ivan Gracia (izanmail@gmail.com)
@@ -296,7 +301,7 @@ public class WebHandler extends TextWebSocketHandler {
 	private void leaveRoom(Participant user) throws Exception {
 		if (user != null) {
 			final Room room = roomManager.getRoom(user.getName());
-			room.leave(user);
+			room.leave(user.getId());
 			if (room.getParticipants().isEmpty()) {
 				if (room.getLine() == null)
 					roomManager.removeRoom(room);

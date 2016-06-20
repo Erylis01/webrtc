@@ -36,6 +36,7 @@ import org.kurento.room.internal.Participant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 /**
  * Publisher aspect of the {@link MediaEndpoint}.
  *
