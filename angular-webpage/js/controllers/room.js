@@ -332,7 +332,6 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
       });
     });
   }
-}
     
 	function record() {
 		console.log("Envoi des commandes de recording");
