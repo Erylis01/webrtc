@@ -19,7 +19,7 @@ import cz.cvut.fel.webrtc.handlers.*;
 
 import org.kurento.client.KurentoClient;
 import org.kurento.room.api.KurentoClientProvider;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
