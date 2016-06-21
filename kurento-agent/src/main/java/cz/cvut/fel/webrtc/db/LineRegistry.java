@@ -7,9 +7,6 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import cz.cvut.fel.webrtc.resources.Line;
-import cz.cvut.fel.webrtc.resources.Room;
-import cz.cvut.fel.webrtc.utils.DigestAuth;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.auth.AUTH;
@@ -18,6 +15,7 @@ import org.apache.http.auth.MalformedChallengeException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -43,8 +41,8 @@ import java.util.regex.Pattern;
 import cz.cvut.fel.webrtc.*;
 import cz.cvut.fel.webrtc.endpoint.*;
 import cz.cvut.fel.webrtc.handlers.*;
-import cz.cvut.fel.webrtc.resources.*;
 import cz.cvut.fel.webrtc.utils.*;
+import cz.cvut.fel.webrtc.resources.*;
 
 public class LineRegistry {
 

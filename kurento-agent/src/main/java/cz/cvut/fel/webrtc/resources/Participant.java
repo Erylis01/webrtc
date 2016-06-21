@@ -35,9 +35,7 @@ import org.kurento.client.PassThrough;
 import org.kurento.client.SdpEndpoint;
 import org.kurento.client.internal.server.KurentoServerException;
 import org.kurento.room.api.MutedMediaType;
-import org.kurento.room.endpoint.PublisherEndpoint;
-import org.kurento.room.endpoint.SdpType;
-import org.kurento.room.endpoint.SubscriberEndpoint;
+
 import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
 import org.slf4j.Logger;
@@ -96,7 +94,8 @@ public class Participant {
 		this.pipeline = pipeline;
 		this.room = room;
 		this.roomName=roomName;
-		this.publisher = new PublisherEndpoint(web, this, name, pipeline);
+		this.hub =composite;
+		this.publisher = new PublisherEndpoint(web,this, name, pipeline);
 
 		// Record
 		this.passThru = new PassThrough.Builder(pipeline).build();

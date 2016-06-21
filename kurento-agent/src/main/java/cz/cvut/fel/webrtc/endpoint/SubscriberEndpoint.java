@@ -21,9 +21,13 @@ import org.kurento.client.MediaType;
 import org.kurento.room.api.MutedMediaType;
 import org.kurento.room.exception.RoomException;
 import org.kurento.room.exception.RoomException.Code;
-import org.kurento.room.internal.Participant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import cz.cvut.fel.webrtc.*;
+import cz.cvut.fel.webrtc.db.*;
+import cz.cvut.fel.webrtc.resources.*;
+import cz.cvut.fel.webrtc.handlers.*;
 
 /**
  * Subscriber aspect of the {@link MediaEndpoint}.
@@ -39,7 +43,7 @@ public class SubscriberEndpoint extends MediaEndpoint {
 
   public SubscriberEndpoint(boolean web, Participant owner, String endpointName,
       MediaPipeline pipeline) {
-    super(web, false, owner, endpointName, pipeline, log);
+    super(web, owner, endpointName, pipeline, log);
   }
 
   public synchronized String subscribe(String sdpOffer, PublisherEndpoint publisher) {
