@@ -28,5 +28,6 @@
 	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-core-4.3.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-web-4.3.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-websocket-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Logiciel/Librairie/jackson-core-2.8.0.rc2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
