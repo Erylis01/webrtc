@@ -355,7 +355,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     if(error) return onError(error)
 
 this.generateOffer(onOffer)
-	}
+	})
+    }
                                                           
                                                           
     /** 
