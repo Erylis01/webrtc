@@ -231,9 +231,16 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     
+    $scope.record = function () {
+		record();		
+	};
+    
+    function record() {
+		console.log("Envoi des commandes de recording");
+    }
     /**
     *Recording bloc
-    */
+    
     function getopts(args, opts)
     {
     var result = opts.default || {};
@@ -356,7 +363,7 @@ this.generateOffer(onOffer)
 	}
                                                           
                                                           
-     /**
+     
     *End of recording bloc
     */
                                                           
