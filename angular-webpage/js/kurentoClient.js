@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-var EventEmitter = require('events').EventEmitter;
-var url = require('url');
+var EventEmitter = require(['events']).EventEmitter;
+var url = require(['url']);
 
-var Promise = require('es6-promise').Promise;
+var Promise = require(['es6-promise']).Promise;
 
-var async = require('async');
-var extend = require('extend');
-var inherits = require('inherits');
-var reconnect = require('reconnect-ws');
+var async = require(['async']);
+var extend = require(['extend']);
+var inherits = require(['inherits']);
+var reconnect = require(['reconnect-ws']);
 
-var checkType = require('./checkType');
+var checkType = require(['./checkType']);
 
-var RpcBuilder = require('kurento-jsonrpc');
+var RpcBuilder = require(['kurento-jsonrpc']);
 var JsonRPC = RpcBuilder.packers.JsonRPC;
 
-var promiseCallback = require('promisecallback');
+var promiseCallback = require(['promisecallback']);
 
-var disguise = require('./disguise')
-var createPromise = require('./createPromise');
-var MediaObjectCreator = require('./MediaObjectCreator');
-var TransactionsManager = require('./TransactionsManager');
+var disguise = require(['./disguise'])
+var createPromise = require(['./createPromise']);
+var MediaObjectCreator = require(['./MediaObjectCreator']);
+var TransactionsManager = require(['./TransactionsManager']);
 
 var TransactionNotCommitedException = TransactionsManager.TransactionNotCommitedException;
 var transactionOperation = TransactionsManager.transactionOperation;
 
-var MediaObject = require('kurento-client-core').abstracts.MediaObject;
+var MediaObject = require(['kurento-client-core']).abstracts.MediaObject;
 
 const MEDIA_OBJECT_TYPE_NOT_FOUND = 40100
 const MEDIA_OBJECT_NOT_FOUND = 40101
