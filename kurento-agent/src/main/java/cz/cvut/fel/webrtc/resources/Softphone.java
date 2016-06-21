@@ -7,6 +7,7 @@ import org.kurento.client.RtpEndpoint;
 import org.kurento.client.internal.server.KurentoServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.socket.WebSocketSession;
 
 
 
@@ -16,8 +17,8 @@ public class Softphone extends Participant {
 	
 	private final RtpEndpoint rtpEndpoint;
 	
-	public Softphone(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite) {
-		super(id, name, roomName,room, pipeline, web, composite);
+	public Softphone(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite,WebSocketSession session) {
+		super(id, name, roomName,room, pipeline, web, composite,session);
 		
 		rtpEndpoint = new RtpEndpoint.Builder(pipeline).build();
 		

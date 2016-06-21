@@ -87,12 +87,13 @@ public class Participant {
 	protected HubPort hubPort;
 	private PassThrough passThru;
 
-	public Participant(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite) {
+	public Participant(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite,final WebSocketSession session) {
 		this.web = web;
 		this.id = id;
 		this.name = name;
 		this.pipeline = pipeline;
 		this.room = room;
+		this.session=session;
 		this.roomName=roomName;
 		this.hub =composite;
 		this.publisher = new PublisherEndpoint(web,this, name, pipeline);

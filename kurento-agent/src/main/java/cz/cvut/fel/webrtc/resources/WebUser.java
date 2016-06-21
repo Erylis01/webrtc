@@ -6,6 +6,7 @@ import org.kurento.jsonrpc.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -25,8 +26,8 @@ public class WebUser extends Participant {
 	private final MediaPipeline pipeline;
 	private Calendar lastPing = Calendar.getInstance();
 
-	public WebUser(final String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite) {
-		super(id, name, roomName,room, pipeline, web, composite);
+	public WebUser(final String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite,WebSocketSession session) {
+		super(id, name, roomName,room, pipeline, web, composite,session);
 
 		this.userId = id;
 		this.pipeline=pipeline;

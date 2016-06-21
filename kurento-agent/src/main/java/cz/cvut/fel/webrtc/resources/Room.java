@@ -87,6 +87,7 @@ public class Room {
 	private long cseq;
 	private final String callId;
 	private WebUser screensharer;
+	private WebSocketSession session;
 
 	// Record
 	private HubPort hubPort;
@@ -132,7 +133,7 @@ public class Room {
 		createPipeline();
 
 		participants.put(participantId,
-				new Participant(participantId, userName,roomName, this, getPipeline(), webParticipant, composite));
+				new Participant(participantId, userName,roomName, this, getPipeline(), webParticipant, composite, session));
 
 		log.info("ROOM {}: Added participant {}", name, userName);
 
