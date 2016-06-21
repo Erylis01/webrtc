@@ -54,10 +54,9 @@ public class Room implements Closeable {
 	private boolean closing;
 
 	private WebUser screensharer;
-	
-	//Record
+
+	// Record
 	private HubPort hubPort;
-	public static final int ASYNC_LATCH_TIMEOUT = 30;
 
 	private RecorderEndpoint recorderEndpoint;
 
@@ -79,7 +78,7 @@ public class Room implements Closeable {
 
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
-		//this.composite = new Composite.Builder(compositePipeline).build();
+		// this.composite = new Composite.Builder(compositePipeline).build();
 		this.composite = new Composite.Builder(getCompositePipeline()).build();
 
 		log.info("ROOM {} has been created", roomName);
@@ -103,11 +102,13 @@ public class Room implements Closeable {
 
 			add(participant);
 			sendInformation(participant, "compositeInfo");
-			
-			//Record
+
+			// Record
 			log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
-			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),"http://localhost/record/" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM).build();
+			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
+					"http://localhost/record/" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM)
+							.build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
 
