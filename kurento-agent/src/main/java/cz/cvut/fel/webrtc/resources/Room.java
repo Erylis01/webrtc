@@ -485,4 +485,7 @@ public class Room {
 	public boolean hasScreensharer() {
 		return (screensharer != null);
 }
+	public int size() {
+		return participants.size();
+}
 }

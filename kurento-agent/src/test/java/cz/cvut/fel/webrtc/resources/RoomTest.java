@@ -3,9 +3,12 @@ package cz.cvut.fel.webrtc.resources;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kurento.client.KurentoClient;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import cz.cvut.fel.webrtc.handlers.RoomHandler;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -17,11 +20,13 @@ import static org.junit.Assert.assertTrue;
 public class RoomTest {
 
 	private Room room;
+	private KurentoClient kurentoClient;
+	private RoomHandler roomHandler;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		this.room = new Room(UUID.randomUUID().toString());
+		this.room = new Room(UUID.randomUUID().toString(), kurentoClient, roomHandler, false);
 	}
 
 	private Participant getMockParticipant() {
@@ -53,7 +58,7 @@ public class RoomTest {
 		room.add(participant);
 
 		int size = room.size();
-		room.leave(participant);
+		room.leave(participant.getId());
 
 		assertEquals("Room size must have decreased", room.size(), size - 1);
 	}
@@ -63,7 +68,7 @@ public class RoomTest {
 		Participant participant = getMockParticipant();
 
 		int size = room.size();
-		room.leave(participant);
+		room.leave(participant.getId());
 		assertEquals("Room size should not have changed", room.size(), size);
 	}
 }
