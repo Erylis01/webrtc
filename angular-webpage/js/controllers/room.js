@@ -255,7 +255,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                         default:
                             {
                             ws_uri: 'wss://192.168.129.216:8080/kurento',
-                            file_uri: 'file:///tmp/recorder_demo.webm', // file to be stored in media server
+                            file_uri: 'file://recorder_demo.webm', // file to be stored in media server
                             ice_servers: undefined
                             }
     });
@@ -332,10 +332,13 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
       });
     });
   }
-}
     
 	function record() {
 		console.log("Envoi des commandes de recording");
+        
+        var videoInput = document.getElementById("composite");
+        var videoOutput = document.getElementById("composite");
+        
         var options = {
             localVideo: videoInput,
             remoteVideo: videoOutput
