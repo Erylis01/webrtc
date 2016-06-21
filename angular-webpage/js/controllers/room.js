@@ -324,18 +324,6 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
               console.log("record");
 
-              stopRecordButton.addEventListener("click", function(event){
-                recorder.stop();
-                pipeline.release();
-                webRtcPeer.dispose();
-                videoInput.src = "";
-                videoOutput.src = "";
-
-                hideSpinner(videoInput, videoOutput);
-
-                var playButton = document.getElementById('play');
-                playButton.addEventListener('click', startPlaying);
-              })
             });
           });
         });
