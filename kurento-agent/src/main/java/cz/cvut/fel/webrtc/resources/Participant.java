@@ -19,6 +19,9 @@ import org.kurento.client.Hub;
 import org.kurento.client.HubPort;
 import org.kurento.client.MediaPipeline;
 import org.kurento.client.PassThrough;
+import org.kurento.room.endpoint.PublisherEndpoint;
+import org.kurento.room.exception.RoomException;
+import org.kurento.room.exception.RoomException.Code;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.TextMessage;
@@ -26,6 +29,9 @@ import org.springframework.web.socket.WebSocketSession;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * 
@@ -35,36 +41,39 @@ import java.io.IOException;
 public abstract class Participant implements Closeable {
 
 	private static final Logger log = LoggerFactory.getLogger(Participant.class);
-	
+
 	private final String id;
 	protected String name;
 	protected final WebSocketSession session;
 	protected final String roomName;
 	private final Hub hub;
 	protected HubPort hubPort;
-	
-	//Record
+
+	// Record
 	private PassThrough passThru;
-	
-	public Participant(final String id, String roomName, final WebSocketSession session, MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
+
+
+	public Participant(final String id, String roomName, final WebSocketSession session,
+			MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
 
 		this.id = id;
 		this.session = session;
 		this.roomName = roomName;
-		this.passThru= new PassThrough.Builder(compositePipeline).build();
+		this.passThru = new PassThrough.Builder(compositePipeline).build();
 		this.hub = hub;
-		newHubPort();
+		this.hubPort = new HubPort.Builder(hub).build();
 		
+		//newHubPort();
+
 	}
 
-	
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -142,7 +151,6 @@ public abstract class Participant implements Closeable {
 		releaseHubPort();
 		newHubPort();
 	}
-
 
 	public String getId() {
 		return id;
