@@ -106,7 +106,7 @@ public class Room implements Closeable {
 			//Record
 			log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
-			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),"\\Home\\wt\\" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM).build();
+			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),"/Home/wt/" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM).build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
 
