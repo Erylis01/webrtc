@@ -337,7 +337,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		console.log("Envoi des commandes de recording");
         
         var videoInput = document.getElementById("composite");
-        
+        var videoOutput = document.getElementById("composite");
         
         var options = {
             localVideo: videoInput,
