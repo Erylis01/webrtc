@@ -257,7 +257,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                         default:
                             {
                             ws_uri: 'wss://192.168.129.216:8080/kurento',
-                            file_uri: 'file://recorder_demo.webm', // file to be stored in media server
+                            file_uri: 'http://localhost/record/recorded.webm', // file to be stored in media server
                             ice_servers: undefined
                             }
     });
