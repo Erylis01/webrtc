@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import cz.cvut.fel.webrtc.resources.Line;
+import cz.cvut.fel.webrtc.resources.Room;
+import cz.cvut.fel.webrtc.utils.DigestAuth;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.auth.AUTH;
@@ -37,12 +40,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import cz.cvut.fel.webrtc.*;
-import cz.cvut.fel.webrtc.endpoint.*;
-import cz.cvut.fel.webrtc.handlers.*;
-import cz.cvut.fel.webrtc.utils.*;
-import cz.cvut.fel.webrtc.resources.*;
 
 public class LineRegistry {
 
