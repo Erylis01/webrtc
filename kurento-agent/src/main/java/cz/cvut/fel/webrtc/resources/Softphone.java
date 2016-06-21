@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.WebSocketSession;
 
-
+import java.io.IOException;
 
 public class Softphone extends Participant {
 	
@@ -17,10 +17,10 @@ public class Softphone extends Participant {
 	
 	private final RtpEndpoint rtpEndpoint;
 	
-	public Softphone(String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite,WebSocketSession session) {
-		super(id, name, roomName,room, pipeline, web, composite,session);
+	public Softphone(String id, String roomName, WebSocketSession session, MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
+		super(id, roomName, session, compositePipeline, presentationPipeline, hub);
 		
-		rtpEndpoint = new RtpEndpoint.Builder(pipeline).build();
+		rtpEndpoint = new RtpEndpoint.Builder(compositePipeline).build();
 		
 		rtpEndpoint.connect(hubPort);
 		hubPort.connect(rtpEndpoint);
@@ -51,7 +51,7 @@ public class Softphone extends Participant {
 	}
 
 	@Override
-	public void close() {
+	public void close() throws IOException {
 		log.debug("PARTICIPANT {}: Releasing resources", this.getName());
 		super.releaseHubPort();
 		

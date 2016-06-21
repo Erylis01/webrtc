@@ -1,23 +1,13 @@
 package cz.cvut.fel.webrtc.handlers;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.sip.InvalidArgumentException;
-import javax.sip.address.Address;
-import javax.sip.header.AuthorizationHeader;
-import javax.sip.header.CSeqHeader;
-import javax.sip.header.ContentTypeHeader;
-import javax.sip.header.FromHeader;
-import javax.sip.header.ToHeader;
-import javax.sip.header.WWWAuthenticateHeader;
-import javax.sip.message.Message;
-import javax.sip.message.Request;
-import javax.sip.message.Response;
-
-
+import com.google.gson.JsonObject;
+import cz.cvut.fel.webrtc.db.LineRegistry;
+import cz.cvut.fel.webrtc.db.RoomManager;
+import cz.cvut.fel.webrtc.resources.Line;
+import cz.cvut.fel.webrtc.resources.Room;
+import cz.cvut.fel.webrtc.resources.Softphone;
+import cz.cvut.fel.webrtc.utils.DigestAuth;
+import cz.cvut.fel.webrtc.utils.SipMessageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +16,16 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.google.gson.JsonObject;
-
-import cz.cvut.fel.webrtc.db.*;
-import cz.cvut.fel.webrtc.resources.*;
-import cz.cvut.fel.webrtc.utils.*;
-
+import javax.sip.InvalidArgumentException;
+import javax.sip.address.Address;
+import javax.sip.header.*;
+import javax.sip.message.Message;
+import javax.sip.message.Request;
+import javax.sip.message.Response;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class SipHandler extends TextWebSocketHandler {
 	
@@ -116,6 +110,7 @@ public class SipHandler extends TextWebSocketHandler {
 		Room room = null;
 		if (roomName != null)
 			room = roomManager.getRoom(roomName, false);
+		
 		return room;
 	}
 	
@@ -135,8 +130,8 @@ public class SipHandler extends TextWebSocketHandler {
 					break;
 
 				case Request.REGISTER:
-					if (room.getClosed()) {
-						roomManager.closeRoom(room.getName());
+					if (room.isClosing()) {
+						roomManager.removeRoom(room);
 					} else if (room.getLine() != null) {
 						final JsonObject message = new JsonObject();
 						message.addProperty("id", "lineAvailable");
@@ -230,14 +225,14 @@ public class SipHandler extends TextWebSocketHandler {
 	}
 	
 	public void unregister(Room room) throws Exception {
-		room.setClosed(true);
+		room.setClosing();
 		register(room, null);
 	}
 	
 	public void register(Room room, Response response) throws Exception {
 		Line line = room.getLine();
 		
-		int expire = (room.getClosed()) ? 0 : 604800;
+		int expire = (room.isClosing()) ? 0 : 604800;
 		
 		if (line == null)
 			line = lineRegistry.popLine(room);
@@ -421,7 +416,6 @@ public class SipHandler extends TextWebSocketHandler {
 			} catch (Exception e) {}
 		}
 	}
-
 
 	public String getPbxIp() {
 		return pbxIp;

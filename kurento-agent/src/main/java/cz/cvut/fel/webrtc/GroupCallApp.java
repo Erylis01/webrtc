@@ -14,19 +14,22 @@
  */
 package cz.cvut.fel.webrtc;
 
-import cz.cvut.fel.webrtc.db.*;
-import cz.cvut.fel.webrtc.handlers.*;
-
+import cz.cvut.fel.webrtc.db.LineRegistry;
+import cz.cvut.fel.webrtc.db.RoomManager;
+import cz.cvut.fel.webrtc.db.WebRegistry;
+import cz.cvut.fel.webrtc.handlers.SipHandler;
+import cz.cvut.fel.webrtc.handlers.WebHandler;
 import org.kurento.client.KurentoClient;
-import org.kurento.room.api.KurentoClientProvider;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.client.WebSocketConnectionManager;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -42,9 +45,6 @@ import java.util.ArrayList;
 @EnableAutoConfiguration
 public class GroupCallApp implements WebSocketConfigurer {
 
-	private RoomHandler roomHandler;
-	private KurentoClientProvider kcProvider;
-	  
 	@Value("${kurento.websocket}")
 	private String kms_uri;
 	
@@ -67,7 +67,7 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public RoomManager roomManager() {
-		return new RoomManager(roomHandler, kcProvider);
+		return new RoomManager();
 	}
 
 	@Bean

@@ -17,7 +17,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 @Controller
 public class ImageController {
 	@RequestMapping(value = "names/{userName}", method = RequestMethod.GET)

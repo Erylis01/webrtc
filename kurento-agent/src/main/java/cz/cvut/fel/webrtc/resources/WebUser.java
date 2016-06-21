@@ -11,7 +11,6 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;
 import java.util.Calendar;
 
-
 public class WebUser extends Participant {
 
 	private static final Logger log = LoggerFactory.getLogger(WebUser.class);
@@ -23,16 +22,21 @@ public class WebUser extends Participant {
 
 	protected WebRtcEndpoint outgoingMedia;
 
-	private final MediaPipeline pipeline;
+	private final MediaPipeline compositePipeline;
+	private final MediaPipeline presentationPipeline;
 	private Calendar lastPing = Calendar.getInstance();
 
-	public WebUser(final String id, String name,String roomName, Room room, MediaPipeline pipeline, boolean web, Hub composite,WebSocketSession session) {
-		super(id, name, roomName,room, pipeline, web, composite,session);
+	public WebUser(final String id, String roomName, final WebSocketSession session, MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
+		super(id, roomName, session, compositePipeline, presentationPipeline, hub);
 
 		this.userId = id;
-		this.pipeline=pipeline;
+
+		this.compositePipeline = compositePipeline;
+
 		newOutgoingMedia();
 		connectOutgoingMediaToHubPort();
+
+		this.presentationPipeline = presentationPipeline;
 	}
 
 	private void connectOutgoingMediaToHubPort() {
@@ -57,7 +61,7 @@ public class WebUser extends Participant {
 	}
 
 	private void newOutgoingMedia() {
-		this.outgoingMedia = new WebRtcEndpoint.Builder(pipeline).build();
+		this.outgoingMedia = new WebRtcEndpoint.Builder(compositePipeline).build();
 
 		this.outgoingMedia
 				.addOnIceCandidateListener(new EventListener<OnIceCandidateEvent>() {
@@ -98,7 +102,7 @@ public class WebUser extends Participant {
 	public void receiveVideoFrom(WebUser sender, String type, String sdpOffer, Room room)
 			throws IOException {
 		log.info("USER {}: connecting with {} in room {}", this.name,
-				sender.getName(), this.getName());
+				sender.getName(), this.roomName);
 
 		log.trace("USER {}: SdpOffer for {} is {}", this.name,
 				sender.getName(), sdpOffer);
@@ -139,7 +143,7 @@ public class WebUser extends Participant {
 				
 				if (this.sharingMedia == null) {
 					
-					this.sharingMedia = new WebRtcEndpoint.Builder(pipeline).build();
+					this.sharingMedia = new WebRtcEndpoint.Builder(presentationPipeline).build();
 					
 					final Participant presenter = (this.isScreensharer) ? this : sender;
 					
@@ -208,7 +212,7 @@ public class WebUser extends Participant {
 	}
 
 	@Override
-	public void close() {
+	public void close() throws IOException {
 		
 		log.debug("PARTICIPANT {}: Releasing resources", this.getName());
 		super.releaseHubPort();
