@@ -230,7 +230,9 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		participants.clear();
 	}
     
-    
+    function onError(error) {
+        if(error) console.log(error);
+    }
     
     /**
     *Recording bloc
