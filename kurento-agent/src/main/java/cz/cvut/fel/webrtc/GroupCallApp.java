@@ -15,10 +15,7 @@
 package cz.cvut.fel.webrtc;
 
 import cz.cvut.fel.webrtc.db.*;
-import cz.cvut.fel.webrtc.endpoint.*;
 import cz.cvut.fel.webrtc.handlers.*;
-import cz.cvut.fel.webrtc.resources.*;
-import cz.cvut.fel.webrtc.utils.*;
 
 import org.kurento.client.KurentoClient;
 import org.kurento.room.api.KurentoClientProvider;
@@ -29,9 +26,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.client.WebSocketConnectionManager;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
