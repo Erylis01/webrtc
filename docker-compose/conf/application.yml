@@ -1,10 +1,10 @@
 server:
    port: 8080
 kurento:
-   websocket: ws://192.168.21.142:8888/kurento
+   websocket: ws://147.32.211.89:8888/kurento
 xivo:
-   websocket: ws://192.168.21.142:8082/xivo
+   websocket: ws://147.32.211.89:8082/xivo
    rest:
-      uri: https://192.168.21.142:9486/1.1/lines_sip
+      uri: https://147.32.211.89:9486/1.1/lines_sip
       login: XIVO_REST_API_LOGIN
       password: XIVO_REST_API_PASSWORD
