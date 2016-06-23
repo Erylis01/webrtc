@@ -28,7 +28,7 @@
         	<script src="js/require.js"></script>
         	<script src="js/kurentoClient.js"></script>
         	<script src="js/angular2-polyfill.js"></script>
-        	<script src="js/es6-promise.umd.js"></script>
+        	<script src="js/es6-promise.js"></script>
         
 		<!-- Controllers -->
 		<script src="js/controllers/user.js"></script>
