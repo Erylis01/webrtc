@@ -107,8 +107,7 @@ public class Room implements Closeable {
 			log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
-					"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4)
-							.build();
+					"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
 			this.hubPort.connect(this.recorderEndpoint);
 			this.recorderEndpoint.record();
 
@@ -351,5 +350,14 @@ public class Room implements Closeable {
 	public int size() {
 		return participants.size();
 	}
+
+	/*
+	 * public void record() { log.info("Start Recording"); this.hubPort = new
+	 * HubPort.Builder(this.composite).build(); this.recorderEndpoint = new
+	 * RecorderEndpoint.Builder(getCompositePipeline(), "file:///record/" +
+	 * getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
+	 * this.hubPort.connect(this.recorderEndpoint);
+	 * this.recorderEndpoint.record(); }
+	 */
 
 }
