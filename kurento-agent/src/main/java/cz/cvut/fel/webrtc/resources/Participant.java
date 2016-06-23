@@ -55,7 +55,7 @@ public abstract class Participant implements Closeable {
 		this.id = id;
 		this.session = session;
 		this.roomName = roomName;
-		this.passThru = new PassThrough.Builder(presentationPipeline).build();
+		this.passThru = new PassThrough.Builder(compositePipeline).build();
 		this.hub = hub;
 		this.hubPort = new HubPort.Builder(hub).build();
 		

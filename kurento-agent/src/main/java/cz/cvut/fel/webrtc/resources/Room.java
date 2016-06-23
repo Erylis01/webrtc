@@ -79,7 +79,7 @@ public class Room implements Closeable {
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
 		// this.composite = new Composite.Builder(compositePipeline).build();
-		this.composite = new Composite.Builder(getPresentationPipeline()).build();
+		this.composite = new Composite.Builder(getCompositePipeline()).build();
 
 		log.info("ROOM {} has been created", roomName);
 	}
@@ -106,7 +106,7 @@ public class Room implements Closeable {
 			// Record
 			log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
-			this.recorderEndpoint = new RecorderEndpoint.Builder(getPresentationPipeline(),
+			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
 					"file:///record/" + getName() + ".webm").withMediaProfile(MediaProfileSpecType.WEBM)
 							.build();
 			this.hubPort.connect(this.recorderEndpoint);
