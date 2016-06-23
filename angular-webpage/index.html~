@@ -14,7 +14,6 @@
 		<section ng-view></section>
 		
 		<!-- Librairies -->
-        	<script src="js/angular2-polyfill.js"></script>
 		<script src="bower_components/jquery/dist/jquery.min.js"></script>
 		<script src="bower_components/velocity/velocity.js"></script>
 		<script src="bower_components/moment/min/moment-with-locales.js"></script>
@@ -28,6 +27,7 @@
 		<script src="js/kurento-utils.min.js"></script>
         	<script src="js/require.js"></script>
         	<script src="js/kurentoClient.js"></script>
+        	<script src="js/angular2-polyfill.js"></script>
         	<script src="js/es6-promise.js"></script>
         
 		<!-- Controllers -->
