@@ -1,5 +1,5 @@
 {
-	"ws_uri": "ws://192.168.129.216:8080/groupcall",
-	"wss_uri": "wss://192.168.129.216/groupcall",
-	"upload_speed_tester_uri": "https://192.168.129.216:8081/upload"
+	"ws_uri": "ws://192.168.21.142:8080/groupcall",
+	"wss_uri": "wss://192.168.21.142/groupcall",
+	"upload_speed_tester_uri": "https://192.168.21.142:8081/upload"
 }
