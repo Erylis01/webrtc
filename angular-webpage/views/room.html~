@@ -47,7 +47,7 @@
 			</lx-dropdown>
 
 			<!-- Presentation (Chrome) -->
-			<button class="btn btn--l btn--white btn--icon" ng-click="share('window')" ng-show="canPresent('chrome')" ng-disabled="presentation.disabled.general">
+			<button class="btn btn--l btn--white btn--icon" lx-ripple ng-click="share('window')" ng-show="canPresent('chrome')" ng-disabled="presentation.disabled.general">
 				<i class="mdi mdi-presentation"></i>
 			</button>
 
