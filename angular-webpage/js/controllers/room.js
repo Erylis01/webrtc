@@ -643,11 +643,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}, 200);
 
 			setTimeout(function() {
-<<<<<<< HEAD
 				dropdownElt.css('display', 'block');
-=======
-				dropdownElt.css('display', 'none');
->>>>>>> 1e0b16439885f9c7c137f094a1aa2d1b66cff789
 			}, 200);
 			$(document).off('click');
 		} else {
