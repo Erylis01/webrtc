@@ -236,132 +236,15 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     
     /**
     *Recording bloc
-    */ 
+    */
     
-    function getopts(args, opts)
-    {
-    var result = opts.default || {};
-        args.replace(
-            new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-        function($0, $1, $2, $3) { result[$1] = decodeURI($3); });
-
-        return result;
-    };
-    
-	$scope.record = function () {
-		record();		
-	};
-    
-    var args = getopts(location.search,
-                       {
-                        default:
-                            {
-                            ws_uri: 'wss://192.168.129.216:8080/kurento',
-                            file_uri: 'http://localhost/record/recorded.webm', // file to be stored in media server
-                            ice_servers: undefined
-                            }
-    });
-    
-    
-    function setIceCandidateCallbacks(webRtcPeer, webRtcEp, onerror)
-    {
-        webRtcPeer.on('icecandidate', function(candidate) {
-            console.log("Local candidate:",candidate);
-
-        candidate = kurentoClient.getComplexType('IceCandidate')(candidate);
-
-        webRtcEp.addIceCandidate(candidate, onerror)
-    });
-
-    webRtcEp.on('OnIceCandidate', function(event) {
-        var candidate = event.candidate;
-
-        console.log("Remote candidate:",candidate);
-
-        webRtcPeer.addIceCandidate(candidate, onerror);
-    });
-    };
-    
-    function onOffer(error, offer) {
-    if (error) return onError(error);
-
-    console.log("Offer...");
-
-    kurentoClient(args.ws_uri, function(error, client) {
-      if (error) return onError(error);
-
-      client.create('MediaPipeline', function(error, pipeline) {
-        if (error) return onError(error);
-
-        console.log("Got MediaPipeline");
-
-        var elements =
-        [
-          {type: 'RecorderEndpoint', params: {uri : args.file_uri}},
-          {type: 'WebRtcEndpoint', params: {}}
-        ]
-
-        pipeline.create(elements, function(error, elements){
-          if (error) return onError(error);
-
-          var recorder = elements[0]
-          var webRtc   = elements[1]
-
-          setIceCandidateCallbacks(webRtcPeer, webRtc, onError)
-
-          webRtc.processOffer(offer, function(error, answer) {
-            if (error) return onError(error);
-
-            console.log("offer");
-
-            webRtc.gatherCandidates(onError);
-            webRtcPeer.processAnswer(answer);
-          });
-
-          client.connect(webRtc, webRtc, recorder, function(error) {
-            if (error) return onError(error);
-
-            console.log("Connected");
-
-            recorder.record(function(error) {
-              if (error) return onError(error);
-
-              console.log("record");
-
-            });
-          });
-        });
-      });
-    });
-  }
-    
+    	$scope.record = function() {
+    		record();
+    	}
+    	
 	function record() {
 		console.log("Envoi des commandes de recording");
-        
-        var videoInput = document.getElementById("composite");
-        var videoOutput = document.getElementById("composite");
-        
-        var options = {
-            localVideo: videoInput,
-            remoteVideo: videoOutput
-        };
-
-        if (args.ice_servers) {
-            console.log("Use ICE servers: " + args.ice_servers);
-            options.configuration = {
-                iceServers : JSON.parse(args.ice_servers)
-            };
-        } else {
-        console.log("Use freeice")
-  }
-
-  webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(error)
-  {
-    if(error) return onError(error)
-
-this.generateOffer(onOffer)
-	})
-    }
+	}
                                                           
                                                           
     /** 
