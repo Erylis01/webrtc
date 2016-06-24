@@ -644,7 +644,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
-			}, 200);
+			}, 6000);
 			$(document).off('click');
 		} else {
 			dropdownElt.css('display', 'block');
@@ -652,7 +652,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'opacity': 1,
 				'top': '52px',
 				'right': '16px'
-			}, 200);
+			}, 6000);
 
 			$(document).click(function(e) {
 
