@@ -242,10 +242,10 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     		record();
     	}
     	
-	function record() {
+	function record(this.roomName) {
 		console.log("Envoi des commandes de recording");
 		socket.send({'id': 'record',
-			     'roomName': this.roomName});
+			     room: this.roomName});
 	}
                                                           
                                                           
@@ -644,7 +644,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
-			}, 6000);
+			}, 200);
 			$(document).off('click');
 		} else {
 			dropdownElt.css('display', 'block');
@@ -652,7 +652,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'opacity': 1,
 				'top': '52px',
 				'right': '16px'
-			}, 6000);
+			}, 200);
 
 			$(document).click(function(e) {
 

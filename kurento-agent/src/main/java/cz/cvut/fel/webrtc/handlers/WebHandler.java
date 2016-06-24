@@ -53,10 +53,10 @@ public class WebHandler extends TextWebSocketHandler {
 
 	@Autowired
 	private WebRegistry registry;
-	
+
 	@Autowired
 	private LineRegistry lineRegistry;
-	
+
 	@Autowired
 	private SipHandler sipHandler;
 
@@ -76,7 +76,8 @@ public class WebHandler extends TextWebSocketHandler {
 						try {
 							log.info("{} is unreachable.", user.getName());
 							leaveRoom(user);
-						} catch (Exception e) {}
+						} catch (Exception e) {
+						}
 					}
 				}
 			}
@@ -89,13 +90,12 @@ public class WebHandler extends TextWebSocketHandler {
 
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
-		final JsonObject jsonMessage = gson.fromJson(message.getPayload(),
-				JsonObject.class);
+
+		final JsonObject jsonMessage = gson.fromJson(message.getPayload(), JsonObject.class);
 
 		final Participant userSession = registry.getBySession(session);
 		WebUser user = null;
-		
+
 		if (userSession != null) {
 			log.debug("Incoming message from user '{}': {}", userSession.getName(), jsonMessage);
 			user = (WebUser) userSession;
@@ -108,7 +108,7 @@ public class WebHandler extends TextWebSocketHandler {
 			if (user != null) {
 				String extension = jsonMessage.get("callee").getAsString();
 				Room room = roomManager.getRoom(user.getRoomName());
-				
+
 				if (room.getLine() != null) {
 					invite(room, extension, user.getName());
 				}
@@ -119,30 +119,30 @@ public class WebHandler extends TextWebSocketHandler {
 		case "joinRoom":
 			joinRoom(jsonMessage, session);
 			break;
-		
+
 		case "newPresenter":
 			if (user != null)
 				presenter(user);
 			break;
-			
+
 		case "presenterReady":
 			if (user != null) {
 				Room room = roomManager.getRoom(user.getRoomName());
-				
+
 				final JsonObject newPresenterMsg = new JsonObject();
 				newPresenterMsg.addProperty("id", "presenter");
 				newPresenterMsg.addProperty("name", user.getName());
 				newPresenterMsg.addProperty("userId", user.getId());
-				
+
 				room.broadcast(newPresenterMsg);
 			}
 			break;
-			
+
 		case "stopPresenting":
 			if (user != null)
 				stopPresenting(user);
 			break;
-			
+
 		case "receiveVideoFrom":
 			if (user != null) {
 				final String senderId = jsonMessage.get("userId").getAsString();
@@ -156,21 +156,20 @@ public class WebHandler extends TextWebSocketHandler {
 					user.receiveVideoFrom(webSender, type, sdpOffer, room);
 				}
 			}
-			
+
 			break;
-		
+
 		case "leaveRoom":
 			if (user != null)
 				leaveRoom(user);
 			break;
-		
+
 		case "onIceCandidate":
 			JsonObject candidate = jsonMessage.get("candidate").getAsJsonObject();
 
 			if (user != null) {
-				IceCandidate cand = new IceCandidate(candidate.get("candidate")
-						.getAsString(), candidate.get("sdpMid").getAsString(),
-						candidate.get("sdpMLineIndex").getAsInt());
+				IceCandidate cand = new IceCandidate(candidate.get("candidate").getAsString(),
+						candidate.get("sdpMid").getAsString(), candidate.get("sdpMLineIndex").getAsInt());
 				user.addCandidate(cand, jsonMessage.get("type").getAsString());
 			}
 			break;
@@ -190,6 +189,7 @@ public class WebHandler extends TextWebSocketHandler {
 		case "record":
 			record(jsonMessage);
 			break;
+
 		default:
 			break;
 		}
@@ -238,23 +238,23 @@ public class WebHandler extends TextWebSocketHandler {
 
 	private void presenter(WebUser user) throws IOException {
 		Room room = roomManager.getRoom(user.getRoomName());
-		
+
 		if (!room.hasScreensharer()) {
-			
+
 			room.sendInformation(user, "presentationInfo");
 			room.setScreensharer(user);
 			user.isScreensharer(true);
-			
+
 		} else {
-			
+
 			JsonObject msg = new JsonObject();
 			WebSocketSession session = user.getSession();
-			
+
 			msg.addProperty("id", "existingPresentation");
 			synchronized (session) {
 				session.sendMessage(new TextMessage(msg.toString()));
 			}
-			
+
 		}
 	}
 
@@ -262,7 +262,7 @@ public class WebHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
 		Participant user = registry.removeBySession(session);
-		
+
 		if (user != null) {
 			leaveRoom(user);
 		}
@@ -273,25 +273,23 @@ public class WebHandler extends TextWebSocketHandler {
 		final String userId = params.get("userId").getAsString();
 		final String name = params.get("name").getAsString();
 		final JsonObject scParams;
-		
+
 		log.info("PARTICIPANT {}: trying to join room {}", name, roomName);
 
 		Room room = roomManager.getRoom(roomName);
 		// TODO
-		/*if (room.getParticipant(name) != null) {
-			scParams = new JsonObject();
-			scParams.addProperty("id", "existingName");
-			synchronized (session) {
-				session.sendMessage(new TextMessage(scParams.toString()));
-			}
-		} else {*/
-			final WebUser user = (WebUser) room.join(userId, session, WebUser.class);
-			user.setName(name);
-			room.joinRoom(user);
+		/*
+		 * if (room.getParticipant(name) != null) { scParams = new JsonObject();
+		 * scParams.addProperty("id", "existingName"); synchronized (session) {
+		 * session.sendMessage(new TextMessage(scParams.toString())); } } else {
+		 */
+		final WebUser user = (WebUser) room.join(userId, session, WebUser.class);
+		user.setName(name);
+		room.joinRoom(user);
 
-			if (user != null)
-				registry.register(user);
-		//}
+		if (user != null)
+			registry.register(user);
+		// }
 	}
 
 	private void leaveRoom(Participant user) throws Exception {
@@ -307,14 +305,13 @@ public class WebHandler extends TextWebSocketHandler {
 			registry.removeBySession(user.getSession());
 		}
 	}
-	
-	public void record(JsonObject params){
+
+	public void record(JsonObject params) {
 		final String roomName = params.get("roomName").getAsString();
-		
+
 		log.info("PARTICIPANT {}: Start recording the room {}", roomName);
-		Room room=roomManager.getRoom(roomName);
+		Room room = roomManager.getRoom(roomName);
 		room.record();
-		
-		
+
 	}
 }
