@@ -104,12 +104,12 @@ public class Room implements Closeable {
 			sendInformation(participant, "compositeInfo");
 
 			// Record
-			log.info("Start Recording");
+			/*log.info("Start Recording");
 			this.hubPort = new HubPort.Builder(this.composite).build();
 			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
 					"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
 			this.hubPort.connect(this.recorderEndpoint);
-			this.recorderEndpoint.record();
+			this.recorderEndpoint.record();*/
 
 		} catch (Exception e) {
 			log.info("ROOM {}: adding participant {} failed: {}", name, userId, e);
@@ -351,13 +351,13 @@ public class Room implements Closeable {
 		return participants.size();
 	}
 
-	/*
-	 * public void record() { log.info("Start Recording"); this.hubPort = new
-	 * HubPort.Builder(this.composite).build(); this.recorderEndpoint = new
-	 * RecorderEndpoint.Builder(getCompositePipeline(), "file:///record/" +
-	 * getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
-	 * this.hubPort.connect(this.recorderEndpoint);
-	 * this.recorderEndpoint.record(); }
-	 */
+	public void record() {
+		log.info("Start Recording");
+		this.hubPort = new HubPort.Builder(this.composite).build();
+		this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
+				"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
+		this.hubPort.connect(this.recorderEndpoint);
+		this.recorderEndpoint.record();
+	}
 
 }
