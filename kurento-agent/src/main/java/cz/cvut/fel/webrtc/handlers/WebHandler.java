@@ -305,4 +305,10 @@ public class WebHandler extends TextWebSocketHandler {
 			registry.removeBySession(user.getSession());
 		}
 	}
+	
+	public void record(String roomName){
+		RoomManager rm = new RoomManager ();
+		Room room=rm.getRoom(roomName);
+		room.record();
+	}
 }
