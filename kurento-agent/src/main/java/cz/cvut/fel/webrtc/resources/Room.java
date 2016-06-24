@@ -357,6 +357,11 @@ public class Room implements Closeable {
 				"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
 		this.hubPort.connect(this.recorderEndpoint);
 		this.recorderEndpoint.record();
+		
+	}
+	
+	public void stopRecord(){
+		this.recorderEndpoint.release();
 	}
 
 }
