@@ -242,10 +242,10 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     		record();
     	}
     	
-	function record(this.roomName) {
+	function record() {
 		console.log("Envoi des commandes de recording");
 		socket.send({'id': 'record',
-			     roomName: this.roomName});
+			     roomName: $params.roomName});
 	}
                                                           
                                                           
