@@ -187,7 +187,8 @@ public class WebHandler extends TextWebSocketHandler {
 				user.setLastPing(Calendar.getInstance());
 			}
 			break;
-
+		case "record":
+			record(jsonMessage);
 		default:
 			break;
 		}
@@ -306,9 +307,14 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 	}
 	
-	public void record(String roomName){
+	public void record(JsonObject params){
+		final String roomName = params.get("roomName").getAsString();
+		
+		log.info("PARTICIPANT {}: Start recording the room {}", roomName);
 		RoomManager rm = new RoomManager ();
 		Room room=rm.getRoom(roomName);
 		room.record();
+		
+		
 	}
 }
