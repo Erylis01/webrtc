@@ -243,8 +243,18 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     	}
     	
 	function record() {
-		console.log("Envoi des commandes de recording");
+		console.log("Start record");
 		socket.send({'id': 'record',
+			     roomName: $params.roomName});
+	}
+
+	$scope.stopRecord = function() {
+    		stopRecord();
+    	}
+    	
+	function stopRecord() {
+		console.log("End record");
+		socket.send({'id': 'stopRecord',
 			     roomName: $params.roomName});
 	}
                                                           
