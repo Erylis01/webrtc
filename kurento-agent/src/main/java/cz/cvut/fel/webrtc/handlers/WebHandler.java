@@ -189,6 +189,7 @@ public class WebHandler extends TextWebSocketHandler {
 			break;
 		case "record":
 			record(jsonMessage);
+			break;
 		default:
 			break;
 		}
@@ -311,8 +312,7 @@ public class WebHandler extends TextWebSocketHandler {
 		final String roomName = params.get("roomName").getAsString();
 		
 		log.info("PARTICIPANT {}: Start recording the room {}", roomName);
-		RoomManager rm = new RoomManager ();
-		Room room=rm.getRoom(roomName);
+		Room room=roomManager.getRoom(roomName);
 		room.record();
 		
 		
