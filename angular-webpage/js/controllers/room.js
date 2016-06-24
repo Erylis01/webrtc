@@ -245,7 +245,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	function record(this.roomName) {
 		console.log("Envoi des commandes de recording");
 		socket.send({'id': 'record',
-			     room: this.roomName});
+			     roomName: this.roomName});
 	}
                                                           
                                                           
