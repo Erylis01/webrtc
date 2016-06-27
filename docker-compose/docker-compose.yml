@@ -5,7 +5,6 @@ kms6:
   container_name: kms6
   volumes:
     - ./conf/WebRtcEndpoint.conf.ini:/etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
-    - ks6/record:/record
 kurento-agent:
   build: ./kurento-agent
   restart: always
