@@ -86,7 +86,16 @@
 
 						<!-- Recording -->
 						<li><a class="dropdown-link dropdown-link--is-header">Misc.</a></li>
-
+                        
+                        
+                        <li>
+							<a class="dropdown-link" ng-click="{{ record.functionToCall }}">
+								<i class="mdi mdi-camcorder"></i>
+								<span>{{ record.text }}</span>
+							</a>
+						</li>
+                        
+                        <!-- Working recording
 						<li>
 							<a class="dropdown-link" ng-click="record()">
 								<i class="mdi mdi-camcorder"></i>
@@ -100,7 +109,7 @@
 							</a>
 						</li>
 
-						<li class="dropdown-divider"></li>
+						<li class="dropdown-divider"></li> -->
 
 						<!-- Mute / unmute -->
 						<li><a class="dropdown-link dropdown-link--is-header">Conference volume</a></li>

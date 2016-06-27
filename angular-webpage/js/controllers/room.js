@@ -234,9 +234,43 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         if(error) console.log(error);
     }
     
+    
+    $scope.record = {
+        recording: false,
+        functionToCall : record(),
+        text: 'Record',
+        change: function() {
+            if (!this.recording) {
+            this.recording = true;
+            this.text = 'Stop Record'
+            this.functionToCall;
+            this.functionToCall = stopRecord();
+            updateScope();
+            } else {
+            this.recording = false;
+            this.text = 'Record'
+            this.functionToCall;
+            this.functionToCall = record();
+            updateScope();
+            }
+        }
+    };
+    
+    function record() {
+		console.log("Start record");
+		socket.send({'id': 'record',
+			     roomName: $params.roomName});
+	};
+    
+    	function stopRecord() {
+		console.log("End record");
+		socket.send({'id': 'stopRecord',
+			     roomName: $params.roomName});
+	};
+    
     /**
     *Recording bloc
-    */
+    
     
     	$scope.record = function() {
     		record();
@@ -259,7 +293,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
                                                           
                                                           
-    /** 
+    
     *End of recording bloc
     */
                                                           
