@@ -237,7 +237,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     
     $scope.record = {
         recording: false,
-        functionToCall : record(),
+        functionToCall: record(),
         text: 'Record',
         change: function() {
             if (!this.recording) {
