@@ -103,13 +103,6 @@ public class Room implements Closeable {
 			add(participant);
 			sendInformation(participant, "compositeInfo");
 			this.hubPort = new HubPort.Builder(this.composite).build();
-			// Record
-			/*log.info("Start Recording");
-			this.hubPort = new HubPort.Builder(this.composite).build();
-			this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
-					"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
-			this.hubPort.connect(this.recorderEndpoint);
-			this.recorderEndpoint.record();*/
 
 		} catch (Exception e) {
 			log.info("ROOM {}: adding participant {} failed: {}", name, userId, e);
