@@ -240,19 +240,12 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         functionToCall: record(),
         text: 'Record',
         change: function() {
-            if (!this.recording) {
-            this.recording = true;
-            this.text = 'Stop Record'
+            console.log('Appui détecté')
+            this.recording = !this.recording;
+            this.text = 'Record' : 'Stop record',
             this.functionToCall;
-            this.functionToCall = stopRecord();
+            this.functionToCall = record() : stopRecord();
             updateScope();
-            } else {
-            this.recording = false;
-            this.text = 'Record'
-            this.functionToCall;
-            this.functionToCall = record();
-            updateScope();
-            }
         }
     };
     
