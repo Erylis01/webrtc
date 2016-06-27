@@ -24,3 +24,4 @@ RUN chmod +x start.sh
 ENTRYPOINT ["./start.sh"]
 
 EXPOSE 8888
+VOLUME /record
