@@ -237,25 +237,25 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     
     $scope.record = {
         recording: false,
-        functionToCall: record(),
+        functionToCall: recordJS(),
         text: 'Record',
         change: function() {
             console.log('Appui détecté')
             this.recording = !this.recording;
             this.text = 'Record' : 'Stop record',
             this.functionToCall;
-            this.functionToCall = record() : stopRecord();
+            this.functionToCall = recordJS() : stopRecordJS();
             updateScope();
         }
     };
     
-    function record() {
+    function recordJS() {
 		console.log("Start record");
 		socket.send({'id': 'record',
 			     roomName: $params.roomName});
 	};
     
-    	function stopRecord() {
+    	function stopRecordJS() {
 		console.log("End record");
 		socket.send({'id': 'stopRecord',
 			     roomName: $params.roomName});
