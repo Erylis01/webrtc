@@ -1,6 +1,6 @@
 version: '2'
 services:
-	kms6:
+ kms6:
 		build:
 			context: ./kms6
 		restart: always
