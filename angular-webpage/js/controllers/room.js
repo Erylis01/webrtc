@@ -233,17 +233,30 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     function onError(error) {
         if(error) console.log(error);
     }
+    	
+    $scope.volume = {
+		muted: false,
+		icon: 'mdi-volume-high',
+		text: 'Mute',
+		change: function() {
+			this.muted = !this.muted;
+			this.text = (this.muted) ? 'Unmute' : 'Mute';
+			this.icon = (this.muted) ? 'mdi-volume-off' : 'mdi-volume-high';
+			$('#composite').prop('muted', this.muted);
+			updateScope();
+		}
+	};
     
     $scope.record = {
         recording: false,
         functionToCall: recordJS(),
         text: 'Record',
         change: function() {
-            console.log('Appui détecté')
+            notifications.notify(request.name + ' is recording the meeting !', 'account-plus');
             this.functionToCall;
             this.recording = !this.recording;
             this.text = (this.recording) ? 'Stop record' : 'Record'; 
-            this.functionToCall = (this.recording) ? stopRecordJS() : recordJS();
+            this.functionToCall = (this.recording) ? recordJS() : stopRecordJS() ;
             updateScope();
         }
     };
@@ -442,7 +455,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		$scope.participantNames.push(request.name);
 		updateScope();
 
-		notifications.notify(request.name + ' has joined the room ! Welcome him', 'account-plus');
+		notifications.notify(request.name + ' has joined the room !', 'account-plus');
 
 		console.log(request.name + " has just arrived ! Welcome him !");
 
