@@ -315,7 +315,12 @@ public class WebHandler extends TextWebSocketHandler {
 		log.info("PARTICIPANT {}: Start recording the room {}", roomName);
 		Room room = roomManager.getRoom(roomName);
 		room.record();
+		final JsonObject newPresenterMsg = new JsonObject();
+				newPresenterMsg.addProperty("id", "recordJava");
+				newPresenterMsg.addProperty("roomJava", roomName);
+				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString(););
 
+				room.broadcast(newPresenterMsg);
 	}
 	
 	public void stopRecord(JsonObject params){
@@ -323,5 +328,11 @@ public class WebHandler extends TextWebSocketHandler {
 		log.info("PARTICIPANT {}: Stop recording the room {}", roomName);
 		Room room = roomManager.getRoom(roomName);
 		room.stopRecord();
+		final JsonObject newPresenterMsg = new JsonObject();
+				newPresenterMsg.addProperty("id", "stopRecordJava");
+				newPresenterMsg.addProperty("roomJava", roomName);
+				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString(););
+
+				room.broadcast(newPresenterMsg);
 	}
 }

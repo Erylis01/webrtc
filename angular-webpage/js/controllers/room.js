@@ -113,7 +113,15 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				notifications.notify(parsedMessage.message);
 				console.log(parsedMessage.message);
 				break;
-
+                
+            case 'recordJava':
+                recordJava(parsedMessage);
+                break;
+                
+            case 'stopRecordJava':
+                stopRecordJava(parsedMessage);
+                break;
+                
 			default:
 				console.log('Unrecognized message', parsedMessage);
 		}
@@ -238,8 +246,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         recording: false,
         text: 'Record',
         change: function() {
-            notifications.notify(request.name + ' is recording the meeting !', 'account-plus');
-            if (!recording){
+            if (!this.recording){
                 recordJS();
             } else {
                 stopRecordJS();
@@ -253,13 +260,14 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     function recordJS() {
 		console.log("Start record");
 		socket.send({'id': 'record',
-			     roomName: $params.roomName});
+			     roomName: $params.roomName,
+                 userId: participants.me().userId});
 	};
     
-    	function stopRecordJS() {
-		console.log("End record");
+    	function stopRecordJS() onsole.log("End record");
 		socket.send({'id': 'stopRecord',
-			     roomName: $params.roomName});
+			     roomName: $params.roomName,
+                 userId: participants.me().userId});
 	};
     
     /**
@@ -449,6 +457,24 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		console.log(request.name + " has just arrived ! Welcome him !");
 
 	}
+    
+    function recordJava (request) {
+        if (!(request.userJava === participants.me().userId)) {
+            record.change();
+            notifications.notify("A record of room " + request.roomJava + " has been started by " + request.userJava, 'account-plus');
+        } else {
+            notifications.notify("You started a recording", 'account-plus');
+        }
+    }
+
+    function stopRecordJava (request) {
+        if (!(request.userJava === participants.me().userId)) {
+            record.change();
+            notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.userJava, 'account-plus');
+        } else {
+            notifications.notify("You stopped a recording", 'account-plus');
+        }
+    }
 
 	function onParticipantLeft(request) {
 
@@ -681,7 +707,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}, 200);
 
 			setTimeout(function() {
-				dropdownElt.css('display', 'block');
+				dropdownElt.css('display', 'none');
 			}, 200);
 			$(document).off('click');
 		} else {
