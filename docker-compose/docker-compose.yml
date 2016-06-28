@@ -5,7 +5,7 @@ net: "host"
 container_name: kms6
 volumes:
   - ./conf/WebRtcEndpoint.conf.ini:/etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
- kurento-agent:
+kurento-agent:
 build: ./kurento-agent
 restart: always
 container_name: kurento-agent
