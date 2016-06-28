@@ -234,19 +234,6 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         if(error) console.log(error);
     }
     	
-    $scope.volume = {
-		muted: false,
-		icon: 'mdi-volume-high',
-		text: 'Mute',
-		change: function() {
-			this.muted = !this.muted;
-			this.text = (this.muted) ? 'Unmute' : 'Mute';
-			this.icon = (this.muted) ? 'mdi-volume-off' : 'mdi-volume-high';
-			$('#composite').prop('muted', this.muted);
-			updateScope();
-		}
-	};
-    
     $scope.record = {
         recording: false,
         functionToCall: recordJS(),
