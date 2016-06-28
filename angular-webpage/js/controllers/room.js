@@ -233,17 +233,17 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     function onError(error) {
         if(error) console.log(error);
     }
-    
+    	
     $scope.record = {
         recording: false,
         functionToCall: recordJS(),
         text: 'Record',
         change: function() {
-            console.log('Appui détecté')
-            this.recording = !this.recording;
-            this.text = (this.recording) ? 'Stop record' : 'Record';
+            notifications.notify(request.name + ' is recording the meeting !', 'account-plus');
             this.functionToCall;
-            this.functionToCall = (this.recording) ? stopRecordJS() : recordJS();
+            this.recording = !this.recording;
+            this.text = (this.recording) ? 'Stop record' : 'Record'; 
+            this.functionToCall = (this.recording) ? recordJS() : stopRecordJS() ;
             updateScope();
         }
     };
@@ -442,7 +442,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		$scope.participantNames.push(request.name);
 		updateScope();
 
-		notifications.notify(request.name + ' has joined the room ! Welcome him', 'account-plus');
+		notifications.notify(request.name + ' has joined the room !', 'account-plus');
 
 		console.log(request.name + " has just arrived ! Welcome him !");
 
