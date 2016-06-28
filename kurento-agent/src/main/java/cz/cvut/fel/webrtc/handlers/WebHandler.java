@@ -318,7 +318,7 @@ public class WebHandler extends TextWebSocketHandler {
 		final JsonObject newPresenterMsg = new JsonObject();
 				newPresenterMsg.addProperty("id", "recordJava");
 				newPresenterMsg.addProperty("roomJava", roomName);
-				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString(););
+				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
 
 				room.broadcast(newPresenterMsg);
 	}
@@ -331,7 +331,7 @@ public class WebHandler extends TextWebSocketHandler {
 		final JsonObject newPresenterMsg = new JsonObject();
 				newPresenterMsg.addProperty("id", "stopRecordJava");
 				newPresenterMsg.addProperty("roomJava", roomName);
-				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString(););
+				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
 
 				room.broadcast(newPresenterMsg);
 	}
