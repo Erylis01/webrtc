@@ -115,7 +115,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				break;
                 
             case 'recordJava':
-                recodJava(parsedMessage);
+                recordJava(parsedMessage);
                 break;
                 
             case 'stopRecordJava':
