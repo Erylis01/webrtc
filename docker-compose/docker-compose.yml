@@ -28,4 +28,4 @@ angular-webpage:
   volumes:
     - ./conf:/conf/
     volumes_from :
-    -kms6
+    - kms6
