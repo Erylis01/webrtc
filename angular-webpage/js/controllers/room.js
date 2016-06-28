@@ -236,14 +236,16 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     	
     $scope.record = {
         recording: false,
-        functionToCall: recordJS(),
         text: 'Record',
         change: function() {
             notifications.notify(request.name + ' is recording the meeting !', 'account-plus');
-            this.functionToCall;
+            if (!recording){
+                recordJS();
+            } else {
+                stopRecordJS();
+            };
             this.recording = !this.recording;
-            this.text = (this.recording) ? 'Stop record' : 'Record'; 
-            this.functionToCall = (this.recording) ? recordJS() : stopRecordJS() ;
+            this.text = (this.recording) ? 'Stop record' : 'Record';  ;
             updateScope();
         }
     };
