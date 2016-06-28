@@ -1,14 +1,16 @@
 version '2'
 services:
 	kms6:
-  		build: ./kms6
+  		build:
+  			context: ./kms6
   		restart: always
   		net: "host"
   		container_name: kms6
   		volumes:
     		- ./conf/WebRtcEndpoint.conf.ini:/etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
 	kurento-agent:
-  		build: ./kurento-agent
+  		build:
+  			context: ./kurento-agent
   		restart: always
   		container_name: kurento-agent
   		net: "host"
@@ -17,12 +19,14 @@ services:
   		volumes_from:
     		- kms6
 	upload-speed-tester:
- 		 build: ./upload-speed-tester
+ 		 build:
+ 		 	context: ./upload-speed-tester
   		restart: always
   		net: "host"
   		container_name: upload-speed-tester
 	angular-webpage:
-  		build: ./angular-webpage
+  		build:
+  			context: ./angular-webpage
   		restart: always
   		net: "host"
   		container_name: angular-webpage
