@@ -1,5 +1,4 @@
 version: '2'
-
 services:
 	kms6:
 		build: ./kms6
