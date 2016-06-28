@@ -1,7 +1,7 @@
 version: '2'
 services:
 	kms6:
-		build: ./kms6
+		build: .
 		restart: always
 		net: "host"
 		container_name: kms6
