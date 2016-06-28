@@ -238,8 +238,9 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         recording: false,
         text: 'Record',
         change: function() {
-            notifications.notify( $params.roomName + ' is recording the meeting !', 'account-plus');
-            if (!recording){
+            console.log("Clic has been seen");
+            notifications.notify( $params.roomName + ' is being recorded !', 'account-plus');
+            if (!this.recording){
                 recordJS();
             } else {
                 stopRecordJS();
