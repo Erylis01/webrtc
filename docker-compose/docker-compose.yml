@@ -5,6 +5,7 @@ kms6:
   container_name: kms6
   volumes:
     - ./conf/WebRtcEndpoint.conf.ini:/etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
+    - ./record:/record
 kurento-agent:
   build: ./kurento-agent
   restart: always
@@ -26,5 +27,5 @@ angular-webpage:
   container_name: angular-webpage
   volumes:
     - ./conf:/conf/
-    volumes_from :
+  volumes_from :
     - kms6
