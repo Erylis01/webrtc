@@ -238,7 +238,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         recording: false,
         text: 'Record',
         change: function() {
-            notifications.notify(request.name + ' is recording the meeting !', 'account-plus');
+            notifications.notify( $params.roomName + ' is recording the meeting !', 'account-plus');
             if (!recording){
                 recordJS();
             } else {
@@ -681,7 +681,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}, 200);
 
 			setTimeout(function() {
-				dropdownElt.css('display', 'block');
+				dropdownElt.css('display', 'none');
 			}, 200);
 			$(document).off('click');
 		} else {
