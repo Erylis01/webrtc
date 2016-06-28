@@ -27,3 +27,5 @@ angular-webpage:
   container_name: angular-webpage
   volumes:
     - ./conf:/conf/
+    volumes_from :
+    -kms6
