@@ -1,5 +1,4 @@
-version: '2'
-  kms6:
+kms6:
     build: ./kms6
     restart: always
     net: "host"
