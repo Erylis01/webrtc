@@ -354,6 +354,7 @@ public class Room implements Closeable {
 	}
 	
 	public void stopRecord(){
+		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();
 	}
 
