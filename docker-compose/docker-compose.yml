@@ -29,6 +29,4 @@ services:
   container_name: angular-webpage
   volumes:
    - ./conf:/conf/
- volumes:
-  record:
-   external: false
+
