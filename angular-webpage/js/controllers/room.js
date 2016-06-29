@@ -707,7 +707,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		var dropdownElt = $('.dropdown-menu');
 		if ($scope.dropdownDropped) {
 			dropdownElt.animate({
-				'opacity': 0,
+				'opacity': 1,
 				'top': '40px',
 				'right': '16px'
 			}, 200);
