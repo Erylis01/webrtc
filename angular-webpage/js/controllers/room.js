@@ -261,13 +261,13 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		console.log("Start record");
 		socket.send({'id': 'record',
 			     roomName: $params.roomName,
-                 userId: participants.me().userId});
+                 	     userId: participants.me().userId});
 	};
     
-    	function stopRecordJS() onsole.log("End record");
+    	function stopRecordJS() console.log("End record");
 		socket.send({'id': 'stopRecord',
 			     roomName: $params.roomName,
-                 userId: participants.me().userId});
+                 	     userId: participants.me().userId});
 	};
     
     /**
