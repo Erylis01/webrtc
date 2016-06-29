@@ -460,7 +460,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     
     function recordJava (request) {
         if (!(request.userJava === participants.me().userId)) {
-            record.change();
+            $scope.record.change();
             notifications.notify("A record of room " + request.roomJava + " has been started by " + request.userJava, 'account-plus');
         } else {
             notifications.notify("You started a recording", 'account-plus');
@@ -469,7 +469,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
     function stopRecordJava (request) {
         if (!(request.userJava === participants.me().userId)) {
-            record.change();
+            $scope.record.change();
             notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.userJava, 'account-plus');
         } else {
             notifications.notify("You stopped a recording", 'account-plus');
