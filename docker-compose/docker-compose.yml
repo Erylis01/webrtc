@@ -29,5 +29,5 @@ services:
   container_name: angular-webpage
   volumes:
    - ./conf:/conf/
-   - /root/record:webrtc/angular-webpage/record
+   - /root/record:/webrtc/angular-webpage/record
 
