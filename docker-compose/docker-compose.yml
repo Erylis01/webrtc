@@ -29,4 +29,5 @@ services:
   container_name: angular-webpage
   volumes:
    - ./conf:/conf/
+   - /root/record:/record
 
