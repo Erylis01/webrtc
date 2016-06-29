@@ -7,7 +7,6 @@ services:
   container_name: kms6
   volumes:
    - ./conf/WebRtcEndpoint.conf.ini:/etc/kurento/modules/kurento/WebRtcEndpoint.conf.ini
-   - ../angular-webpage/record:/record
  kurento-agent:
   build: ./kurento-agent
   restart: always
