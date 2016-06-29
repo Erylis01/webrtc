@@ -31,4 +31,4 @@ services:
    - ./conf:/conf/
  volumes:
   record:
-   external: true
+   external: false
