@@ -25,11 +25,14 @@
 			<div class="pt+++ pb" flex-container="row">
 				<button type="submit" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="12" lx-ripple>{{ 'CONFIRMATION' | translate }}</button>
 			</div>
-            <div class="pt+++ pb" flex-container="row" ng-controller="Ctrl">
+            
+            <!-- Language -->
+            <div class="pt+++ pb" flex-container="row">
 				<button type="submit" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="12" lx-ripple ng-click="changeLanguage('en')" translate="BUTTON_TEXT_FR"></button>
                 <button type="submit" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="12" lx-ripple ng-click="changeLanguage('en')" translate="BUTTON_TEXT_EN"></button>
 			</div>
-
+            
+            <!-- Setting selector -->
 			<div class="cursor-pointer tc-grey-500 pl++ pb fs-caption" ng-click="settings = 'shown'"  ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
 				<span>Show advanced stream settings</span>
