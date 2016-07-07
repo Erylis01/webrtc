@@ -93,7 +93,3 @@ function createGuid() {
 		return v.toString(16);
 	});
 }
-
-function($translate, $scope) {
-  $scope.changeLanguage = function (langKey) {
-    $translate.use(langKey);
