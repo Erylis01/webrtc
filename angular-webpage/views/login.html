@@ -5,7 +5,7 @@
 		<span class="fs-headline display-block text-center tc-blue-grey-500">WebRTC Video Conference</span>
 
 		<div class="text-center fs-body-1 card p+ mt++ mb+ bgc-blue-grey-100 tc-grey-800" ng-show="isIncompatible()">
-			<p>Your browser may not support WebRTC yet. Please use Mozilla Firefox, Google Chrome or Opera instead.</p>
+			<p>{{ 'WARNING_BROWSER' | translate }}</p>
 		</div>
 
 		<form ng-submit="join(participant)">
@@ -23,7 +23,7 @@
 
 			<!-- Join -->
 			<div class="pt+++ pb" flex-container="row">
-				<button type="submit" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="12" lx-ripple>Join!</button>
+				<button type="submit" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="12" lx-ripple>{{ 'CONFIRMATION' | translate }}</button>
 			</div>
 
 			<div class="cursor-pointer tc-grey-500 pl++ pb fs-caption" ng-click="settings = 'shown'"  ng-hide="settings == 'shown'">
