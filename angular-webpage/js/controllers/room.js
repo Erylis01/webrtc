@@ -1,8 +1,26 @@
+/**
+* Javascript controller of a room. Most of the function related to functionnalities were here. Please see the * factory documentation for non-native objects.
+* @constructor
+* @param {function} $scope - Enable to focus a component. See Angular doc for further informations
+* @param {string} $location - Set the current path (to complete)
+* @param {object} $window - Enable the controller to access to the browser window
+* @param {String{} $params - Contain the main parameters of the room such as RoomName
+* @param {object} $timeout - Enable to set a timeout related to a function such as the dropdown animation
+* @param {Websocket} socket - The Websocket used to communicate with Kurento server with AJAX message
+* @param {Constraints} constraints - Contain the parameters relative to media and browser
+* @param {object} notifications - Object containing required functionnalities to use notifications
+* @param {object} progress - Native object in charge of the loading circle
+* @param {Participant{}} - Dictionnary of pthe current participant 
+*/
 function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constraints, notifications, progress, participants) {
 
+    /**
+    *Room initialisation
+    */
+    
 	if (participants.isEmpty())
 		$location.path('/');
-
+    
 	socket.roomReady();
 
 	$scope.roomName = $params.roomName;
@@ -33,7 +51,16 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	};
 
 	$scope.participantNames = [];
-
+    
+    /**
+    *End of initialisation
+    */
+    
+    
+    /**
+    * The main function of this controller, every message received by the websocket was retrieved by this function and * the forsighten one is called.
+    * @function 
+    */
 	socket.get().onmessage = function(message) {
 
 		var parsedMessage = JSON.parse(message.data);
@@ -126,7 +153,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				console.log('Unrecognized message', parsedMessage);
 		}
 	};
-
+    
+    // Security function : insure that the participant will be destroyed if modifies the URL
 	$scope.$on('$locationChangeStart', function(event) {
 		leave();
 	});
@@ -147,7 +175,13 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}
 		});
 	}
-
+    
+    
+    /**
+    *Start of screensharing bloc 
+    */
+    
+    //Stop the presentation since the button is clicked
 	$scope.stopPresenting = function() {
 
 		var participant = participants.me();
@@ -161,7 +195,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		constraints.setType('composite');
 		socket.send({ id: 'stopPresenting' });
 	};
-
+    
+    //Launch a screensharing meeting. HAD TO BE FINISHED
 	$scope.share = function(type) {
 
 		var currentType = constraints.getType();
@@ -213,13 +248,19 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}
 		}
 	};
-
+    
+    //Check the ability of browser to perform a screensharing meeting
 	$scope.canPresent = function(browser) {
 
 		return (constraints.canPresent && browser == constraints.browser);
 
 	};
 
+    /**
+    * ENd of screencharing blog
+    */
+    
+    //Send the message to start a VOIP calling
 	$scope.invite = function(number) {
 		socket.send({
 			id: 'invite',
@@ -227,21 +268,30 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		});
 	};
 
+    //When user click on leave button, call the function to kill his account
 	$scope.leave = function() {
 		leave();
 		$location.path('/');
 	};
 
+    
+    //Delete the user from the room
 	function leave() {
 		socket.send({ id: 'leaveRoom' });
 		constraints.setType('composite');
 		participants.clear();
 	}
     
+    //Print the error log on the console
     function onError(error) {
         if(error) console.log(error);
     }
     	
+     /**
+    *Recording bloc
+    */
+
+    //Function dedicated to the control of the recording state
     $scope.record = {
         recording: false,
         text: 'Record',
@@ -262,6 +312,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         }
     };
     
+    //Send the message to start the record using the websocket
     function recordJS() {
 		console.log("Start record");
 		socket.send({'id': 'record',
@@ -269,48 +320,28 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                  	     userId: participants.me().userId});
 	};
     
-    	function stopRecordJS() {
-    		console.log("End record");
+    //Send the message to stop the record using the websocket
+	function stopRecordJS() {
+		console.log("End record");
 		socket.send({'id': 'stopRecord',
 			     roomName: $params.roomName,
                  	     userId: participants.me().userId});
-	};
-    
+	};  
+                                                    
+                                                          
     /**
-    *Recording bloc
-    
-    
-    	$scope.record = function() {
-    		record();
-    	}
-    	
-	function record() {
-		console.log("Start record");
-		socket.send({'id': 'record',
-			     roomName: $params.roomName});
-	}
-
-	$scope.stopRecord = function() {
-    		stopRecord();
-    	}
-    	
-	function stopRecord() {
-		console.log("End record");
-		socket.send({'id': 'stopRecord',
-			     roomName: $params.roomName});
-	}
-                                                          
-                                                          
-    
     *End of recording bloc
     */
                                                           
-                                                        
+    /**
+    * Start of media selection block
+    */
+    
 	$scope.$on('$destroy', function() {
 		constraints.setType('composite');
 		participants.clear();
 	});
-
+    
 	function renewConstraints(compositeOptions) {
 		var participant = participants.me();
 		participant.disposeType('composite');
@@ -319,18 +350,29 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		sendStream({}, 'composite');
 	}
 
+    //No user media
 	$scope.watchOnly = function() {
 		renewConstraints('watchOnly');
 	};
 
+    //Only user micro
 	$scope.microOnly = function() {
 		renewConstraints('audioOnly');
 	};
 
+    //User webcam and micro
 	$scope.allTracks = function() {
 		renewConstraints('normal');
 	};
 
+    /**
+    * End of media selection bloc
+    */
+    
+    /**
+    * Start of the flow bloc
+    */
+    
 	function receiveVideo(userId, sender, isScreensharer) {
 
 		if (participants.get(userId) === undefined)
@@ -430,7 +472,12 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		}
 
 	}
-
+    
+    /**
+    * End od the flow bloc
+    */
+    
+    //Function used at the beggining of a presentation
 	function onPresenterReady(message) {
 
 		enablePresentationClass();
@@ -440,6 +487,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		}
 	}
 
+    //Function used at the end of a presentation
 	function cancelPresentation(message) {
 
 		console.log("Cancelling Presentation");
@@ -451,7 +499,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				participants.get(message.userId).rtcPeer['presentation'].dispose();
 		}
 	}
-
+    
+    //Update participant list and print a message when someone join the room
 	function onNewParticipant(request) {
 
 		participants.add(request.userId, request.name);
@@ -464,6 +513,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 	}
     
+    //Inform all users that a record has begin
     function recordJava (request) {
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
@@ -473,6 +523,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         }
     }
 
+    //Inform all users that a record has been closed
     function stopRecordJava (request) {
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
@@ -482,6 +533,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         }
     }
 
+    //Update participant list and print a message when someone leave the room
 	function onParticipantLeft(request) {
 
 		console.log('Participant ' + request.name + ' left');
@@ -502,6 +554,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		updateScope();
 	}
 
+    //Analyze the result of the video demand
 	function receiveVideoResponse(result) {
 
 		participants.get(result.userId).rtcPeer[result.type].processAnswer(result.sdpAnswer, function(error) {
@@ -516,7 +569,9 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		updateScope();
 	}
 
-	// CSS part
+	/**
+    * Start of the CSS bloc.
+    */
 	angular.element(document).ready(function () {
 		adaptCompositeContainer();
 
@@ -745,4 +800,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			$scope.$apply();
 		});
 	}
+    /**
+    *End of the CSS bloc
+    */
 }
