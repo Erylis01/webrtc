@@ -26,6 +26,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
+ * The Kurento room manager represents an SDK for any developer that wants to
+ * implement the Room server-side application. They can build their application
+ * on top of the manager's Java API and implement their desired business logic
+ * without having to consider room or media-specific details. The application is
+ * in control of notifying any remote parties with the outcome of executing the
+ * requested actions.
+ * 
  * @author Ivan Gracia (izanmail@gmail.com)
  * @since 4.3.1
  */
@@ -35,18 +42,22 @@ public class RoomManager {
 
 	@Autowired
 	private KurentoClient kurento;
-	
+
 	@Autowired
 	private SipHandler sipHandler;
-	
+
 	@Autowired
 	private LineRegistry sipRegistry;
 
 	private final ConcurrentMap<String, Room> rooms = new ConcurrentHashMap<>();
 
 	/**
+	 * Return a currently active Room via its identifier. If the room does not
+	 * exist, it is create and return.
+	 * 
 	 * @param roomName
-	 *            the name of the room
+	 *            = name or identifier of the room
+	 *
 	 * @return the room if it was already created, or a new one if it is the
 	 *         first time this room is accessed
 	 */
@@ -64,11 +75,21 @@ public class RoomManager {
 			}
 			rooms.put(roomName, room);
 		}
-		
+
 		log.debug("Room {} found!", roomName);
 		return room;
 	}
-	
+
+	/**
+	 * 
+	 * Return a currently active Room via its identifier. If the room does not
+	 * exist and the boolean true, it is create and return.
+	 * 
+	 * @param roomName = name or identifier of the room
+	 * @param create = boolean for creating a room
+	 * @return the room if it was already created, or a new one if it is the
+	 *         first time this room is accessed and the boolean is true
+	 */
 	public Room getRoom(String roomName, boolean create) {
 		log.debug("Searching for room {}", roomName);
 		Room room = rooms.get(roomName);
@@ -83,10 +104,10 @@ public class RoomManager {
 			}
 			rooms.put(roomName, room);
 		}
-		
+
 		if (room != null)
 			log.debug("Room {} found!", roomName);
-		
+
 		return room;
 	}
 
@@ -99,16 +120,16 @@ public class RoomManager {
 	public void removeRoom(Room room) {
 		if (room != null) {
 			this.rooms.remove(room.getName());
-			
+
 			room.getCompositePipeline().release();
 			room.getPresentationPipeline().release();
-			
+
 			if (room.getLine() != null) {
 				sipRegistry.pushLine(room.getLine());
 			}
-			
+
 			room.close();
-			
+
 			log.info("Room {} removed and closed", room.getName());
 		}
 	}
