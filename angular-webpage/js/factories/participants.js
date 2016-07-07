@@ -1,3 +1,8 @@
+/**
+* Describe the object : attributes and
+* methods of the partipant object.
+* @class
+*/
 app.factory('participants', ['socket', function(socket) {
 
 	var participants = {};
@@ -5,7 +10,21 @@ app.factory('participants', ['socket', function(socket) {
 	var name = null;
 
 	function add(userId, n) {
-
+        
+        /**
+        * Model for a participant and related function to build it
+        * @constructs
+        * @typedef {String} UserID - unique identifier for the user
+        * @typedef {String} Name - Name chossen by the used
+        * @typedef {function{}} rtcPeer - Set the function composite and presentation to null
+        * @typedef {function} offer - Function that allow user to send its signal
+        * @typedef {function} offerToReceive - Describe composite and presentation in this case
+        * @typedef {function} iceCanddate - Function that allow user to send its ICE request
+        * @typedef {function} onIceCandidate - Describe composite and presentation in this case
+        * @typedef {function} disposeType - Dispose the rtcPeer status
+        * @typedef {function} dispose - Dispose the current compositie and presentation function
+        * @typedef {function} getIceCandidate - Retrieve the ice composite and presentation function
+        */ 
 		var participant = {
 			userId: userId,
 			name: n,
@@ -97,23 +116,42 @@ app.factory('participants', ['socket', function(socket) {
 			name = n;
 		}
 	}
-
+    
+    /**
+    * @function get() - userId getter
+    * @param String - userId
+    * @return String - userId
+    */
 	function get(userId) {
 		return participants[userId];
 	}
-
+    /**
+    * @function remove() - userId removal
+    * @param String - userId
+    */
 	function remove(userId) {
 		delete participants[userId];
 	}
 
+    /**
+    * @function me() - Retrieve the object that represente the paticipant who invoke it
+    * @return Particpant - participant
+    */
 	function me() {
 		return participants[id];
 	}
-
+    
+    /**
+    * @function isEmpty() - Check if the participants tab is empty
+    * @return booleam - isEmpty
+    */
 	function isEmpty() {
 		return _.isEmpty(participants);
 	}
 
+    /**
+    * @function clear() - Deete the participant who invoek it 
+    */
 	function clear() {
 		for (var key in participants) {
 			if (participants[key] !== undefined)

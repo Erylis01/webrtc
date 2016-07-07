@@ -25,10 +25,6 @@
 		<script src="bower_components/ng-device-detector/ng-device-detector.min.js"></script>
 		<script src="bower_components/webrtc-adapter/adapter.js"></script>
 		<script src="js/kurento-utils.min.js"></script>
-        	<script src="js/require.js"></script>
-        	<script src="js/kurentoClient.js"></script>
-        	<script src="js/angular2-polyfill.js"></script>
-        	<script src="js/es6-promise.js"></script>
         
 		<!-- Controllers -->
 		<script src="js/controllers/user.js"></script>
