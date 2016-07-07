@@ -78,7 +78,6 @@ public class Room implements Closeable {
 
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
-		// this.composite = new Composite.Builder(compositePipeline).build();
 		this.composite = new Composite.Builder(getCompositePipeline()).build();
 
 		log.info("ROOM {} has been created", roomName);
@@ -89,6 +88,18 @@ public class Room implements Closeable {
 		this.close();
 	}
 
+	/**
+	 * Represents a client's request to join a room. The room must exist in
+	 * order to perform the join.
+	 * 
+	 * @param userID
+	 *            - name or identifier of the user in the room. Will be used to
+	 *            identify her WebRTC media peer (from the client-side).
+	 * @param session - conversation between two web socket endpoints
+	 * @param sessionClass - ???
+	 * 
+	 * @return an existing peers of type Participant, can be empty if first
+	 */
 	public Participant join(String userId, WebSocketSession session, Class<? extends Participant> sessionClass) {
 		log.info("ROOM {}: adding participant {}", name, userId);
 
@@ -111,11 +122,22 @@ public class Room implements Closeable {
 		return participant;
 	}
 
+	/**
+	 * Add to a set of participant a Participant
+	 *  
+	 * @param participant - instance of Participant
+	 */
 	public void add(Participant participant) {
 		if (participant != null)
 			participants.put(participant.getId(), participant);
 	}
 
+	/**
+	 * Allows a participant to leave a room 
+	 * 
+	 * @param user - The participant
+	 * @throws IOException - on error leaving the room
+	 */
 	public void leave(Participant user) throws IOException {
 
 		log.debug("PARTICIPANT {}: Leaving room {}", user.getName(), this.name);
@@ -126,9 +148,14 @@ public class Room implements Closeable {
 		}
 
 		user.close();
-
 	}
 
+	/**
+	 * Allows a participant to leave a room via its identifier.  
+	 * 
+	 * @param userId - Identifier of a participant
+	 * @throws IOException - on error leaving the room
+	 */
 	public void leave(String userId) throws IOException {
 		Participant user = participants.get(userId);
 
@@ -136,6 +163,11 @@ public class Room implements Closeable {
 			leave(user);
 	}
 
+	/**
+	 * Allows a participant to join a room. 
+	 * 
+	 * @param newParticipant - Instance of Participant
+	 */
 	public void joinRoom(Participant newParticipant) {
 		final JsonObject newParticipantMsg = new JsonObject();
 		newParticipantMsg.addProperty("id", "newParticipantArrived");
@@ -144,6 +176,12 @@ public class Room implements Closeable {
 		broadcast(newParticipantMsg, newParticipant);
 	}
 
+	/**
+	 * Send a Json message to a the participants of a room
+	 * 
+	 * @param message - Instance of JsonObject
+	 * @param exception - ???
+	 */
 	private void broadcast(JsonObject message, Participant exception) {
 
 		for (final Participant participant : participants.values()) {
@@ -160,10 +198,21 @@ public class Room implements Closeable {
 		}
 	}
 
+	/**
+	 * Send a Json message to all the participants of a room
+	 * 
+	 * @param message - Instance of JsonObject
+	 */
 	public void broadcast(JsonObject message) {
 		broadcast(message, null);
 	}
 
+	/**
+	 *  Remove a participant of the room and notify every members of this room.
+	 *  
+	 * @param participant - Instance of Participant
+	 * @throws IOException - if the participant does not exist
+	 */
 	private void removeParticipant(Participant participant) throws IOException {
 		participants.remove(participant.getId());
 
@@ -196,6 +245,7 @@ public class Room implements Closeable {
 
 	}
 
+	
 	public void cancelPresentation() throws IOException {
 		if (screensharer != null) {
 			final JsonObject cancelPresentationMsg = new JsonObject();
@@ -350,10 +400,10 @@ public class Room implements Closeable {
 				"file:///record/" + getName() + ".mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
 		this.hubPort.connect(this.recorderEndpoint);
 		this.recorderEndpoint.record();
-		
+
 	}
-	
-	public void stopRecord(){
+
+	public void stopRecord() {
 		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();
 	}

@@ -48,7 +48,15 @@ public abstract class Participant implements Closeable {
 	// Record
 	private PassThrough passThru;
 
-
+/**
+ * 
+ * @param id
+ * @param roomName
+ * @param session
+ * @param compositePipeline
+ * @param presentationPipeline
+ * @param hub
+ */
 	public Participant(final String id, String roomName, final WebSocketSession session,
 			MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
 
