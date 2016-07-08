@@ -76,7 +76,7 @@ app.config(['$translateProvider',function($translateProvider) {
         });  
     
     
-        $translateProvider.determinePreferredLanguage();
+        $translateProvider.preferredLanguage('en');
             }]);
 
 
