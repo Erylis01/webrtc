@@ -28,18 +28,18 @@
 
 				<lx-dropdown-menu ng-hide="presentation.disabled.general">
 					<ul>
-						<li><a class="dropdown-link dropdown-link--is-header">Give a presentation</a></li>
+						<li><a class="dropdown-link dropdown-link--is-header">{{ 'PRESENTATION' | translate }}</a></li>
 						
 						<li ng-hide="presentation.disabled.screen">
 							<a class="dropdown-link" ng-click="share('screen')">
 								<i class="mdi mdi-laptop"></i>
-								<span>Screenshare</span>
+								<span>{{ 'SCREENSHARE' | translate }}</span>
 							</a>
 						</li>
 						<li ng-hide="presentation.disabled.window">
 							<a class="dropdown-link" ng-click="share('window')">
 								<i class="mdi mdi-window-restore"></i>
-								<span>Window share</span>
+								<span>{{ 'WINDOW_SHARE' | translate }}</span>
 							</a>
 						</li>
 					</ul>
@@ -60,19 +60,19 @@
 					<!-- Watch / Micro / Video + webcam -->
 					<ul>
 						<li>
-							<a class="dropdown-link dropdown-link--is-header">Stream settings</a>
+							<a class="dropdown-link dropdown-link--is-header">{{ 'STREAM_SETTING' | translate }}</a>
 						</li>
 
 						<li>
 							<a class="dropdown-link" ng-click="watchOnly();toggleDropdown()">
 								<i class="mdi mdi-eye"></i>
-								<span>Watch only</span>
+								<span>{{ 'END_USER_MEDIA' | translate }}</span>
 							</a>
 						</li>
 						<li>
 							<a class="dropdown-link" ng-click="microOnly();toggleDropdown()">
 								<i class="mdi mdi-microphone"></i>
-								<span>Microphone only</span>
+								<span>{{ 'MICRO_ONLY' | translate }}</span>
 							</a>
 						</li>
 						<li>
@@ -85,7 +85,7 @@
 						<li class="dropdown-divider"></li>
 
 						<!-- Recording -->
-						<li><a class="dropdown-link dropdown-link--is-header">Misc.</a></li>
+						<li><a class="dropdown-link dropdown-link--is-header">{{ 'FUNCTIONNALITIES' | translate }}</a></li>
                         
                         
                         <li>
@@ -98,7 +98,7 @@
                         <li>
                             <a class="dropdown-link" href="/record/{{ roomName }}.mp4" download="1.mp4" target="_blank">
                                 <i class="mdi mdi-download"></i>
-                                <span>Download</span>
+                                <span>{{ 'DOWNLOAD' | translate }}</span>
                             </a>
                         </li>
                         
@@ -119,7 +119,7 @@
 						<li class="dropdown-divider"></li> -->
 
 						<!-- Mute / unmute -->
-						<li><a class="dropdown-link dropdown-link--is-header">Conference volume</a></li>
+						<li><a class="dropdown-link dropdown-link--is-header">{{ 'VOLUME' | translate }}</a></li>
 
 						<li>
 							<a class="dropdown-link" ng-click="volume.change()">
@@ -133,7 +133,7 @@
 						<li class="widescreen-hide">
 							<a class="dropdown-link" ng-click="leave()">
 								<i class="mdi mdi-exit-to-app"></i>
-								<span>Leave room</span>
+								<span>{{ 'LEAVE' | translate }}</span>
 							</a>
 						</li>
 					</ul>
@@ -156,7 +156,7 @@
 					</div>
 
 					<div class="list-row__content">
-						<span class="display-block fs-subhead tc-black-2">Name: {{ roomName }}</span>
+						<span class="display-block fs-subhead tc-black-2">{{ 'NAME' | translate }}: {{ roomName }}</span>
 					</div>
 				</li>
 
@@ -174,7 +174,7 @@
 
         <!-- Participant list -->
 		<div class="divider divider--dark"></div>
-		<span class="fs-subhead display-block p+ bgc-grey-200">Online users</span>
+		<span class="fs-subhead display-block p+ bgc-grey-200">{{ 'ONLINE_USERS' | translate }}</span>
         <div class="divider divider--dark"></div>
 		<ul class="list mt mb participants">
 			<li class="list-row" ng-repeat="participant in participantNames track by $index">

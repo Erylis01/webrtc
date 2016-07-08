@@ -29,8 +29,19 @@ app.config(['$translateProvider',function($translateProvider) {
             'HIDE_SETTINGS':'Hide advanced stream settings',
             'MICRO_ONLY':'Microphone only',
             'END_USER_MEDIA':'Watch only',
-            BUTTON_TEXT_EN: 'english',
-            BUTTON_TEXT_FR: 'français'              
+            'STREAM_SETTING':'Stream settings',
+            'FUNCTIONNALITIES':'Func.',
+            'DOWNLOAD':'Download',
+            'VOLUME':'Conference volume',
+            'LEAVE':'Leave room',
+            'ONLINE_USERS':'Online users',
+            'PRESENTATION':'Give a presentation',
+            'SCREENSHARE':'Screenshare',
+            'WINDOW_SHARE':'Window share',
+            'RECORD':'Record',
+            'STOP_RECORD':'Stop record',
+            BUTTON_TEXT_EN: 'English',
+            BUTTON_TEXT_FR: 'French'              
         });    
         
     
@@ -43,10 +54,21 @@ app.config(['$translateProvider',function($translateProvider) {
             'SHOW_SETTINGS':'Afficher les réglages avancés',
             'HIDE_SETTINGS':'Cacher les réglages avancés',
             'MICRO_ONLY':'Microphone seulement',
-            'END_USER_MEDIA':'Desactiver microphone et caméra',
+            'END_USER_MEDIA':'Regarder seulement',
             'CONFIRMATION':'Entrez !',
-            BUTTON_TEXT_EN: 'english',
-            BUTTON_TEXT_FR: 'français'
+            'STREAM_SETTING':'Réglages',
+            'FUNCTIONNALITIES':'Options',
+            'DOWNLOAD':'Télécharger',
+            'VOLUME':'Audio',
+            'LEAVE':'Quitter la salle',
+            'ONLINE_USERS':'Utilisateurs en ligne',
+            'PRESENTATION':'Faire une présentation',
+            'SCREENSHARE':'Partage d\écran',
+            'WINDOW_SHARE':'Partage de fenêtre',
+            'RECORD':'Enregistrer',
+            'STOP_RECORD':'Arrêter l\'enregistrement',
+            BUTTON_TEXT_EN: 'Anglais',
+            BUTTON_TEXT_FR: 'Français'
         });  
     
     
