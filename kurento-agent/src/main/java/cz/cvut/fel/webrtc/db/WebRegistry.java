@@ -55,4 +55,8 @@ public class WebRegistry {
 		return user;
 	}
 
+	public WebUser getUser(String keyID){
+		return users.get(keyID);
+	}
+
 }

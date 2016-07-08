@@ -18,7 +18,6 @@ import cz.cvut.fel.webrtc.resources.WebUser;
 
 public class WebRegistryTest {
 	
-	@Mock WebSocketSession session;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -42,13 +41,13 @@ public class WebRegistryTest {
 		WebRegistry wr = new WebRegistry();
 		WebUser user = Mockito.mock(WebUser.class);
 		WebSocketSession session= Mockito.mock(WebSocketSession.class);
+		ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
+		users.put("sessionId", user);
 		user.setSession(session);
 		Mockito.when(user.getSession()).thenReturn(session);
 		Mockito.when(session.getId()).thenReturn("sessionId");
-		System.out.println(user.getSession().getId());
 		wr.register(user);
-		System.out.println(wr.getAll());
-		assertEquals("Les valeurs sont identiques",users.get("sessionId"),user);
+		assertTrue("Les valeurs sont identiques",wr.getUser("sessionId").equals(users.get("sessionId")));
 	}
 
 
