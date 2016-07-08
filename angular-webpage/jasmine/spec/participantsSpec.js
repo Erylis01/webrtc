@@ -2,7 +2,10 @@
 
 describe("isEmpty", function() {
         it("verify is the room is empty", function() {
-            inject(fuction(participants));
-            expect(participants.isEmpty()).toBe(true);
+        var factory = null;
+        beforeEach(inject(function(panticipants) {
+        factory = participants;
+        };
+        expect(participants.isEmpty()).toBe(true);
         });       
 });
