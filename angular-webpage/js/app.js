@@ -3,7 +3,7 @@ var app = angular.module('app', ['ngRoute', 'ng.deviceDetector', 'lumx','pascalp
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'https://siptest1.feld.cvut.cz/views/login.html',
+			templateUrl: '/views/login.html',
 			controller: 'UserCtrl'
 		})
 		.when('/rooms/:roomName', {
