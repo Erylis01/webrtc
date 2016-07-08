@@ -747,10 +747,10 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	$scope.volume = {
 		muted: false,
 		icon: 'mdi-volume-high',
-		text: 'Mute',
+		text: 'MUTE',
 		change: function() {
 			this.muted = !this.muted;
-			this.text = (this.muted) ? 'Unmute' : 'Mute';
+			this.text = (this.muted) ? 'UNMUTE' : 'MUTE';
 			this.icon = (this.muted) ? 'mdi-volume-off' : 'mdi-volume-high';
 			$('#composite').prop('muted', this.muted);
 			updateScope();

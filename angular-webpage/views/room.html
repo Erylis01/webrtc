@@ -124,7 +124,7 @@
 						<li>
 							<a class="dropdown-link" ng-click="volume.change()">
 								<i class="mdi {{ volume.icon }}"></i>
-								<span>{{ volume.text }}</span>
+								<span>{{ volume.text | translate}}</span>
 							</a>
 						</li>
 
@@ -156,7 +156,7 @@
 					</div>
 
 					<div class="list-row__content">
-						<span class="display-block fs-subhead tc-black-2">{{ 'NAME' | translate }}: {{ roomName }}</span>
+						<span class="display-block fs-subhead tc-black-2">{{ 'ROOM' | translate }}: {{ roomName }}</span>
 					</div>
 				</li>
 
