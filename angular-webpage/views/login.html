@@ -13,13 +13,13 @@
 			<lx-text-field label="Name" error="!checked.name">
 				<input type="name" ng-model="participant.name">
 			</lx-text-field>
-			<span class="text-field-error" ng-if="!checked.name">Name can't be empty</span>
+			<span class="text-field-error" ng-if="!checked.name">{{ 'WARNING_NAME' | translate }}</span>
 
 			<!-- Room -->
 			<lx-text-field label="Room" error="!checked.room">
 				<input type="room" ng-model="participant.room">
 			</lx-text-field>
-			<span class="text-field-error" ng-if="!checked.room">Room can't be empty</span>
+			<span class="text-field-error" ng-if="!checked.room">{{ 'WARNING_ROOM' | translate }}</span>
 
 			<!-- Join -->
 			<div class="pt+++ pb" flex-container="row">
@@ -35,11 +35,11 @@
             <!-- Setting selector -->
 			<div class="cursor-pointer tc-grey-500 pl++ pb fs-caption" ng-click="settings = 'shown'"  ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
-				<span>Show advanced stream settings</span>
+				<span>{{ 'SHOW_SETTINGS' | translate }}</span>
 			</div>
 			<div class="cursor-pointer tc-grey-700 pl++ pb fs-caption" ng-click="settings = 'hidden'" ng-show="settings == 'shown'">
 				<span class="pr">&#9650;</span>
-				<span>Hide advanced stream settings</span>
+				<span>{{ 'HIDE_SETTINGS' | translate }}</span>
 			</div>
 
 			<!-- Advanced settings -->
@@ -51,12 +51,12 @@
 
 				<div class="radio-button">
 					<input type="radio" id="radio2" name="radio1" value="audioOnly" class="radio-button__input" ng-model="participant.compositeOptions">
-					<label for="radio2" class="radio-button__label">Microphone only</label>
+					<label for="radio2" class="radio-button__label">{{ 'MICRO_ONLY' | translate }}</label>
 				</div>
 
 				<div class="radio-button">
 					<input type="radio" id="radio3" name="radio1" value="watchOnly" class="radio-button__input" ng-model="participant.compositeOptions">
-					<label for="radio3" class="radio-button__label">Watch only</label>
+					<label for="radio3" class="radio-button__label">{{ 'END_USER_MEDIA' | translate }}</label>
 				</div>
 			</div>
 		</form>
