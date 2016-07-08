@@ -26,11 +26,13 @@ public class WebUser extends Participant {
 	private final MediaPipeline presentationPipeline;
 	private Calendar lastPing = Calendar.getInstance();
 
-	public WebUser(final String id, String roomName, final WebSocketSession session, MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
+	private WebSocketSession session;
+	
+	public WebUser(final String id, String roomName,WebSocketSession session, MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
 		super(id, roomName, session, compositePipeline, presentationPipeline, hub);
 
 		this.userId = id;
-
+		this.session=session;
 		this.compositePipeline = compositePipeline;
 
 		newOutgoingMedia();
@@ -260,4 +262,7 @@ public class WebUser extends Participant {
 		};
 	}
 
+	public void setSession (WebSocketSession session){
+		this.session=session;
+	}
 }
