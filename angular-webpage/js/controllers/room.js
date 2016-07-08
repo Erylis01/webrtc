@@ -294,7 +294,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     //Function dedicated to the control of the recording state
     $scope.record = {
         recording: false,
-        text: "'RECORD'",
+        text: "RECORD",
         change: function() {
             if (!this.recording){
                 recordJS();
@@ -302,12 +302,12 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                 stopRecordJS();
             };
             this.recording = !this.recording;
-            this.text = (this.recording) ? "'STOP_RECORD'" : "'RECORD'";
+            this.text = (this.recording) ? "STOP_RECORD" : "RECORD";
             updateScope();
         },
         update: function() {
             this.recording = !this.recording;
-            this.text = (this.recording) ? "'STOP_RECORD'" : "'RECORD'";
+            this.text = (this.recording) ? "STOP_RECORD" : "RECORD";
             updateScope();
         }
     };
