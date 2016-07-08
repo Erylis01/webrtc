@@ -49,13 +49,13 @@ public abstract class Participant implements Closeable {
 	private PassThrough passThru;
 
 /**
- * 
- * @param id
- * @param roomName
- * @param session
- * @param compositePipeline
- * @param presentationPipeline
- * @param hub
+ * constructor of the class participant
+ * @param id					 iditifier of the participant
+ * @param roomName				 The room to which the user is currently attending
+ * @param session				 the link betwenn internet and the participant
+ * @param compositePipeline		 ??
+ * @param presentationPipeline   ??
+ * @param hub					 this is where all the participant of the room connect themself
  */
 	public Participant(final String id, String roomName, final WebSocketSession session,
 			MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
@@ -72,12 +72,15 @@ public abstract class Participant implements Closeable {
 	}
 
 	/**
-	 * @return the name
+	 * @return the name the participant choose
 	 */
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * change the name of the participant
+	 * @param name 			new name of the participant
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -97,7 +100,11 @@ public abstract class Participant implements Closeable {
 	public String getRoomName() {
 		return this.roomName;
 	}
-
+	/**
+	 * send the message to the participants of the room
+	 * 
+	 * @return The room
+	 */
 	public void sendMessage(JsonObject message) throws IOException {
 		log.debug("USER {}: Sending message {}", name, message);
 		synchronized (session) {
@@ -140,22 +147,37 @@ public abstract class Participant implements Closeable {
 
 	@Override
 	public abstract void close() throws IOException;
-
+	/**
+	 * creation of a link between the participant and the hub
+	 * 
+	 * 
+	 */
 	private void newHubPort() {
 		if (hubPort == null)
 			this.hubPort = new HubPort.Builder(hub).build();
 	}
-
+	/**
+	 * destruction of the link between the participant and the hub
+	 * 
+	 * 
+	 */
 	protected void releaseHubPort() {
 		hubPort.release();
 		hubPort = null;
 	}
-
+	/**
+	 * creation of a link between the participant and the current preferred hub
+	 * 
+	 * 
+	 */
 	protected void renewHubPort() {
 		releaseHubPort();
 		newHubPort();
 	}
-
+	/**
+	 * 	  
+	 * @return the id of the participant
+	 */
 	public String getId() {
 		return id;
 	}
