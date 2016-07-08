@@ -4,38 +4,32 @@ import static org.junit.Assert.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.socket.WebSocketSession;
 
 import cz.cvut.fel.webrtc.resources.WebUser;
 
+/**
+ * This class allows to test every methods of WebRegistry
+ * 
+ * @author Pierre Coquerel
+ *
+ */
 public class WebRegistryTest {
 	
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
 
+	/**
+	 *  Test of the method {@link cz.cvut.fel.webrtc.db.WebRegistry#Register(WebUser)}
+	 */
 	@Test
 	public void testRegister() {
 		WebRegistry wr = new WebRegistry();
@@ -50,7 +44,9 @@ public class WebRegistryTest {
 		assertTrue("Les valeurs sont identiques",wr.getUser("sessionId").equals(users.get("sessionId")));
 	}
 
-
+	/**
+	 *  Test of the method {@link cz.cvut.fel.webrtc.db.WebRegistry#GetBySession(WebSocketSession)}
+	 */
 	@Test
 	public void testGetBySession() {
 		WebRegistry wr = new WebRegistry();
@@ -61,7 +57,10 @@ public class WebRegistryTest {
 		wr.register(user);
 		assertTrue("Les valeurs sont identiques", wr.getBySession(session).equals(user));
 	}
-
+	
+	/**
+	 *  Test of the method {@link cz.cvut.fel.webrtc.db.WebRegistry#RemoveBySession(WebSocketSession)}
+	 */
 	@Test
 	public void testRemoveBySession() {
 		WebRegistry wr = new WebRegistry();
@@ -78,7 +77,7 @@ public class WebRegistryTest {
 		wr.removeBySession(sessiona);
 		
 		// Test taille de la liste :
-		assertEquals(1,wr.getAll().size());
+		assertEquals("La ",1,wr.getAll().size());
 		wr.register(usera);
 		assertEquals(2,wr.getAll().size());
 		
