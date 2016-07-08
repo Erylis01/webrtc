@@ -3,7 +3,7 @@ var app = angular.module('app', ['ngRoute', 'ng.deviceDetector', 'lumx','pascalp
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'views/login.html',
+			templateUrl: 'https://siptest1.feld.cvut.cz/views/login.html',
 			controller: 'UserCtrl'
 		})
 		.when('/rooms/:roomName', {
@@ -42,8 +42,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'STOP_RECORD':'Stop record',
             'MUTE':'Mute',
             'UNMUTE':'Unmute',
-            BUTTON_TEXT_EN: 'English',
-            BUTTON_TEXT_FR: 'French'              
+            'BUTTON_TEXT_EN': 'English',
+            'BUTTON_TEXT_FR'': 'French'              
         });    
         
     
@@ -71,8 +71,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'STOP_RECORD':'Arrêter l\'enregistrement',
             'MUTE':'Silencieux',
             'UNMUTE':'Sonore',
-            BUTTON_TEXT_EN: 'Anglais',
-            BUTTON_TEXT_FR: 'Français'
+            'BUTTON_TEXT_EN': 'Anglais',
+            'BUTTON_TEXT_FR'': 'Français'
         });  
     
     
