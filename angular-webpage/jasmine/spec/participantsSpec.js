@@ -1,8 +1,7 @@
 
 
-describe("get", function() {
-        it("retrieve an user", function(participants){
-            participants.add(14587,"Jean");
-            expect(get(14587).name).toEqual("Jean");
+describe("isEmpty", function() {
+        it("verify is the room is empty", function(participants){
+            expect(participants.isEmpty()).toBe(true);
         });       
 });
