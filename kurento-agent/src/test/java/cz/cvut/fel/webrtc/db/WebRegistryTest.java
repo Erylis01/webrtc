@@ -3,13 +3,13 @@ package cz.cvut.fel.webrtc.db;
 import static org.junit.Assert.*;
 
 import java.util.concurrent.ConcurrentHashMap;
-import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.web.socket.WebSocketSession;
@@ -17,6 +17,8 @@ import org.springframework.web.socket.WebSocketSession;
 import cz.cvut.fel.webrtc.resources.WebUser;
 
 public class WebRegistryTest {
+	
+	@Mock WebSocketSession session;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -40,13 +42,13 @@ public class WebRegistryTest {
 		WebRegistry wr = new WebRegistry();
 		WebUser user = Mockito.mock(WebUser.class);
 		WebSocketSession session= Mockito.mock(WebSocketSession.class);
-		System.out.println(user.getSession());
-		//Mockito.when(user.getSession()).thenReturn("userID1");
-		//String result = user.getSession().getId();
-		//assertTrue(user.getSession().getId().equals(result));
-		//ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
-		//wr.register(user);
-		//assertEquals("Les valeurs sont identiques",users.get("userID1"),user);
+		user.setSession(session);
+		Mockito.when(user.getSession()).thenReturn(session);
+		Mockito.when(session.getId()).thenReturn("sessionId");
+		System.out.println(user.getSession().getId());
+		wr.register(user);
+		System.out.println(wr.getAll());
+		assertEquals("Les valeurs sont identiques",users.get("sessionId"),user);
 	}
 
 
