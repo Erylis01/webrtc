@@ -53,12 +53,37 @@ public class WebRegistryTest {
 
 	@Test
 	public void testGetBySession() {
-		fail("Not yet implemented");
+		WebRegistry wr = new WebRegistry();
+		WebUser user = Mockito.mock(WebUser.class);
+		WebSocketSession session= Mockito.mock(WebSocketSession.class);
+		Mockito.when(user.getSession()).thenReturn(session);
+		Mockito.when(session.getId()).thenReturn("sessionId");
+		wr.register(user);
+		assertTrue("Les valeurs sont identiques", wr.getBySession(session).equals(user));
 	}
 
 	@Test
 	public void testRemoveBySession() {
-		fail("Not yet implemented");
+		WebRegistry wr = new WebRegistry();
+		WebUser usera = Mockito.mock(WebUser.class);
+		WebSocketSession sessiona= Mockito.mock(WebSocketSession.class);
+		Mockito.when(usera.getSession()).thenReturn(sessiona);
+		Mockito.when(sessiona.getId()).thenReturn("sessiona_Id");
+		WebUser userb = Mockito.mock(WebUser.class);
+		WebSocketSession sessionb= Mockito.mock(WebSocketSession.class);
+		Mockito.when(userb.getSession()).thenReturn(sessionb);
+		Mockito.when(sessionb.getId()).thenReturn("sessionb_Id");
+		wr.register(usera);
+		wr.register(userb);
+		wr.removeBySession(sessiona);
+		
+		// Test taille de la liste :
+		assertEquals(1,wr.getAll().size());
+		wr.register(usera);
+		assertEquals(2,wr.getAll().size());
+		
+		// Test de la présence de l'élément :
+
 	}
 
 }
