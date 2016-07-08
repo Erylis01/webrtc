@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="C:/Logiciel/Librairie/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="C:/Logiciel/Librairie/kurento-jsonrpc-client-6.5.0.jar"/>
 	<classpathentry kind="lib" path="C:/Logiciel/Librairie/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="C:/Logiciel/Librairie/slf4j-simple-1.7.21.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
