@@ -10,13 +10,13 @@
 
 		<form ng-submit="join(participant)">
 			<!-- Name -->
-			<lx-text-field label="Name" error="!checked.name">
+			<lx-text-field lx-label="{{ 'NAME' | translate }}" error="!checked.name">
 				<input type="name" ng-model="participant.name">
 			</lx-text-field>
 			<span class="text-field-error" ng-if="!checked.name">{{ 'WARNING_NAME' | translate }}</span>
 
 			<!-- Room -->
-			<lx-text-field label="Room" error="!checked.room">
+			<lx-text-field lx-label="{{ 'ROOM' | translate }}" error="!checked.room">
 				<input type="room" ng-model="participant.room">
 			</lx-text-field>
 			<span class="text-field-error" ng-if="!checked.room">{{ 'WARNING_ROOM' | translate }}</span>
