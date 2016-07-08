@@ -43,7 +43,7 @@ app.config(['$translateProvider',function($translateProvider) {
             'MUTE':'Mute',
             'UNMUTE':'Unmute',
             'BUTTON_TEXT_EN': 'English',
-            'BUTTON_TEXT_FR'': 'French'              
+            'BUTTON_TEXT_FR': 'French'              
         });    
         
     
@@ -72,7 +72,7 @@ app.config(['$translateProvider',function($translateProvider) {
             'MUTE':'Silencieux',
             'UNMUTE':'Sonore',
             'BUTTON_TEXT_EN': 'Anglais',
-            'BUTTON_TEXT_FR'': 'Français'
+            'BUTTON_TEXT_FR': 'Français'
         });  
     
     
