@@ -7,6 +7,5 @@
 	<body>
 		<button onclick="upload(2097152, Date.now());">Upload</button>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-		<script src="script.js"></script>
 	</body>
 </html>
