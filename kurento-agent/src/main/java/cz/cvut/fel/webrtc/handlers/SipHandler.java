@@ -28,14 +28,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * This class allows to receive and send messages via the Session Initial Protocol
+ * This class allows to receive and send messages via the Session Initial
+ * Protocol
  *
  */
 public class SipHandler extends TextWebSocketHandler {
-	
+
 	@Autowired
 	private RoomManager roomManager;
-	
+
 	@Autowired
 	private LineRegistry lineRegistry;
 
@@ -46,39 +47,40 @@ public class SipHandler extends TextWebSocketHandler {
 	private final String pbxIp;
 
 	private WebSocketSession session;
-	
+
 	/**
+	 * Constructor of SipHandler
 	 * 
 	 * @param pbxIp
 	 */
 	public SipHandler(String pbxIp) {
-		
+
 		this.pbxIp = pbxIp;
 		this.sipFactory = new SipMessageFactory();
 	}
-	
+
 	/**
-	 * Allows to avoid the TimeOut of the Socket. 
+	 * Allows to avoid the TimeOut of the Socket.
 	 */
 	@Override
 	public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
-			this.session = session;
-			TimerTask task = new TimerTask() {
+		this.session = session;
+		TimerTask task = new TimerTask() {
 
-				@Override
-				public void run() {
-					try {
-						log.info("Ping on PBX to keep the websocket alive");
-						session.sendMessage(new TextMessage("stay-alive"));
-					} catch (IOException e) {
-						log.info("Ping on PBX failed");
-					}
+			@Override
+			public void run() {
+				try {
+					log.info("Ping on PBX to keep the websocket alive");
+					session.sendMessage(new TextMessage("stay-alive"));
+				} catch (IOException e) {
+					log.info("Ping on PBX failed");
 				}
+			}
 
-			};
-			
-			Timer timer = new Timer();
-			timer.scheduleAtFixedRate(task, 0, 30000);
+		};
+
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(task, 0, 30000);
 	}
 
 	/**
@@ -86,22 +88,24 @@ public class SipHandler extends TextWebSocketHandler {
 	 */
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		
+
 		String payload = message.getPayload();
 		Message sipMessage = null;
-		
+
 		// Request
 		try {
 			sipMessage = sipFactory.createRequest(payload);
-		} catch (Exception e) {}
-		
+		} catch (Exception e) {
+		}
+
 		// Response
-		if (sipMessage == null) { 
+		if (sipMessage == null) {
 			try {
 				sipMessage = sipFactory.createResponse(payload);
-			} catch (Exception e) {}
+			} catch (Exception e) {
+			}
 		}
-		
+
 		// Use the right method (asynchronously)
 		if (sipMessage instanceof Request)
 			processRequest((Request) sipMessage);
@@ -111,32 +115,50 @@ public class SipHandler extends TextWebSocketHandler {
 		if (sipMessage != null)
 			log.info("Received a SIP Message \n{}", payload);
 	}
-	
+
+	/**
+	 * Gets the method of CSeqHeader
+	 * 
+	 * @param response
+	 *            - Defines the contract between a returned instance and the
+	 *            runtime when an application needs to provide meta-data to the
+	 *            runtime.
+	 * 
+	 * @return - methods of the CSeqHeader
+	 */
 	private String getMethod(Response response) {
 		CSeqHeader cSeqHeader = (CSeqHeader) response.getHeader("CSeq");
 		return cSeqHeader.getMethod();
 	}
-	
+
+	/**
+	 * Get the instance of the class Room
+	 * 
+	 * @param response
+	 * 
+	 * @return - a instance of Room
+	 */
 	private Room getRoom(Response response) {
 		FromHeader fromHeader = (FromHeader) response.getHeader("From");
 		String roomName = fromHeader.getAddress().getDisplayName();
 		Room room = null;
 		if (roomName != null)
 			room = roomManager.getRoom(roomName, false);
-		
+
 		return room;
 	}
-	
+
+
 	@Async
 	private void processResponse(Response response) {
-		
-		switch(response.getStatusCode()) {
+
+		switch (response.getStatusCode()) {
 		case 200:
 			try {
 				String method = getMethod(response);
 				Room room = getRoom(response);
 
-				switch(method) {
+				switch (method) {
 
 				case Request.INVITE:
 					processInviteResponse(room, response);
@@ -157,7 +179,7 @@ public class SipHandler extends TextWebSocketHandler {
 					break;
 
 				}
-					
+
 			} catch (Exception e) {
 				log.info("Cannot process a 200 response {}", e);
 			}
@@ -168,20 +190,20 @@ public class SipHandler extends TextWebSocketHandler {
 				String method = getMethod(response);
 				Room room = getRoom(response);
 
-				switch(method) {
-				
+				switch (method) {
+
 				case Request.INVITE:
 					generateInviteRequest(room, response);
 					break;
-				
+
 				case Request.REGISTER:
 					register(room, response);
 					break;
-					
+
 				default:
 					break;
 				}
-				
+
 			} catch (Exception e) {
 				log.info("Cannot process a 401 response {}", e);
 			}
@@ -190,13 +212,13 @@ public class SipHandler extends TextWebSocketHandler {
 		default:
 			break;
 		}
-		
+
 	}
 
 	@Async
 	private void processRequest(Request request) {
-		
-		switch(request.getMethod()) {
+
+		switch (request.getMethod()) {
 		case Request.INVITE:
 			processInviteRequest(request);
 			break;
@@ -204,13 +226,13 @@ public class SipHandler extends TextWebSocketHandler {
 		case Request.BYE:
 			processByeRequest(request);
 			break;
-			
+
 		default:
 			break;
 		}
-		
+
 	}
-	
+
 	public void sendMessage(Message message) {
 		try {
 			synchronized (session) {
@@ -222,50 +244,53 @@ public class SipHandler extends TextWebSocketHandler {
 			log.debug(e.getMessage());
 		}
 	}
-	
+
 	private void processInviteResponse(Room room, Response response) throws ParseException, InvalidArgumentException {
-		
+
 		// Process SDP Answer
 		String sdpAnswer = (String) response.getContent();
 		ToHeader toHeader = (ToHeader) response.getHeader("To");
-		
+
 		Softphone callee = (Softphone) room.getParticipant(toHeader.getAddress().getURI().toString());
 		callee.getRtpEndpoint().processAnswer(sdpAnswer);
 		room.joinRoom(callee);
-		
+
 		Request request = sipFactory.createRequest(response, Request.ACK);
 		sendMessage(request);
 	}
-	
+
 	public void unregister(Room room) throws Exception {
 		room.setClosing();
 		register(room, null);
 	}
-	
+
 	public void register(Room room, Response response) throws Exception {
 		Line line = room.getLine();
-		
+
 		int expire = (room.isClosing()) ? 0 : 604800;
-		
+
 		if (line == null)
 			line = lineRegistry.popLine(room);
-		
+
 		if (line != null) {
 			String username = line.getUsername();
 			String password = line.getSecret();
 			String sipAddress = String.format("sip:%s@%s", username, pbxIp);
-			
+
 			lineRegistry.addRoomByURI(sipAddress, room.getName());
-			
-			long cseq = (response == null) ? room.getCSeq() : room.setCSeq(((CSeqHeader)response.getHeader("CSeq")).getSeqNumber() + 1);
-			Request request = sipFactory.createRequest(Request.REGISTER, room.getName(), sipAddress, sipAddress, room.getCallId(), cseq, expire);
-			
+
+			long cseq = (response == null) ? room.getCSeq()
+					: room.setCSeq(((CSeqHeader) response.getHeader("CSeq")).getSeqNumber() + 1);
+			Request request = sipFactory.createRequest(Request.REGISTER, room.getName(), sipAddress, sipAddress,
+					room.getCallId(), cseq, expire);
+
 			if (response != null) {
-				
+
 				WWWAuthenticateHeader authHeader = (WWWAuthenticateHeader) response.getHeader("WWW-Authenticate");
 				String strAuthHeader = authHeader.toString().replace("WWW-Authenticate: ", "");
-				String authResponse = DigestAuth.getHeaderResponse(Request.REGISTER, sipAddress, strAuthHeader, username, password);
-				
+				String authResponse = DigestAuth.getHeaderResponse(Request.REGISTER, sipAddress, strAuthHeader,
+						username, password);
+
 				if (authResponse != null) {
 					AuthorizationHeader authorization = sipFactory.createAuthorizationHeader(authResponse);
 					request.addHeader(authorization);
@@ -273,13 +298,13 @@ public class SipHandler extends TextWebSocketHandler {
 					return;
 				}
 			}
-			
+
 			sendMessage(request);
 		}
 	}
-	
+
 	public void generateInviteRequest(Room room, String extension) {
-		
+
 		try {
 
 			String address = String.format("sip:%s@%s", extension, pbxIp);
@@ -290,68 +315,71 @@ public class SipHandler extends TextWebSocketHandler {
 
 			// Find a more appropriate name
 			getName(user, extension);
-			
+
 			if (user != null)
 				generateInviteRequest(room, user, toHeader, null);
-		
+
 		} catch (Exception e) {
 			log.info("Cannot create INVITE request: {}", e);
 		}
 	}
-	
+
 	@Async
 	private void getName(Softphone user, String extension) {
 		String name = lineRegistry.getName(extension);
-		
+
 		if (name != null)
 			user.setName(name);
 	}
-	
+
 	public void generateInviteRequest(Room room, Response response) {
-		
+
 		try {
-			
+
 			ToHeader toHeader = (ToHeader) response.getHeader("To");
 			String callee = toHeader.getAddress().getURI().toString();
 			final Softphone user = (Softphone) room.getParticipant(callee);
-			
+
 			if (user != null)
 				generateInviteRequest(room, user, toHeader, response);
-			
+
 		} catch (Exception e) {
 			log.info("Cannot create INVITE request: {}", e);
 		}
-		
+
 	}
-	
+
 	@Async
-	public void generateInviteRequest(Room room, Softphone user, ToHeader toHeader, Response response) throws Exception {
+	public void generateInviteRequest(Room room, Softphone user, ToHeader toHeader, Response response)
+			throws Exception {
 		Line line = room.getLine();
-		
+
 		if ((line == null) || (user == null))
 			return;
-		
+
 		String username = line.getUsername();
 		String password = line.getSecret();
 		String method = Request.INVITE;
 		String callId = room.getCallId();
 		String sip = String.format("sip:%s@%s", username, pbxIp);
-		
-		long cseq = (response == null) ? room.setCSeq(room.getCSeq() + 1) : room.setCSeq(((CSeqHeader)response.getHeader("CSeq")).getSeqNumber() + 1);
+
+		long cseq = (response == null) ? room.setCSeq(room.getCSeq() + 1)
+				: room.setCSeq(((CSeqHeader) response.getHeader("CSeq")).getSeqNumber() + 1);
 		FromHeader from = sipFactory.createFromHeader(sip, room.getName());
-		
+
 		Request request = sipFactory.createRequest(method, from, toHeader, callId, cseq, 200);
 		ContentTypeHeader contentTypeHeader = sipFactory.createContentTypeHeader("application", "sdp");
-		
+
 		String sdpOffer = user.getGeneratedOffer();
 		request.setContent(sdpOffer, contentTypeHeader);
 
 		if (response != null) {
-			
-			WWWAuthenticateHeader authHeader = (WWWAuthenticateHeader)response.getHeader("WWW-Authenticate");
+
+			WWWAuthenticateHeader authHeader = (WWWAuthenticateHeader) response.getHeader("WWW-Authenticate");
 			String strAuthHeader = authHeader.toString().replace("WWW-Authenticate: ", "");
-			String authResponse = DigestAuth.getHeaderResponse(method, toHeader.getAddress().getURI().toString(), strAuthHeader, username, password);
-			
+			String authResponse = DigestAuth.getHeaderResponse(method, toHeader.getAddress().getURI().toString(),
+					strAuthHeader, username, password);
+
 			if (authResponse != null) {
 				AuthorizationHeader authorization = sipFactory.createAuthorizationHeader(authResponse);
 				request.addHeader(authorization);
@@ -362,71 +390,71 @@ public class SipHandler extends TextWebSocketHandler {
 
 		sendMessage(request);
 	}
-	
+
 	@Async
 	private void processInviteRequest(Request request) {
 		try {
 			Address sender = ((FromHeader) request.getHeader("From")).getAddress();
 			Address receiver = ((ToHeader) request.getHeader("To")).getAddress();
 			String uri = receiver.getURI().toString();
-			
+
 			String sdpOffer = request.getContent().toString();
-			
+
 			Room room = lineRegistry.getRoomBySipURI(uri);
-			
+
 			// Trying
 			Response tryingResponse = sipFactory.createResponseFromRequest(request, 100);
 			sendMessage(tryingResponse);
-			
+
 			// Ringing
 			Response ringingResponse = sipFactory.cloneResponseWithAnotherStatusCode(tryingResponse, 180);
 			sendMessage(ringingResponse);
-			
+
 			// Create a new user
 			String userId = sender.getURI().toString();
 			Softphone user = (Softphone) room.join(userId, session, Softphone.class);
 			String name = sender.getDisplayName();
-			
+
 			if (name == null)
 				name = sender.getURI().toString();
-			
+
 			if (user == null)
 				return;
 
 			String sdpAnswer = user.getSdpAnswer(sdpOffer);
 			user.setName(name);
 			room.joinRoom(user);
-			
+
 			// 200 OK
 			ContentTypeHeader contentTypeHeader = sipFactory.createContentTypeHeader("application", "sdp");
 			Response okResponse = sipFactory.cloneResponseWithAnotherStatusCode(ringingResponse, 200);
 			okResponse.setContent(sdpAnswer, contentTypeHeader);
 			sendMessage(okResponse);
-			
-		
+
 		} catch (Exception e) {
 			log.info("Cannot process to invite request: {}", e);
 		}
 	}
-	
+
 	@Async
 	private void processByeRequest(Request request) {
-		
+
 		Address sender = ((FromHeader) request.getHeader("From")).getAddress();
 		Address receiver = ((ToHeader) request.getHeader("To")).getAddress();
 		String uri = receiver.getURI().toString();
 		Room room = lineRegistry.getRoomBySipURI(uri);
-		
+
 		String userId = sender.getURI().toString();
-		
+
 		if (room != null) {
 			try {
-				
+
 				room.leave(userId);
 				Response response = sipFactory.createResponseFromRequest(request, 200);
 				sendMessage(response);
-				
-			} catch (Exception e) {}
+
+			} catch (Exception e) {
+			}
 		}
 	}
 

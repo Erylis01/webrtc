@@ -33,18 +33,42 @@ public class WebRegistry {
 
 	private final ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
 
+	/**
+	 * Add a WebUser in the ConncurrentHashMap. The key is the Id of the user.
+	 * 
+	 * @param user - Instance of WebUser
+	 */
 	public void register(WebUser user) {
 		users.put(user.getSession().getId(), user);
 	}
 
+	/**
+	 * Get the ConcurrentHashMap
+	 * 
+	 * @return - ConcurrentHashMap
+	 */
 	public Collection<WebUser> getAll() {
 		return users.values();
 	}
 	
+	/**
+	 * Get a user from the ConcurrentHashMap by his WebSocketSession
+	 * 
+	 * @param session - WebSocketSession associated to the user
+	 * 
+	 * @return - an instance of WebUser
+	 */
 	public WebUser getBySession(WebSocketSession session) {
 		return users.get(session.getId());
 	}
 
+	/**
+	 * Remove a user from the ConcurrentHashMap by his WebSocketSession
+	 * 
+	 * @param session - WebSocketSession associated to the user
+	 * 
+	 * @return - the removed WebUser
+	 */
 	public WebUser removeBySession(WebSocketSession session) {
 		final WebUser user = getBySession(session);
 		
@@ -55,6 +79,13 @@ public class WebRegistry {
 		return user;
 	}
 
+	/**
+	 * Get a user from the ConcurrentHashMap by his String Key (UserId)
+	 * 
+	 * @param keyID - String corresponding to the UserId
+	 * 
+	 * @return - a WebUser
+	 */
 	public WebUser getUser(String keyID){
 		return users.get(keyID);
 	}
