@@ -53,8 +53,8 @@ public abstract class Participant implements Closeable {
  * @param id					 identifier of the participant
  * @param roomName				 The room to which the user is currently attending
  * @param session				 the link betwenn internet and the participant
- * @param compositePipeline		 it's a canal from to
- * @param presentationPipeline   it's a canal from to
+ * @param compositePipeline		 container of MediaElements, canal from kurento to user
+ * @param presentationPipeline   container of MediaElements, canal from user to kurento
  * @param hub					 this is where all the participant of the room connect themself
  */
 	public Participant(final String id, String roomName, final WebSocketSession session,
