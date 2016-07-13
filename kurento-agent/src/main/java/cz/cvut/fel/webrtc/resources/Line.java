@@ -9,14 +9,15 @@ public class Line {
 	private String secret;
 	private String callerid;
 	private String extension;
+	
 	/**
-	 * 
 	 *  
 	 * @return the name of the user
 	 */
 	public String getUsername() {
 		return username;
 	}
+	
 	/**
 	 * @return the password
 	 */
