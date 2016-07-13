@@ -52,7 +52,6 @@ public class Room implements Closeable {
 	private final String callId;
 	private long cseq;
 	private boolean closing;
-
 	private WebUser screensharer;
 
 	// Record
@@ -66,16 +65,22 @@ public class Room implements Closeable {
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * 
+	 * @param roomname       this is the name user want to give to the room
+	 */
 	protected Room(String roomName) {
 		this.callId = UUID.randomUUID().toString();
 		this.cseq = (new Random()).nextInt(100);
 		this.name = roomName;
 	}
-
+	/**
+	 * creat the room for the communication 
+	 * @param roomname       this is the name user want to give to the room
+	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
+	 */
 	public Room(String roomName, KurentoClient kurento) {
 		this(roomName);
-
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
 		this.composite = new Composite.Builder(getCompositePipeline()).build();
@@ -245,7 +250,12 @@ public class Room implements Closeable {
 
 	}
 
-	
+	/**
+	 *  close the channel of video communication
+	 *  
+	 * 
+	 * @throws IOException - if there is no Participant
+	 */
 	public void cancelPresentation() throws IOException {
 		if (screensharer != null) {
 			final JsonObject cancelPresentationMsg = new JsonObject();
@@ -263,7 +273,13 @@ public class Room implements Closeable {
 			screensharer = null;
 		}
 	}
-
+	/**
+	 * send the names of all participants in the room exept the one who send it to an over user.
+	 *  
+	 * @param participant -  Instance of Participant
+	 * @param id 			 id of the one who received the information
+	 * @throws IOException - if the participant does not exist
+	 */
 	public void sendInformation(Participant user, String id) throws IOException {
 
 		final JsonArray participantsArray = new JsonArray();
@@ -299,7 +315,9 @@ public class Room implements Closeable {
 	public Collection<Participant> getParticipants() {
 		return participants.values();
 	}
-
+	/**
+	 * @return all the information about the id
+	 */
 	public Participant getParticipant(String id) {
 		return participants.get(id);
 	}

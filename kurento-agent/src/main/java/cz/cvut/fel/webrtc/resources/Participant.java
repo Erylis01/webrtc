@@ -50,11 +50,11 @@ public abstract class Participant implements Closeable {
 
 /**
  * constructor of the class participant
- * @param id					 iditifier of the participant
+ * @param id					 identifier of the participant
  * @param roomName				 The room to which the user is currently attending
  * @param session				 the link betwenn internet and the participant
- * @param compositePipeline		 ??
- * @param presentationPipeline   ??
+ * @param compositePipeline		 it's a canal from to
+ * @param presentationPipeline   it's a canal from to
  * @param hub					 this is where all the participant of the room connect themself
  */
 	public Participant(final String id, String roomName, final WebSocketSession session,
@@ -72,7 +72,7 @@ public abstract class Participant implements Closeable {
 	}
 
 	/**
-	 * @return the name the participant choose
+	 * @return 				the name the participant 
 	 */
 	public String getName() {
 		return name;
