@@ -6,7 +6,7 @@ beforeEach(function() {
     
   mock = {alert: jasmine.createSpy()};
     
-  module(function($provide) {
+  angular.module(function($provide) {
     $provide.value('socket', mock);
   });
     
