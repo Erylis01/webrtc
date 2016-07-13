@@ -41,6 +41,10 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Not yet Implemented
+ *
+ */
 public class LineRegistry {
 
 	@Autowired
@@ -54,6 +58,13 @@ public class LineRegistry {
 
 	protected LineRegistry() {}
 	
+	/**
+	 * Constructor of the class LineRegistry
+	 * 
+	 * @param strUri - Represents a Uniform Resource Identifier reference
+	 * @param login
+	 * @param password
+	 */
 	public LineRegistry(String strUri, String login, String password) {
 		
 		if (strUri == null || login == null || password == null)
@@ -86,6 +97,7 @@ public class LineRegistry {
 			e.printStackTrace();
 		}
 	}
+
 
 	private void filterLines(Pattern p) {
 		Matcher m;
