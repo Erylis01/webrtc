@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ng.deviceDetector', 'lumx','pascalprecht.translate']);
+var app = angular.module('app', ['ngRoute', 'ng.deviceDetector', 'lumx','pascalprecht.translate', 'ngMockE2E']);
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider
