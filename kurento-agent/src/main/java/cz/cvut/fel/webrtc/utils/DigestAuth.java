@@ -14,7 +14,7 @@ import org.apache.http.protocol.BasicHttpContext;
 public class DigestAuth {
 
 	/**
-	 * 
+	 * Method used to do a digest authorization and return the string of this one.
 	 * 
 	 * @param method - request method to create the HttpRequest
 	 * @param uri - request URI to create the HttpRequest
