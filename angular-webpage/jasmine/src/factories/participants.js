@@ -3,7 +3,7 @@
 * methods of the partipant object.
 * @class - participants
 */
-angular.app.factory('participants', ['socket', function(socket) {
+app.factory('participants', ['socket', function(socket) {
 
 	var participants = {};
 	var id = null;
