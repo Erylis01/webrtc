@@ -6,11 +6,11 @@
 * @param {object} $window - Enable the controller to access to the browser window
 * @param {String{} $params - Contain the main parameters of the room such as RoomName
 * @param {object} $timeout - Enable to set a timeout related to a function such as the dropdown animation
-* @param {Websocket} socket - The Websocket used to communicate with Kurento server with AJAX message
-* @param {Constraints} constraints - Contain the parameters relative to media and browser
+* @param {Socket} socket - See socket.js
+* @param {Constraints} constraints - See constraints.js
 * @param {object} notifications - Object containing required functionnalities to use notifications
 * @param {object} progress - Native object in charge of the loading circle
-* @param {Participant{}} - Dictionnary of pthe current participant 
+* @param {Participant{}} - Dictionnary of the current participant 
 */
 function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constraints, notifications, progress, participants) {
 
