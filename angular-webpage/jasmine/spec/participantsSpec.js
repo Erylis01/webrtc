@@ -1,5 +1,5 @@
 var participants;
-
+beforeEach(module('app'));
 beforeEach(function() {
   inject(function($injector) {
     participants = $injector.get('participants');
