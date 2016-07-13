@@ -181,4 +181,24 @@ public abstract class Participant implements Closeable {
 	public String getId() {
 		return id;
 	}
+
+	public HubPort getHubPort() {
+		return hubPort;
+	}
+
+	public void setHubPort(HubPort hubPort) {
+		this.hubPort = hubPort;
+	}
+
+	public PassThrough getPassThru() {
+		return passThru;
+	}
+
+	public void setPassThru(PassThrough passThru) {
+		this.passThru = passThru;
+	}
+
+	public Hub getHub() {
+		return hub;
+	}
 }

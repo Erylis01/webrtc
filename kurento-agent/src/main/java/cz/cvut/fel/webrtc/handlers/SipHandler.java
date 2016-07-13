@@ -59,9 +59,7 @@ public class SipHandler extends TextWebSocketHandler {
 		this.sipFactory = new SipMessageFactory();
 	}
 
-	/**
-	 * Allows to avoid the TimeOut of the Socket.
-	 */
+
 	@Override
 	public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
 		this.session = session;
@@ -83,9 +81,7 @@ public class SipHandler extends TextWebSocketHandler {
 		timer.scheduleAtFixedRate(task, 0, 30000);
 	}
 
-	/**
-	 * 
-	 */
+
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
@@ -436,6 +432,7 @@ public class SipHandler extends TextWebSocketHandler {
 		}
 	}
 
+	
 	@Async
 	private void processByeRequest(Request request) {
 
@@ -458,6 +455,10 @@ public class SipHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 *
+	 * @return - pbxIP
+	 */
 	public String getPbxIp() {
 		return pbxIp;
 	}
