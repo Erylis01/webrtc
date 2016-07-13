@@ -1,12 +1,12 @@
 var mock, participants;
 
-beforeEach(angular.module('app',['ngRoute', 'ng.deviceDetector', 'lumx','pascalprecht.translate']));
+beforeEach(angular.mock.module('app',['ngRoute', 'ng.deviceDetector', 'lumx','pascalprecht.translate']));
 
 beforeEach(function() {
     
   mock = {alert: jasmine.createSpy()};
     
-  angular.module(function($provide) {
+  angular.mock.module(function($provide) {
     $provide.value('socket', mock);
   },['$window', 'variables']);
     
