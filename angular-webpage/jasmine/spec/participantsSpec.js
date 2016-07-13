@@ -1,7 +1,7 @@
 var participants;
-beforeEach(module('app'));
+beforeEach(angular.module('app',['ngRoute', 'ng.deviceDetector', 'lumx','pascalprecht.translate']));
 beforeEach(function() {
-  inject(function($injector) {
+  angular.inject(function($injector) {
     participants = $injector.get('participants');
   });
 });
