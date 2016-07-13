@@ -294,14 +294,20 @@ public class WebUser extends Participant {
 		releaseOutgoingMedia();
 		releaseSharingMedia();
 	}
-
+	/**
+	 * 
+	 * disconnetion from the hub
+	 */
 	private void releaseOutgoingMedia() {
 		if (outgoingMedia != null) {
 			outgoingMedia.release(asyncLog("Released outgoing endpoint", "Could not release sharing endpoint"));
 			outgoingMedia = null;
 		}
 	}
-
+	/**
+	 * 
+	 * disconnetion the webrtc endpoint
+	 */
 	private void releaseSharingMedia() {
 		if (sharingMedia != null) {
 			sharingMedia.release(asyncLog("Released sharing endpoint", "Could not release sharing ep"));
