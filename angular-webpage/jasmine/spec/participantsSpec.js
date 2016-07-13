@@ -8,7 +8,7 @@ beforeEach(function() {
     
   angular.module(function($provide) {
     $provide.value('socket', mock);
-  });
+  },['$window', 'variables']);
     
   inject(function($injector) {
     participants = $injector.get('participants');
