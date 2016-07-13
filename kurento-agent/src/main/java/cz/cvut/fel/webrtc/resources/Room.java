@@ -75,7 +75,7 @@ public class Room implements Closeable {
 		this.name = roomName;
 	}
 	/**
-	 * creat the room for the communication 
+	 * create the room for the communication 
 	 * @param roomname       this is the name user want to give to the room
 	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
 	 */

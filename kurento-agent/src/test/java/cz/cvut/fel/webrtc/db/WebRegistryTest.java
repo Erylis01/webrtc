@@ -32,15 +32,23 @@ public class WebRegistryTest {
 	 */
 	@Test
 	public void testRegister() {
+		// Initialisation du test 
 		WebRegistry wr = new WebRegistry();
 		WebUser user = Mockito.mock(WebUser.class);
 		WebSocketSession session= Mockito.mock(WebSocketSession.class);
 		ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
 		users.put("sessionId", user);
+		
+		// Utilisation de la méthode register avec injection des mock
 		user.setSession(session);
 		Mockito.when(user.getSession()).thenReturn(session);
 		Mockito.when(session.getId()).thenReturn("sessionId");
 		wr.register(user);
+		
+		// Test si taille de la liste est correcte :
+		assertEquals("Taille de liste correcte",1,wr.getAll().size());
+		
+		// Test si la valeur est bonne :
 		assertTrue("Les valeurs sont identiques",wr.getUser("sessionId").equals(users.get("sessionId")));
 	}
 
