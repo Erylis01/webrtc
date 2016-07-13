@@ -27,6 +27,10 @@ import java.text.ParseException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * This class allows to receive and send messages via the Session Initial Protocol
+ *
+ */
 public class SipHandler extends TextWebSocketHandler {
 	
 	@Autowired
@@ -43,13 +47,19 @@ public class SipHandler extends TextWebSocketHandler {
 
 	private WebSocketSession session;
 	
+	/**
+	 * 
+	 * @param pbxIp
+	 */
 	public SipHandler(String pbxIp) {
 		
 		this.pbxIp = pbxIp;
 		this.sipFactory = new SipMessageFactory();
-		
 	}
 	
+	/**
+	 * Allows to avoid the TimeOut of the Socket. 
+	 */
 	@Override
 	public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
 			this.session = session;
@@ -71,6 +81,9 @@ public class SipHandler extends TextWebSocketHandler {
 			timer.scheduleAtFixedRate(task, 0, 30000);
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
