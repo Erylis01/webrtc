@@ -150,7 +150,7 @@ app.factory('participants', ['socket', function(socket) {
 	}
 
     /**
-    * @function clear() - Deete the participant who invoek it 
+    * @function clear() - Deete the participant who invoke it 
     */
 	function clear() {
 		for (var key in participants) {
