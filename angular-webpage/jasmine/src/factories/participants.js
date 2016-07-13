@@ -1,7 +1,7 @@
 /**
 * Describe the object : attributes and
 * methods of the partipant object.
-* @class
+* @class - participants
 */
 app.factory('participants', ['socket', function(socket) {
 
