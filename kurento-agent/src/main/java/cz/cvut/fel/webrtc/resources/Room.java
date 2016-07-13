@@ -38,6 +38,22 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * @author Ivan Gracia (izanmail@gmail.com)
  * @since 4.3.1
  */
+/*
+ * (C) Copyright 2014 Kurento (http://kurento.org/)
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-2.1.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ */
+
+
 public class Room implements Closeable {
 
 	private final Logger log = LoggerFactory.getLogger(Room.class);
@@ -75,7 +91,7 @@ public class Room implements Closeable {
 		this.name = roomName;
 	}
 	/**
-	 * create the room for the communication 
+	 * creat the room for the communication 
 	 * @param roomname       this is the name user want to give to the room
 	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
 	 */
@@ -101,7 +117,7 @@ public class Room implements Closeable {
 	 *            - name or identifier of the user in the room. Will be used to
 	 *            identify her WebRTC media peer (from the client-side).
 	 * @param session - conversation between two web socket endpoints
-	 * @param sessionClass - ???
+	 * @param sessionClass - it permit to instantiate the created new participant
 	 * 
 	 * @return an existing peers of type Participant, can be empty if first
 	 */
@@ -362,28 +378,41 @@ public class Room implements Closeable {
 
 		log.debug("Room {} closed", this.name);
 	}
-
+	/**
+	 * @return the composite pipeline
+	 */
 	public MediaPipeline getCompositePipeline() {
 		return compositePipeline;
 	}
-
+	/**
+	 * @return the presentation pipeline
+	 */
 	public MediaPipeline getPresentationPipeline() {
 		return presentationPipeline;
 	}
-
+	/**
+	 * change the one who share his screen
+	 * @param user the new screensharer
+	 */
 	public void setScreensharer(WebUser user) {
 		this.screensharer = user;
 	}
-
+	/**
+	 * @return true if there is a sreensharer, false if not
+	 */
 	public boolean hasScreensharer() {
 		return (screensharer != null);
 	}
-
+	/**
+	 * @param the new identification number to the room
+	 */
 	public long setCSeq(long cseq) {
 		this.cseq = cseq;
 		return cseq;
 	}
-
+	/**
+	 * @return give an identification number to the room
+	 */
 	public long getCSeq() {
 		return this.cseq;
 	}
@@ -391,7 +420,9 @@ public class Room implements Closeable {
 	public Line getLine() {
 		return this.line;
 	}
-
+	/**
+	 * @return received the identifier of the room
+	 */
 	public String getCallId() {
 		return this.callId;
 	}
@@ -399,19 +430,27 @@ public class Room implements Closeable {
 	public void setLine(Line line) {
 		this.line = line;
 	}
-
+	/**
+	 * inform if the room is in instance of closing
+	 */
 	public boolean isClosing() {
 		return closing;
 	}
-
+	/**
+	 * indicate that the room will be close in a few time
+	 */
 	public void setClosing() {
 		this.closing = true;
 	}
-
+	/**
+	 * @return the number of participant
+	 */
 	public int size() {
 		return participants.size();
 	}
-
+	/**
+	 * start the record and save it on a web page
+	 */
 	public void record() {
 		log.info("Start Recording");
 		this.recorderEndpoint = new RecorderEndpoint.Builder(getCompositePipeline(),
@@ -420,7 +459,9 @@ public class Room implements Closeable {
 		this.recorderEndpoint.record();
 
 	}
-
+	/**
+	 * stop the record
+	 */
 	public void stopRecord() {
 		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();

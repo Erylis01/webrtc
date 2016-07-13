@@ -7,28 +7,28 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/gson-2.3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/kurento-room-sdk-6.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/kurento-client-6.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/slf4j-api-1.7.21.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-websocket-4.3.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/kurento-commons-6.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-beans-4.3.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-boot-1.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-boot-autoconfigure-1.3.5.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-context-4.3.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-core-4.3.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/spring-web-4.3.0.RELEASE.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/jackson-databind-2.8.0.rc1.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/httpclient-4.5.2.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/httpcore-4.4.4.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/commons-io-2.5.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/commons-lang3-3.4.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/jackson-core-2.8.0.rc2.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/jain-sip-ri-1.2.293.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/junit-4.12.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/kurento-jsonrpc-client-6.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/mockito-all-1.10.19.jar"/>
-	<classpathentry kind="lib" path="C:/Logiciel/Librairie/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/jackson-core-2.8.0.rc2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/jackson-databind-2.8.0.rc1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/jain-sip-ri-1.2.293.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/kurento-client-6.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/kurento-commons-6.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/kurento-jsonrpc-client-6.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/kurento-room-sdk-6.5.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/mockito-all-1.10.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-beans-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-boot-1.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-boot-autoconfigure-1.3.5.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-context-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-core-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-web-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Aviteus/Documents/Librairie/spring-websocket-4.3.0.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
