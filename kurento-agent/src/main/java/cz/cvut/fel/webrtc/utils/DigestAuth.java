@@ -13,6 +13,18 @@ import org.apache.http.protocol.BasicHttpContext;
 
 public class DigestAuth {
 
+	/**
+	 * 
+	 * 
+	 * @param method - request method to create the HttpRequest
+	 * @param uri - request URI to create the HttpRequest
+	 * @param response - the BasicHeader value
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws AuthenticationException
+	 * @throws MalformedChallengeException
+	 */
 	public static String getHeaderResponse(String method, String uri, String response, String username, String password) throws AuthenticationException, MalformedChallengeException {
 
 		HttpRequest request = new BasicHttpRequest(method, uri);
