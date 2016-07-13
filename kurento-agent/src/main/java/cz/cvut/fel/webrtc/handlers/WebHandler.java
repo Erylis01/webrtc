@@ -38,6 +38,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * This class allows to receive and send messages via the WebSocket and run the
+ * function associated.
  * 
  * @author Ivan Gracia (izanmail@gmail.com)
  * @since 4.3.1
@@ -60,6 +62,10 @@ public class WebHandler extends TextWebSocketHandler {
 	@Autowired
 	private SipHandler sipHandler;
 
+	/**
+	 * Constructor of WebHandler. It's an Handler for events triggered from
+	 * WebSocket.
+	 */
 	public WebHandler() {
 		super();
 		TimerTask task = new TimerTask() {
@@ -88,6 +94,9 @@ public class WebHandler extends TextWebSocketHandler {
 		timer.scheduleAtFixedRate(task, 30000, 30000);
 	}
 
+	/**
+	 * Get the message from the WebSocker and call the function associated
+	 */
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 
@@ -189,7 +198,7 @@ public class WebHandler extends TextWebSocketHandler {
 		case "record":
 			record(jsonMessage);
 			break;
-			
+
 		case "stopRecord":
 			stopRecord(jsonMessage);
 			break;
@@ -199,6 +208,13 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 * Run the function generateInviteRequest from the Class SipHandler
+	 * 
+	 * @param room
+	 * @param extension
+	 * @param caller
+	 */
 	private void invite(Room room, String extension, String caller) {
 		final JsonObject callInfo = new JsonObject();
 		callInfo.addProperty("id", "callInformation");
@@ -229,9 +245,14 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 
 		sipHandler.generateInviteRequest(room, extension);
-
 	}
 
+	/**
+	 * Run the function to stop the screen sharing for the WebUser
+	 * 
+	 * @param user - Instance of WebUser
+	 * @throws IOException
+	 */
 	private void stopPresenting(WebUser user) throws IOException {
 		if (user.isScreensharer()) {
 			final Room room = roomManager.getRoom(user.getRoomName());
@@ -240,6 +261,13 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 * Allows to start the screen sharing if nobody in the room is already
+	 * sharing its screen
+	 * 
+	 * @param user - Instance of WebUser
+	 * @throws IOException
+	 */
 	private void presenter(WebUser user) throws IOException {
 		Room room = roomManager.getRoom(user.getRoomName());
 
@@ -272,6 +300,13 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 * Run the Room method to join the Room
+	 * 
+	 * @param params
+	 * @param session
+	 * @throws IOException
+	 */
 	private void joinRoom(JsonObject params, WebSocketSession session) throws IOException {
 		final String roomName = params.get("room").getAsString();
 		final String userId = params.get("userId").getAsString();
@@ -296,6 +331,12 @@ public class WebHandler extends TextWebSocketHandler {
 		// }
 	}
 
+	/**
+	 * Run the Room method to leave the room
+	 * 
+	 * @param user
+	 * @throws Exception
+	 */
 	private void leaveRoom(Participant user) throws Exception {
 		if (user != null) {
 			final Room room = roomManager.getRoom(user.getRoomName());
@@ -310,29 +351,39 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 	}
 
+	/**
+	 * Start the record and send a message to each participant of the room
+	 * 
+	 * @param params
+	 */
 	public void record(JsonObject params) {
 		final String roomName = params.get("roomName").getAsString();
 		log.info("PARTICIPANT {}: Start recording the room {}", roomName);
 		Room room = roomManager.getRoom(roomName);
 		room.record();
 		final JsonObject newPresenterMsg = new JsonObject();
-				newPresenterMsg.addProperty("id", "recordJava");
-				newPresenterMsg.addProperty("roomJava", roomName);
-				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
+		newPresenterMsg.addProperty("id", "recordJava");
+		newPresenterMsg.addProperty("roomJava", roomName);
+		newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
 
-				room.broadcast(newPresenterMsg);
+		room.broadcast(newPresenterMsg);
 	}
-	
-	public void stopRecord(JsonObject params){
+
+	/**
+	 * Stop the record and send a message to each participant of the room
+	 * 
+	 * @param params
+	 */
+	public void stopRecord(JsonObject params) {
 		final String roomName = params.get("roomName").getAsString();
 		log.info("PARTICIPANT {}: Stop recording the room {}", roomName);
 		Room room = roomManager.getRoom(roomName);
 		room.stopRecord();
-		final JsonObject newPresenterMsg = new JsonObject();
-				newPresenterMsg.addProperty("id", "stopRecordJava");
-				newPresenterMsg.addProperty("roomJava", roomName);
-				newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
 
-				room.broadcast(newPresenterMsg);
+		final JsonObject newPresenterMsg = new JsonObject();
+		newPresenterMsg.addProperty("id", "stopRecordJava");
+		newPresenterMsg.addProperty("roomJava", roomName);
+		newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
+		room.broadcast(newPresenterMsg);
 	}
 }
