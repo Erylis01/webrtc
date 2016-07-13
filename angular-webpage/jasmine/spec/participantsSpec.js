@@ -1,5 +1,5 @@
 var participants;
-beforeEach(angular.module('app'));
+beforeEach(angular.module('/src/app.js'));
 beforeEach(function() {
   angular.inject(function($injector) {
     participants = $injector.get('participants');
