@@ -1,3 +1,4 @@
+describe('Unit testing for participants factory', function() {
 var mock, participants;
 
 beforeEach(angular.mock.module('app'));
@@ -20,3 +21,4 @@ beforeEach(function() {
 it("verify fs the room is empty", function() {
     expect(participants.isEmpty()).toBe(true);
 });       
+});
