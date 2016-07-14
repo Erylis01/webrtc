@@ -18,7 +18,7 @@ beforeEach(function() {
 });
 
 
-it("verify fs the room is empty", function() {
+it("verify the emptyness checking", function() {
     expect(participants.isEmpty()).toBe(true);
 });       
 });
