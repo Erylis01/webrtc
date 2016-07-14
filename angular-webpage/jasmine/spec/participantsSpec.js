@@ -19,6 +19,10 @@ beforeEach(function() {
 });
 
 
+it("verify participants definition", function() {
+expect(participants).notToBe(undefined);
+}); 
+    
 it("verify the emptyness checking", function() {
     expect(participants.isEmpty()).toBe(true);
 });       
