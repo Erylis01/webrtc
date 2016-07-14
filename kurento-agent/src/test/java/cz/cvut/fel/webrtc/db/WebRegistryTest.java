@@ -2,6 +2,7 @@ package cz.cvut.fel.webrtc.db;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Assert;
@@ -12,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.web.socket.WebSocketSession;
 
 import cz.cvut.fel.webrtc.resources.WebUser;
+
 
 /**
  * This class allows to test every methods of WebRegistry
@@ -99,6 +101,37 @@ public class WebRegistryTest {
 		
 		// Test if the value of the removed user is good
 		Assert.assertEquals(true,removedUser.equals(userMocked));
+		
+	}
+	
+	/**
+	 *  Test of the method {@link cz.cvut.fel.webrtc.db.WebRegistry#getAll()}
+	 */
+	@Test
+	public void getAll() {
+		// Mock of the different class
+		WebUser userMocked = Mockito.mock(WebUser.class);
+		WebUser userMocked2 = Mockito.mock(WebUser.class);
+		WebSocketSession sessionMocked = Mockito.mock(WebSocketSession.class);
+		WebSocketSession sessionMocked2 = Mockito.mock(WebSocketSession.class);
+		ConcurrentHashMap<String, WebUser> usersSpy = Mockito.spy(ConcurrentHashMap.class);
+		WebRegistry wr = new WebRegistry(usersSpy);
+		
+		// Stubbing
+		Mockito.when(userMocked.getSession()).thenReturn(sessionMocked);
+		Mockito.when(sessionMocked.getId()).thenReturn("IdSession");
+		Mockito.when(userMocked2.getSession()).thenReturn(sessionMocked2);
+		Mockito.when(sessionMocked2.getId()).thenReturn("IdSession2");
+		usersSpy.put("IdSession", userMocked);
+		usersSpy.put("IdSession2", userMocked2);
+		
+		//Test if the size of the collection of user returned is correct
+		Collection<WebUser> usersTest =wr.getAll();
+		Assert.assertEquals(2,usersTest.size());
+		
+		//Test if the values of the collection of user returned is correct
+		Assert.assertEquals(true, userMocked.equals(usersTest.toArray()[1]));
+		Assert.assertEquals(true, userMocked2.equals(usersTest.toArray()[0]));
 		
 	}
 }
