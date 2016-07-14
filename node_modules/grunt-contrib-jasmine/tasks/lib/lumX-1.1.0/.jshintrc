@@ -1,0 +1,8 @@
+{
+  "laxbreak": true,
+  "devel" : true,
+  "globals": {
+    "angular": false,
+    "moment": false
+  }
+}

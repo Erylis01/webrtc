@@ -22,7 +22,7 @@ beforeEach(function() {
 it("verify participants definition", function() {
 expect(participants).not.toBe(undefined);
 }); 
-    
+ 
 it("verify the emptyness checking", function() {
     expect(participants.isEmpty()).toBe(true);
 });       
