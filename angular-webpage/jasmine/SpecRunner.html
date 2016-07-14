@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
   <meta charset="utf-8">
   <title>Jasmine Spec Runner v2.4.1</title>
@@ -7,15 +7,15 @@
   <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.4.1/jasmine_favicon.png">
   <link rel="stylesheet" href="lib/jasmine-2.4.1/jasmine.css">
 
-  <script src="lib/jasmine-2.4.1/jasmine.js"></script>
-  <script src="lib/jasmine-2.4.1/jasmine-html.js"></script>
-  <script src="lib/jasmine-2.4.1/boot.js"></script>
+ <!-- Jasmine library -->
+ <script src="lib/jasmine-2.4.1/jasmine.js"></script>
+ <script src="lib/jasmine-2.4.1/jasmine-html.js"></script>
+ <script src="lib/jasmine-2.4.1/boot.js"></script>
   
  <!-- App dependencies -->    
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
  <script src="https://code.angularjs.org/1.4.3/angular-mocks.js"></script>
  </script>
- <script src="src/app.js"></script>
  <script src="../bower_components/angular-route/angular-route.min.js"></script>
  <script src="../bower_components/lumx/dist/lumx.js"></script>
  <script src="../bower_components/angular-translate/angular-translate.js"></script>
@@ -24,12 +24,18 @@
  <script src="../bower_components/re-tree/re-tree.min.js"></script>
  <script src="../bower_components/webrtc-adapter/adapter.js"></script>
   
+ <!-- Controllers -->
+ <script src="js/controllers/user.js"></script>
+ <script src="js/controllers/room.js"></script>
 
-  <!-- include source files here... -->
-  <script src="src/factories/participants.js"></script>
+ <!-- App -->    
+ <script src="src/app.js"></script>
+    
+ <!-- include source files here... -->
+ <script src="src/factories/participants.js"></script>
 
-  <!-- include spec files here... -->
-  <script src="spec/participantsSpec.js"></script>
+ <!-- include spec files here... -->
+ <script src="spec/participantsSpec.js"></script>
 
 </head>
 
