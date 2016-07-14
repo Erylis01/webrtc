@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -24,6 +25,7 @@ public class WebRegistryTest {
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
+		
 	}
 
 
@@ -32,24 +34,23 @@ public class WebRegistryTest {
 	 */
 	@Test
 	public void testRegister() {
-		// Initialisation du test 
-		WebRegistry wr = new WebRegistry();
-		WebUser user = Mockito.mock(WebUser.class);
-		WebSocketSession session= Mockito.mock(WebSocketSession.class);
-		ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
-		users.put("sessionId", user);
 		
-		// Utilisation de la méthode register avec injection des mock
-		user.setSession(session);
-		Mockito.when(user.getSession()).thenReturn(session);
-		Mockito.when(session.getId()).thenReturn("sessionId");
-		wr.register(user);
+		// Initialization of the test 
+		WebUser userMocked = Mockito.mock(WebUser.class);
+		WebSocketSession sessionMocked = Mockito.mock(WebSocketSession.class);
+		ConcurrentHashMap<String, WebUser> usersSpy = Mockito.spy(ConcurrentHashMap.class);
+		WebRegistry wr = new WebRegistry(usersSpy);
 		
-		// Test si taille de la liste est correcte :
-		assertEquals("Taille de liste correcte",1,wr.getAll().size());
+		//stubbing
+		Mockito.when(userMocked.getSession()).thenReturn(sessionMocked);
+		Mockito.when(sessionMocked.getId()).thenReturn("IdSession");
+		
+		// Test if the size is correct :
+		wr.register(userMocked);
+		Assert.assertEquals("The size of the list is correct",1, usersSpy.size());
 		
 		// Test si la valeur est bonne :
-		assertTrue("Les valeurs sont identiques",wr.getUser("sessionId").equals(users.get("sessionId")));
+		Assert.assertEquals(true, usersSpy.get("IdSession").equals(userMocked));
 	}
 
 	/**
@@ -57,13 +58,22 @@ public class WebRegistryTest {
 	 */
 	@Test
 	public void testGetBySession() {
-		WebRegistry wr = new WebRegistry();
-		WebUser user = Mockito.mock(WebUser.class);
-		WebSocketSession session= Mockito.mock(WebSocketSession.class);
-		Mockito.when(user.getSession()).thenReturn(session);
-		Mockito.when(session.getId()).thenReturn("sessionId");
-		wr.register(user);
-		assertTrue("Les valeurs sont identiques", wr.getBySession(session).equals(user));
+		
+		// Mock of the different class
+		WebUser userMocked = Mockito.mock(WebUser.class);
+		WebSocketSession sessionMocked = Mockito.mock(WebSocketSession.class);
+		ConcurrentHashMap<String, WebUser> usersSpy = Mockito.spy(ConcurrentHashMap.class);
+		WebRegistry wr = new WebRegistry(usersSpy);
+		
+		// Stubbing
+		Mockito.when(userMocked.getSession()).thenReturn(sessionMocked);
+		Mockito.when(sessionMocked.getId()).thenReturn("IdSession");
+		usersSpy.put("IdSession", userMocked);
+		
+		
+		// Test if the value returned is correct 
+		Assert.assertEquals(true, wr.getBySession(sessionMocked).equals(userMocked));
+		
 	}
 	
 	/**
@@ -71,26 +81,24 @@ public class WebRegistryTest {
 	 */
 	@Test
 	public void testRemoveBySession() {
-		WebRegistry wr = new WebRegistry();
-		WebUser usera = Mockito.mock(WebUser.class);
-		WebSocketSession sessiona= Mockito.mock(WebSocketSession.class);
-		Mockito.when(usera.getSession()).thenReturn(sessiona);
-		Mockito.when(sessiona.getId()).thenReturn("sessiona_Id");
-		WebUser userb = Mockito.mock(WebUser.class);
-		WebSocketSession sessionb= Mockito.mock(WebSocketSession.class);
-		Mockito.when(userb.getSession()).thenReturn(sessionb);
-		Mockito.when(sessionb.getId()).thenReturn("sessionb_Id");
-		wr.register(usera);
-		wr.register(userb);
-		wr.removeBySession(sessiona);
 		
-		// Test taille de la liste :
-		assertEquals("La ",1,wr.getAll().size());
-		wr.register(usera);
-		assertEquals(2,wr.getAll().size());
-		
-		// Test de la présence de l'élément :
+		// Mock of the different class
+		WebUser userMocked = Mockito.mock(WebUser.class);
+		WebSocketSession sessionMocked = Mockito.mock(WebSocketSession.class);
+		ConcurrentHashMap<String, WebUser> usersSpy = Mockito.spy(ConcurrentHashMap.class);
+		WebRegistry wr = new WebRegistry(usersSpy);
 
+		// Stubbing
+		Mockito.when(userMocked.getSession()).thenReturn(sessionMocked);
+		Mockito.when(sessionMocked.getId()).thenReturn("IdSession");
+		usersSpy.put("IdSession", userMocked);
+		
+		// Test if the size of the List is correct
+		WebUser removedUser =wr.removeBySession(sessionMocked);
+		Assert.assertEquals("The size of the list is correct",0, usersSpy.size());
+		
+		// Test if the value of the removed user is good
+		Assert.assertEquals(true,removedUser.equals(userMocked));
+		
 	}
-
 }
