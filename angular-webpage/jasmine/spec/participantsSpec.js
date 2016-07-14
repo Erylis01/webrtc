@@ -1,4 +1,6 @@
 describe('Unit testing for participants factory', function() {
+
+/**    
 var mock, participants;
 
 beforeEach(angular.mock.module('app'));
@@ -16,7 +18,7 @@ beforeEach(function() {
   });
     
 });
-
+*/
 
 it("verify the emptyness checking", function() {
     expect(participants.isEmpty()).toBe(true);
