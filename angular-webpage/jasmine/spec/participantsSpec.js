@@ -20,7 +20,7 @@ beforeEach(function() {
 
 
 it("verify participants definition", function() {
-expect(participants).notToBe(undefined);
+expect(participants).not.toBe(undefined);
 }); 
     
 it("verify the emptyness checking", function() {
