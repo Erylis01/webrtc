@@ -1,7 +1,7 @@
 /**
 * Describe the object : attributes and
 * methods of the partipant object.
-* @class - participants
+* @class
 */
 app.factory('participants', ['socket', function(socket) {
 
@@ -150,7 +150,7 @@ app.factory('participants', ['socket', function(socket) {
 	}
 
     /**
-    * @function clear() - Deete the participant who invoke it 
+    * @function clear() - Deete the participant who invoek it 
     */
 	function clear() {
 		for (var key in participants) {

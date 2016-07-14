@@ -40,13 +40,19 @@ if (!String.prototype.repeat) {
 	};
 }
 
+/**
+* Describe the class that make the links with upload speed tester
+* @class - upload
+*/
 app.factory('upload', ['$http', 'deviceDetector', 'variables', function($http, device, variables) {
-
+    
+    //Initialization of parameters
 	var url = null;
 	var request = null;
 
 	var speed = 0;
 
+    //Main process of the tester
 	variables.get().then(function(data) {
 
 		var bytes = 209715;
@@ -57,11 +63,14 @@ app.factory('upload', ['$http', 'deviceDetector', 'variables', function($http, d
 		var endTime = null;
 
 		url = data.upload_speed_tester_uri;
-
+        
+        //Retrieve the date before sending data
 		function beforeSend() {
 			startTime = Date.now();
 		}
-
+        
+        //Retrieve the date after sending data
+        //Calculate speed
 		function afterSend(i) {
 			endTime = Date.now();
 			speed = ((i - 1) * speed + endTime - startTime) / i;
@@ -69,7 +78,8 @@ app.factory('upload', ['$http', 'deviceDetector', 'variables', function($http, d
 			if (i < iterations && speed >= 2 && device.isDesktop())
 				speedtest(i);
 		}
-
+        
+        //Make the global test with the two last function
 		function speedtest(i) {
 			request = $.ajax({
 				method: 'POST',
@@ -88,7 +98,10 @@ app.factory('upload', ['$http', 'deviceDetector', 'variables', function($http, d
 			speedtest(0);
 
 	});
-
+    
+    /**
+    * @function abort() - End the test
+    */
 	function abort() {
 		if (request !== null)
 			request.abort();

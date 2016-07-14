@@ -1,5 +1,11 @@
+/**
+* Factory in charge of the uses media device (camera & 
+* microphone)
+* @class - constraints
+*/
 app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($window, device, upload) {
-
+    
+    //Initialization of parameters according to users Settings
 	var type = 'composite';
 	var browser = device.browser;
 	var chromeExtensionInstalled = false;
@@ -17,7 +23,8 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 				chromeExtensionInstalled = true;
 		});
 	}
-
+    
+    //Minimal parameters for the webcam presentation
 	var constraintWebcam = {
 		audio: true,
 		video: {
@@ -26,6 +33,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		}
 	};
 
+    //Default parameters for webcam presentation
 	var defaultConstraintPresentation = {
 		audio: false,
 		video: {
@@ -34,6 +42,8 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		}
 	};
 
+    
+    //Specific chrome's parameters for webcam presentation
 	var chromeConstraintPresentation = {
 		audio: false,
 		video: {
@@ -44,7 +54,12 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 			}
 		}
 	};
-
+    
+    /**
+    * @function get() - constraint configuraton getter
+    * Specifies application behavior in every case
+    * @return Object - constraints
+    */
 	function get() {
 
 		var constraints, consMaxWidth, consMaxHeight;
@@ -81,36 +96,68 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		return constraints;
 
 	}
-
+    
+    /**
+    * @function setCompositeOptions() - composite setters
+    */
 	function setCompositeOptions(opt) {
 		if (opt && (opt == 'normal' || opt == 'audioOnly' || opt == 'watchOnly'))
 			compositeOptions = opt;
 	}
-
+    
+    /**
+    * @function getType() - type getter
+    * @return Object - type
+    */
 	function getType() {
 		return type;
 	}
 
+    /**
+    * @function setType() - type setter
+    * @param Object - t
+    */
 	function setType(t) {
 		type = t;
 	}
 
+    /**
+    * @function seTiD() - ID setter
+    * @param String - id
+    */
 	function setId(id) {
 		chromeConstraintPresentation.video.mandatory.chromeMediaSourceId = id;
 	}
 
+    /**
+    * @function chromeExtensionDetected() - Extension *confirmation
+    * Change the state of extension installation to true
+    */
 	function chromeExtensionDetected() {
 		chromeExtensionInstalled = true;
 	}
 
+    /**
+    * @function ischromeExtensionInstalled() - Extension 
+    * checker
+    * @return Boolean - chromeExtensionInstalled
+    */
 	function isChromeExtensionInstalled() {
 		return chromeExtensionInstalled;
 	}
-
+    
+    /**
+    * @function getWarning() - warning getter
+    * @return String - warning
+    */
 	function getWarning() {
 		return warning;
 	}
 
+    /**
+    * @function setWarning() - warning setter
+    * @param String - w
+    */
 	function setWarning(w) {
 		warning = w;
 	}
