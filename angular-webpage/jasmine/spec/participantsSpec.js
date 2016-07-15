@@ -27,10 +27,11 @@ beforeEach(function() {
     
 });
 
-it("verify participants factory injection", function() {
+it("verify factory injection", function() {
 expect(participants).not.toBe(undefined);
+expect(socket).not.toBe(undefined);
 }); 
- 
+    
 it("verify the object participant",function() {
     //Call the add function and check basic property
     participants.add("145RBC","Jean");

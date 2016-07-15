@@ -22,8 +22,12 @@ module.exports = function(grunt) {
 		       'angular-webpage/jasmine/src/factories/*.js'],
 
                        options : {
-                               specs : ['angular-webpage/jasmine/spec/variablesSpec.js',
-'angular-webpage/jasmine/spec/participantsSpec.js'],
+                               specs : ['angular-webpage/jasmine/spec/participantsSpec.js', 
+'angular-webpage/jasmine/spec/variablesSpec.js', 
+'angular-webpage/jasmine/spec/uploadSpec.js',
+'angular-webpage/jasmine/spec/constraintsSpec.js',
+'angular-webpage/jasmine/spec/websocketSpec.js'
+],
                        }
                }
        });
