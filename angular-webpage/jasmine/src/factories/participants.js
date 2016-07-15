@@ -150,7 +150,7 @@ app.factory('participants', ['socket', function(socket) {
 	}
 
     /**
-    * @function clear() - Deete the participant who invoek it 
+    * @function clear() - Delete every participans of the room 
     */
 	function clear() {
 		for (var key in participants) {
