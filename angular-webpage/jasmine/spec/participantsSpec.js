@@ -18,7 +18,7 @@ beforeEach(function() {
   console = {};    
   console.error = jasmine.createSpy();   
   console.log = jasmine.createSpy();   
-  console.warn = jasmine.createSpy();
+  console.warn = jasmine.createSpy();      
     
   inject(function($injector) {
     participants = $injector.get('participants');
@@ -38,10 +38,20 @@ it("verify the object participant",function() {
     expect(participants.get("145RBC").name).toBe("Jean");
     
     //Verify the offer method
-    participants.get("145RBC").offer("Testtype", true, "A", "B");
-    expect(console.error).toHaveBeenCalledWith('sdp offer error'); //The error was seen
-    participants.get("145RBC").offer("Testtype", false, "A", "B");
-    expect(console.warn).toHaveBeenCalledWith('Socket was closed before sending message'); //The message try to be send but it stops because server is down
+    participants.get("145RBC").offer("composite", true, "A", "B");
+    expect(console.error).toHaveBeenCalledWith('sdp offer error'); 
+    participants.get("145RBC").offer("composite", false, "A", "B");
+    expect(console.warn).toHaveBeenCalledWith('Socket was closed before sending message'); 
+    
+    //No test for offerToReceive beacause it's only call offer
+    
+    //Verify the iceCandidate
+    participants.get("145RBC").iceCandidate("composite","A","B");
+    expect(console.warn).toHaveBeenCalledWith('Socket was closed before sending message'); 
+    ('Socket was closed before sending message'); 
+    //No test for onIce Candidate because it's only call iceCandidate
+    
+    //No test or the remaiining method because they only call native dispose function (see clear test behind to be convaince)
 });
 
 //Test for Remove() 
