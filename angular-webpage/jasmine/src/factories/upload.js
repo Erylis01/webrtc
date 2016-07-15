@@ -1,3 +1,4 @@
+
 if (!String.prototype.repeat) {
 	String.prototype.repeat = function(count) {
 		'use strict';

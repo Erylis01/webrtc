@@ -1,7 +1,8 @@
 /**
 * Test file for variables.js factory 
 *
-* There is only one getter but it's the config.json one, so it's * important
+* There is only one getter but it's the config.json one, so it's 
+* important
 */
 
 describe('Unit testing for variables factory', function() {
@@ -21,7 +22,7 @@ beforeEach(function() {
 
 });
     //Check the factory injection
-   it("verify variables factory injection", function() {
+   it("verify factory injection", function() {
      expect(variables).not.toBe(undefined);
    });        
            
