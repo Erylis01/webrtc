@@ -67,7 +67,7 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public RoomManager roomManager() {
-		return new RoomManager();
+		return new RoomManager(null);
 	}
 
 	@Bean

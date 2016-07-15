@@ -61,6 +61,7 @@ public class Room implements Closeable {
 	private final ConcurrentMap<String, Participant> participants = new ConcurrentSkipListMap<>();
 	private MediaPipeline presentationPipeline;
 	private MediaPipeline compositePipeline;
+
 	private Composite composite;
 	private final String name;
 
@@ -95,7 +96,7 @@ public class Room implements Closeable {
 	 * @param roomname       this is the name user want to give to the room
 	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
 	 */
-	public Room(String roomName, KurentoClient kurento) {
+	public Room(String roomName,KurentoClient kurento) {
 		this(roomName);
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
@@ -466,5 +467,8 @@ public class Room implements Closeable {
 		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();
 	}
+
+
+	
 
 }

@@ -1,15 +1,12 @@
 package cz.cvut.fel.webrtc.db;
 
-import static org.junit.Assert.*;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.web.socket.WebSocketSession;
 
 import cz.cvut.fel.webrtc.resources.WebUser;
@@ -23,13 +20,6 @@ import cz.cvut.fel.webrtc.resources.WebUser;
  */
 public class WebRegistryTest {
 	
-
-	@Before
-	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
-		
-	}
-
 
 	/**
 	 *  Test of the method {@link cz.cvut.fel.webrtc.db.WebRegistry#Register(WebUser)}

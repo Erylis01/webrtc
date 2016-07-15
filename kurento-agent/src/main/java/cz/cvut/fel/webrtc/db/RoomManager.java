@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -49,8 +48,17 @@ public class RoomManager {
 	@Autowired
 	private LineRegistry sipRegistry;
 
-	private final ConcurrentMap<String, Room> rooms = new ConcurrentHashMap<>();
+	private final ConcurrentMap<String, Room> rooms;
 
+	/**
+	 * Constructor of the class RoomManager
+	 * 
+	 * @param rooms
+	 */
+	public RoomManager (ConcurrentMap<String, Room> rooms){
+		this.rooms=rooms;
+	}
+	
 	/**
 	 * Return a currently active Room via its identifier. If the room does not
 	 * exist, it is create and return.
@@ -117,7 +125,7 @@ public class RoomManager {
 	 * @param room
 	 * @throws IOException
 	 */
-	public void removeRoom(Room room) {
+	public Room removeRoom(Room room) {
 		if (room != null) {
 			this.rooms.remove(room.getName());
 
@@ -132,6 +140,7 @@ public class RoomManager {
 
 			log.info("Room {} removed and closed", room.getName());
 		}
+		return room;
 	}
 
 }
