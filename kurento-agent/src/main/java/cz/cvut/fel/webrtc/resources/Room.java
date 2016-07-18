@@ -481,6 +481,12 @@ public class Room implements Closeable {
 	public void setParticipants(ConcurrentHashMap<String, Participant> participants) {
 		this.participants = participants;
 	}
+	/**
+	 * @return the screensharer
+	 */
+	public WebUser getScreensharer() {
+		return screensharer;
+	}
 
 
 	

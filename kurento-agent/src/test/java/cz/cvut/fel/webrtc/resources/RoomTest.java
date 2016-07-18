@@ -91,16 +91,32 @@ public class RoomTest {
 	}
 
 	@Test
-	public void testLeaveParticipant() {
+	public void testLeaveParticipant() throws IOException {
 		// Initialization of the test
 		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
 		Room rtest = new Room ("roomtest",participantSpy);
 		rtest = Mockito.spy(rtest);
 		Participant pMocked = Mockito.mock(Participant.class);
+		WebUser wuMocked = Mockito.mock(WebUser.class);
 		participantSpy.put("pMocked", pMocked);
 		
 		//Stubbing
-		Mockito.doNothing().when(rtest).
+		Mockito.doNothing().when(rtest).removeParticipant(pMocked);
+		Mockito.doNothing().when(pMocked).close();
+		
+		//Test that the method removeParticipant() and close() are called
+		rtest.leave(pMocked);
+		Mockito.verify(rtest).removeParticipant(pMocked);
+		Mockito.verify(pMocked).close();
+		
+		//Test if the user is the screesharer 
+		Mockito.when(rtest.getScreensharer()).thenReturn(wuMocked);
+		rtest.leave(pMocked);
+		System.out.println(pMocked.equals(wuMocked));
+		System.out.println(rtest.getScreensharer());
+		//Mockito.verify(rtest).removeParticipant(pMocked);
+		//Mockito.verify(pMocked).close();
+		Assert.assertTrue(rtest.getScreensharer().equals(null));
 	}
 
 	@Test
