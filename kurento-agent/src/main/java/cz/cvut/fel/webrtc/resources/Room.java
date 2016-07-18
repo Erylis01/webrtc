@@ -58,7 +58,7 @@ public class Room implements Closeable {
 
 	private final Logger log = LoggerFactory.getLogger(Room.class);
 
-	private final ConcurrentMap<String, Participant> participants = new ConcurrentSkipListMap<>();
+	private ConcurrentMap<String, Participant> participants;
 	private MediaPipeline presentationPipeline;
 	private MediaPipeline compositePipeline;
 
@@ -86,18 +86,19 @@ public class Room implements Closeable {
 	 * 
 	 * @param roomname       this is the name user want to give to the room
 	 */
-	protected Room(String roomName) {
+	public Room(String roomName,ConcurrentMap<String, Participant> participants) {
 		this.callId = UUID.randomUUID().toString();
 		this.cseq = (new Random()).nextInt(100);
 		this.name = roomName;
+		this.participants=participants;
 	}
 	/**
 	 * creat the room for the communication 
 	 * @param roomname       this is the name user want to give to the room
 	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
 	 */
-	public Room(String roomName,KurentoClient kurento) {
-		this(roomName);
+	public Room(String roomName,KurentoClient kurento,ConcurrentMap<String, Participant> participants) {
+		this(roomName,participants);
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
 		this.composite = new Composite.Builder(getCompositePipeline()).build();
@@ -250,7 +251,7 @@ public class Room implements Closeable {
 
 		final JsonArray participantsArray = new JsonArray();
 
-		for (final Participant p : this.getParticipants()) {
+		for (final Participant p : this.getParticipantsValues()) {
 			final JsonElement participantName = new JsonPrimitive(p.getName());
 			participantsArray.add(participantName);
 		}
@@ -301,7 +302,7 @@ public class Room implements Closeable {
 
 		final JsonArray participantsArray = new JsonArray();
 
-		for (final Participant participant : this.getParticipants()) {
+		for (final Participant participant : this.getParticipantsValues()) {
 			if (!participant.equals(user)) {
 				final JsonElement participantName = new JsonPrimitive(participant.getName());
 				participantsArray.add(participantName);
@@ -329,7 +330,7 @@ public class Room implements Closeable {
 	/**
 	 * @return a collection with all the participants in the room
 	 */
-	public Collection<Participant> getParticipants() {
+	public Collection<Participant> getParticipantsValues() {
 		return participants.values();
 	}
 	/**
@@ -466,6 +467,18 @@ public class Room implements Closeable {
 	public void stopRecord() {
 		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();
+	}
+	/**
+	 * @return the participants
+	 */
+	public ConcurrentMap<String, Participant> getParticipants() {
+		return participants;
+	}
+	/**
+	 * @param participants the participants to set
+	 */
+	public void setParticipants(ConcurrentMap<String, Participant> participants) {
+		this.participants = participants;
 	}
 
 

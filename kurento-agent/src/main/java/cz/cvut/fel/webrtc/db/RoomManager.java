@@ -15,6 +15,7 @@
 package cz.cvut.fel.webrtc.db;
 
 import cz.cvut.fel.webrtc.handlers.SipHandler;
+import cz.cvut.fel.webrtc.resources.Participant;
 import cz.cvut.fel.webrtc.resources.Room;
 import org.kurento.client.KurentoClient;
 import org.slf4j.Logger;
@@ -49,6 +50,7 @@ public class RoomManager {
 	private LineRegistry sipRegistry;
 
 	private final ConcurrentMap<String, Room> rooms;
+	private ConcurrentMap<String, Participant> participants;
 
 	/**
 	 * Constructor of the class RoomManager
@@ -75,7 +77,7 @@ public class RoomManager {
 
 		if (room == null) {
 			log.debug("Room {} not existent. Will create now!", roomName);
-			room = new Room(roomName, kurento);
+			room = new Room(roomName, kurento,participants);
 			try {
 				sipHandler.register(room, null);
 			} catch (Exception e) {
@@ -104,7 +106,7 @@ public class RoomManager {
 
 		if ((room == null) && create) {
 			log.debug("Room {} not existent. Will create now!", roomName);
-			room = new Room(roomName, kurento);
+			room = new Room(roomName, kurento,participants);
 			try {
 				sipHandler.register(room, null);
 			} catch (Exception e) {
