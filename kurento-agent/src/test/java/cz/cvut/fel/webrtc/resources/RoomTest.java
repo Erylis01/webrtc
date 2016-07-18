@@ -2,44 +2,31 @@ package cz.cvut.fel.webrtc.resources;
 
 import static org.junit.Assert.fail;
 
-import java.util.concurrent.ConcurrentMap;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
+
 import org.junit.Test;
 import org.kurento.client.Composite;
 import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaPipeline;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 import org.junit.Assert;
 
 
 public class RoomTest {
 	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 	}
 
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testRoomString() {
-		ConcurrentMap<String, Participant> participantSpy = Mockito.spy(ConcurrentMap.class);
+		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
 		Room r = new Room("roomtest",participantSpy);
 		
 		//Test that the roomName is correct
@@ -51,7 +38,8 @@ public class RoomTest {
 
 	@Test
 	public void testRoomStringKurentoClient() throws Exception {
-		ConcurrentMap<String, Participant> participantSpy = Mockito.spy(ConcurrentMap.class);
+		
+		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
 		KurentoClient kurentoMocked = Mockito.mock(KurentoClient.class);
 		Composite composite=Mockito.mock(Composite.class);
 		MediaPipeline compositeMocked = Mockito.mock(MediaPipeline.class);
@@ -76,35 +64,61 @@ public class RoomTest {
 
 	@Test
 	public void testAdd() {
-		ConcurrentMap<String, Participant> participantSpy = Mockito.spy(ConcurrentMap.class);
-		Room r = new Room ("roomtest",participantSpy);
+		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
+		Room rtest = new Room ("roomTest",participantSpy);
 		Participant pMocked = Mockito.mock(Participant.class);
-		Participant pbMocked = Mockito.mock(Participant.class);
+		Participant pMocked2 = Mockito.mock(Participant.class);
 		
 		//Stubbing
-		Mockito.when(pMocked.getId()).thenReturn("participanttest");
-		Mockito.when(pbMocked.getId()).thenReturn("participanttest2");
+		Mockito.when(pMocked.getId()).thenReturn("pMocked");
+		Mockito.when(pMocked2.getId()).thenReturn("pMocked2");
 		
-		//Test if the room size and the participant of is correct 
-		r.add(pMocked);
-		System.out.println(r.getParticipants().size());
-		Assert.assertEquals(1,r.getParticipants().size());
-		Assert.assertTrue(r.getParticipants().containsValue(pMocked));
+		//Test size of the list participant and the value
+		rtest.add(pMocked);
+		Assert.assertEquals(1,participantSpy.size());
+		Assert.assertTrue(participantSpy.contains(pMocked));
 		
-		r.add(pbMocked);
-		Assert.assertEquals(2,r.getParticipants());
-		Assert.assertTrue(r.getParticipants().containsValue(pbMocked)&& r.getParticipants().containsValue(pMocked));
+		//Test size of the list participant and the value
+		rtest.add(pMocked2);
+		Assert.assertEquals(2,participantSpy.size());
+		Assert.assertTrue(participantSpy.contains(pMocked2)&& participantSpy.contains(pMocked));
 		
+		//Test if the element is null that it does nothing
+		rtest.add(null);
+		Assert.assertEquals(2,participantSpy.size());
+		Assert.assertTrue(participantSpy.contains(pMocked2)&& participantSpy.contains(pMocked));
+
 	}
 
 	@Test
 	public void testLeaveParticipant() {
-		fail("Not yet implemented");
+		// Initialization of the test
+		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
+		Room rtest = new Room ("roomtest",participantSpy);
+		rtest = Mockito.spy(rtest);
+		Participant pMocked = Mockito.mock(Participant.class);
+		participantSpy.put("pMocked", pMocked);
+		
+		//Stubbing
+		Mockito.doNothing().when(rtest).
 	}
 
 	@Test
-	public void testLeaveString() {
+	public void testLeaveString() throws IOException {
+		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
+		Room rtest = new Room ("roomtest",participantSpy);
+		rtest = Mockito.spy(rtest);
 		Participant pMocked = Mockito.mock(Participant.class);
+		participantSpy.put("pMocked", pMocked);
+		
+		// Stubbing
+		Mockito.when(pMocked.getId()).thenReturn("pMocked",(String)null);
+		Mockito.doNothing().when(rtest).leave(pMocked);
+		
+		//Test if that the method leave(Participant) is called 
+		rtest.leave("pMocked");
+		Mockito.verify(rtest).leave(pMocked);
+				
 	}
 
 	@Test
