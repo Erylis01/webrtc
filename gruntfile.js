@@ -26,7 +26,9 @@ module.exports = function(grunt) {
 'angular-webpage/jasmine/spec/variablesSpec.js', 
 'angular-webpage/jasmine/spec/uploadSpec.js',
 'angular-webpage/jasmine/spec/constraintsSpec.js',
-'angular-webpage/jasmine/spec/websocketSpec.js'
+'angular-webpage/jasmine/spec/websocketSpec.js',
+'angular-webpage/jasmine/spec/roomSpec.js',
+'angular-webpage/jasmine/spec/userSpec.js'
 ],
                        }
                }

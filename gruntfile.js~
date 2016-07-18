@@ -11,6 +11,7 @@ module.exports = function(grunt) {
 		        'node_modules/grunt-contrib-jasmine/tasks/lib/angular-mocks.js',
 			'node_modules/grunt-contrib-jasmine/tasks/lib/angular-route.min.js',
 		       'node_modules/grunt-contrib-jasmine/tasks/lib/lumX-1.1.0/dist/lumx.js',
+		       'node_modules/grunt-contrib-jasmine/tasks/lib/progress.js-0.1.0/src/progress.js',
 		       'node_modules/grunt-contrib-jasmine/tasks/lib/underscore-min.js',
 		       'angular-webpage/jasmine/src/kurento-utils.min.js',
 		       'node_modules/grunt-contrib-jasmine/tasks/lib/re-tree.js',
@@ -25,7 +26,10 @@ module.exports = function(grunt) {
                                specs : ['angular-webpage/jasmine/spec/participantsSpec.js', 
 'angular-webpage/jasmine/spec/variablesSpec.js', 
 'angular-webpage/jasmine/spec/uploadSpec.js',
-'angular-webpage/jasmine/spec/constraintsSpec.js'
+'angular-webpage/jasmine/spec/constraintsSpec.js',
+'angular-webpage/jasmine/spec/websocketSpec.js',
+'angular-webpage/jasmine/spec/roomSpec.js',
+'angular-webpage/jasmine/spec/userSpec.js'
 ],
                        }
                }

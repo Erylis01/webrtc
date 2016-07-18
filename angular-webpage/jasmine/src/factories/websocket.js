@@ -41,7 +41,7 @@ app.factory('socket', ['$window', 'variables', function($window, variables) {
 			}, 1000);
 		};
 	}
-
+    
     /**
     * @function send() - Send a JSON message to server
     * @param String{} - message

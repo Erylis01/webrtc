@@ -20,12 +20,14 @@ beforeEach(function() {
   console.log = jasmine.createSpy();   
   console.warn = jasmine.createSpy();   
     
+    
   inject(function($injector) {
     websocket = $injector.get('socket'); 
     variables = $injector.get('variables');
   });
-
+    
 });
+
     
    //Check the factory injection
    it("verify factory injection", function() {
@@ -33,11 +35,10 @@ beforeEach(function() {
      expect(variables).not.toBe(undefined);
    }); 
 
-    
   //Test the function send()
     it('verify the sending ability - send(message)', function() {
     websocket.send(JSON.stringify({'A':'B'}));
-    expect(console.warn).toHaveBeenCalledWith('Socket was closed before sending message');    
+    expect(console.warn).toHaveBeenCalledWith('Socket was closed before sending message'); 
     });
     
   //Test the function get()  
