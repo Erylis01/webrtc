@@ -29,8 +29,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+
 
 //import org.kurento.client.HubPort;
 
@@ -58,7 +59,7 @@ public class Room implements Closeable {
 
 	private final Logger log = LoggerFactory.getLogger(Room.class);
 
-	private ConcurrentMap<String, Participant> participants;
+	private ConcurrentHashMap<String, Participant> participants;
 	private MediaPipeline presentationPipeline;
 	private MediaPipeline compositePipeline;
 
@@ -86,7 +87,7 @@ public class Room implements Closeable {
 	 * 
 	 * @param roomname       this is the name user want to give to the room
 	 */
-	public Room(String roomName,ConcurrentMap<String, Participant> participants) {
+	public Room(String roomName,ConcurrentHashMap<String, Participant> participants) {
 		this.callId = UUID.randomUUID().toString();
 		this.cseq = (new Random()).nextInt(100);
 		this.name = roomName;
@@ -97,7 +98,7 @@ public class Room implements Closeable {
 	 * @param roomname       this is the name user want to give to the room
 	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
 	 */
-	public Room(String roomName,KurentoClient kurento,ConcurrentMap<String, Participant> participants) {
+	public Room(String roomName,KurentoClient kurento,ConcurrentHashMap<String, Participant> participants) {
 		this(roomName,participants);
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
@@ -152,7 +153,7 @@ public class Room implements Closeable {
 	 */
 	public void add(Participant participant) {
 		if (participant != null)
-			participants.put(participant.getId(), participant);
+		participants.put(participant.getId(), participant);
 	}
 
 	/**
@@ -236,7 +237,7 @@ public class Room implements Closeable {
 	 * @param participant - Instance of Participant
 	 * @throws IOException - if the participant does not exist
 	 */
-	private void removeParticipant(Participant participant) throws IOException {
+	public void removeParticipant(Participant participant) throws IOException {
 		participants.remove(participant.getId());
 
 		boolean isScreensharer = (screensharer != null && participant.equals(screensharer));
@@ -471,14 +472,20 @@ public class Room implements Closeable {
 	/**
 	 * @return the participants
 	 */
-	public ConcurrentMap<String, Participant> getParticipants() {
+	public ConcurrentHashMap<String, Participant> getParticipants() {
 		return participants;
 	}
 	/**
 	 * @param participants the participants to set
 	 */
-	public void setParticipants(ConcurrentMap<String, Participant> participants) {
+	public void setParticipants(ConcurrentHashMap<String, Participant> participants) {
 		this.participants = participants;
+	}
+	/**
+	 * @return the screensharer
+	 */
+	public WebUser getScreensharer() {
+		return screensharer;
 	}
 
 

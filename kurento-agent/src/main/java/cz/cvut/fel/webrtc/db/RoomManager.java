@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -50,7 +51,7 @@ public class RoomManager {
 	private LineRegistry sipRegistry;
 
 	private final ConcurrentMap<String, Room> rooms;
-	private ConcurrentMap<String, Participant> participants;
+	private ConcurrentHashMap<String, Participant> participants;
 
 	/**
 	 * Constructor of the class RoomManager
