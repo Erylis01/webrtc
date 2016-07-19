@@ -53,15 +53,20 @@ public class RoomManager {
 	private final ConcurrentMap<String, Room> rooms;
 	private ConcurrentHashMap<String, Participant> participants;
 
+	
+	
 	/**
 	 * Constructor of the class RoomManager
 	 * 
 	 * @param rooms
 	 */
-	public RoomManager (ConcurrentMap<String, Room> rooms){
+	public RoomManager (ConcurrentMap<String, Room> rooms,ConcurrentHashMap<String, Participant> participants){
 		this.rooms=rooms;
+		this.participants=participants;
 	}
 	
+
+
 	/**
 	 * Return a currently active Room via its identifier. If the room does not
 	 * exist, it is create and return.

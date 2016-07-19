@@ -16,6 +16,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaPipeline;
 
+import cz.cvut.fel.webrtc.resources.Participant;
 import cz.cvut.fel.webrtc.resources.Room;
 
 
@@ -30,6 +31,7 @@ public class RoomManagerTest {
 
 	private Room roomMocked ;
 	private ConcurrentHashMap<String, Room> roomsSpy;
+	ConcurrentHashMap<String, Participant> participantsSpy;
 	private RoomManager rm;
 	
 	/**
@@ -41,7 +43,8 @@ public class RoomManagerTest {
 	public void setUp() throws Exception {
 		this.roomMocked = PowerMockito.mock(Room.class);
 		this.roomsSpy = Mockito.spy(ConcurrentHashMap.class);
-		this.rm = new RoomManager(roomsSpy);
+		this.participantsSpy=Mockito.spy(ConcurrentHashMap.class);
+		this.rm = new RoomManager(roomsSpy,participantsSpy);
 	}
 	
 	

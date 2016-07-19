@@ -13,6 +13,9 @@ import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaPipeline;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import com.google.gson.JsonObject;
+
 import org.junit.Assert;
 
 
@@ -67,26 +70,20 @@ public class RoomTest {
 		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
 		Room rtest = new Room ("roomTest",participantSpy);
 		Participant pMocked = Mockito.mock(Participant.class);
-		Participant pMocked2 = Mockito.mock(Participant.class);
-		
-		//Stubbing
-		Mockito.when(pMocked.getId()).thenReturn("pMocked");
-		Mockito.when(pMocked2.getId()).thenReturn("pMocked2");
 		
 		//Test size of the list participant and the value
-		rtest.add(pMocked);
-		Assert.assertEquals(1,participantSpy.size());
-		Assert.assertTrue(participantSpy.contains(pMocked));
-		
-		//Test size of the list participant and the value
-		rtest.add(pMocked2);
-		Assert.assertEquals(2,participantSpy.size());
-		Assert.assertTrue(participantSpy.contains(pMocked2)&& participantSpy.contains(pMocked));
+		for (int i=1; i<5; i++){
+			Mockito.when(pMocked.getId()).thenReturn("pMocked"+i);
+			rtest.add(pMocked);
+			Assert.assertEquals(i,participantSpy.size());
+			Assert.assertTrue(participantSpy.containsKey("pMocked"+i));
+		}
 		
 		//Test if the element is null that it does nothing
+		participantSpy.clear();
 		rtest.add(null);
-		Assert.assertEquals(2,participantSpy.size());
-		Assert.assertTrue(participantSpy.contains(pMocked2)&& participantSpy.contains(pMocked));
+		Assert.assertEquals(0,participantSpy.size());
+		Assert.assertTrue(participantSpy.isEmpty());
 
 	}
 
@@ -98,25 +95,20 @@ public class RoomTest {
 		rtest = Mockito.spy(rtest);
 		Participant pMocked = Mockito.mock(Participant.class);
 		WebUser wuMocked = Mockito.mock(WebUser.class);
-		participantSpy.put("pMocked", pMocked);
+		
 		
 		//Stubbing
 		Mockito.doNothing().when(rtest).removeParticipant(pMocked);
 		Mockito.doNothing().when(pMocked).close();
+		Mockito.when(rtest.getScreensharer()).thenReturn(wuMocked);
 		
 		//Test that the method removeParticipant() and close() are called
-		rtest.leave(pMocked);
-		Mockito.verify(rtest).removeParticipant(pMocked);
-		Mockito.verify(pMocked).close();
-		
-		//Test if the user is the screesharer 
-		Mockito.when(rtest.getScreensharer()).thenReturn(wuMocked);
-		rtest.leave(pMocked);
-		System.out.println(pMocked.equals(wuMocked));
-		System.out.println(rtest.getScreensharer());
-		//Mockito.verify(rtest).removeParticipant(pMocked);
-		//Mockito.verify(pMocked).close();
-		Assert.assertTrue(rtest.getScreensharer().equals(null));
+		for (int i=1; i<5; i++){
+			participantSpy.put("pMocked"+i, pMocked);
+			rtest.leave(pMocked);
+			Mockito.verify(rtest,Mockito.times(i)).removeParticipant(pMocked);
+			Mockito.verify(pMocked,Mockito.times(i)).close();
+		}
 	}
 
 	@Test
@@ -125,26 +117,34 @@ public class RoomTest {
 		Room rtest = new Room ("roomtest",participantSpy);
 		rtest = Mockito.spy(rtest);
 		Participant pMocked = Mockito.mock(Participant.class);
-		participantSpy.put("pMocked", pMocked);
-		
-		// Stubbing
-		Mockito.when(pMocked.getId()).thenReturn("pMocked",(String)null);
-		Mockito.doNothing().when(rtest).leave(pMocked);
 		
 		//Test if that the method leave(Participant) is called 
-		rtest.leave("pMocked");
-		Mockito.verify(rtest).leave(pMocked);
-				
+		for (int i=1; i<5;i++){
+			Mockito.when(pMocked.getId()).thenReturn("pMocked"+i);
+			Mockito.doNothing().when(rtest).leave(pMocked);
+			participantSpy.put("pMocked"+i, pMocked);
+			rtest.leave("pMocked"+i);
+			Mockito.verify(rtest,Mockito.times(i)).leave(pMocked);	
+		}
 	}
 
 	@Test
 	public void testJoinRoom() {
 		fail("Not yet implemented");
+		
 	}
 
 	@Test
 	public void testBroadcast() {
-		fail("Not yet implemented");
+		ConcurrentHashMap<String, Participant> participantSpy = Mockito.spy(ConcurrentHashMap.class);
+		Room rtest = new Room ("roomtest",participantSpy);
+		Participant pMocked = Mockito.mock(Participant.class);
+		JsonObject messageMocked = Mockito.mock(JsonObject.class);
+		
+		for (int i=1; i<6;i++){
+			participantSpy.put("pMocked"+i,pMocked);
+		}
+		rtest.broadcast(messageMocked, pMocked);
 	}
 
 	@Test
