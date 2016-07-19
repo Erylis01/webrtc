@@ -48,7 +48,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 			$scope.color = 'red';
 
 		} else {
-            // Room is existing, try to contact other participants
+            //Room is existing try to contact other participants
 			if (socket.isOpen()) {
 
 				var userId = createGuid();
@@ -67,7 +67,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 				$location.path("/rooms/" + participant.room);
             
 			} else {
-                //WebSocket fail - server unreacheable
+                //WebSocket fail server unreacheable
 				var warning = {
 					title: 'Websocket Error',
 					content: 'Unable to connect to the server. Please try later.'
