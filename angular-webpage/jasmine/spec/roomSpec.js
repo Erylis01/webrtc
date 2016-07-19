@@ -2,7 +2,7 @@
 * Test file for room.js controller 
 */
 
-describe('Unit testing for room controller', function() {
+describe('General parameters for testing controller', function() {
    
     var mock, $controller;
    
@@ -14,17 +14,24 @@ describe('Unit testing for room controller', function() {
    
     
     
-    describe('$scope.lineAvailable', function() {
+    describe('Unit testing for user controller', function() {
         
         var $scope, controller;
         
         beforeEach(function() {
-        $scope = {};
-        var controller = $controller('RoomCtrl', {$scope: $scope }); 
+        $scope = {
+            $on: function() {}
+        };
+        var controller = $controller('RoomCtrl', {$scope: $scope });
+        inject(function($injector) {
+        constraints = $injector.get('constraints'); 
+        socket = $injector.get('socket'); 
+        participants = $injector.get('participants'); 
+        });
         });
         
-        it('Verify lineAvailable scope initialization', function() {
-        expect($scope.lineAvailable).toBe(false);
+        it('Verify scope variable initialization', function() {
+        expect($scope.lineAvailable).toBe(false);   
         });
     });
     
