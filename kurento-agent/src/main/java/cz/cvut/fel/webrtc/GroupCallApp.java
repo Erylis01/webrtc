@@ -72,9 +72,7 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public RoomManager roomManager() {
-		ConcurrentMap<String, Room> rooms = new ConcurrentHashMap<>();
-		ConcurrentHashMap<String, Participant> participants  = new ConcurrentHashMap<>();
-		return new RoomManager(rooms, participants);
+		return new RoomManager();
 	}
 
 	@Bean
