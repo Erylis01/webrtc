@@ -29,8 +29,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 
 //import org.kurento.client.HubPort;
@@ -42,24 +42,24 @@ import java.util.concurrent.ConcurrentHashMap;
 /*
  * (C) Copyright 2014 Kurento (http://kurento.org/)
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the GNU Lesser General Public License
- * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the GNU Lesser General Public License (LGPL)
+ * version 2.1 which accompanies this distribution, and is available at
  * http://www.gnu.org/licenses/lgpl-2.1.html
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  *
  */
-
 
 public class Room implements Closeable {
 
 	private final Logger log = LoggerFactory.getLogger(Room.class);
 
-	private ConcurrentHashMap<String, Participant> participants;
+	private ConcurrentMap<String, Participant> participants = new ConcurrentSkipListMap<>();
+
 	private MediaPipeline presentationPipeline;
 	private MediaPipeline compositePipeline;
 
@@ -83,26 +83,31 @@ public class Room implements Closeable {
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * 
-	 * @param roomname       this is the name user want to give to the room
+	 * @param roomname
+	 *            this is the name user want to give to the room
 	 */
-	public Room(String roomName,ConcurrentHashMap<String, Participant> participants) {
+	protected Room(String roomName) {
 		this.callId = UUID.randomUUID().toString();
 		this.cseq = (new Random()).nextInt(100);
 		this.name = roomName;
-		this.participants=participants;
 	}
+
 	/**
-	 * creat the room for the communication 
-	 * @param roomname       this is the name user want to give to the room
-	 * @kurotoClient 		 it's the link between the WebRTC serveur and the room
+	 * creat the room for the communication
+	 * 
+	 * @param roomname
+	 *            this is the name user want to give to the room
+	 * @kurotoClient it's the link between the WebRTC serveur and the room
 	 */
-	public Room(String roomName,KurentoClient kurento,ConcurrentHashMap<String, Participant> participants) {
-		this(roomName,participants);
+	public Room(String roomName, KurentoClient kurento) {
+		this(roomName);
+
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
-		this.composite = new Composite.Builder(getCompositePipeline()).build();
+		this.composite = new Composite.Builder(compositePipeline).build();
 
 		log.info("ROOM {} has been created", roomName);
 	}
@@ -119,8 +124,10 @@ public class Room implements Closeable {
 	 * @param userID
 	 *            - name or identifier of the user in the room. Will be used to
 	 *            identify her WebRTC media peer (from the client-side).
-	 * @param session - conversation between two web socket endpoints
-	 * @param sessionClass - it permit to instantiate the created new participant
+	 * @param session
+	 *            - conversation between two web socket endpoints
+	 * @param sessionClass
+	 *            - it permit to instantiate the created new participant
 	 * 
 	 * @return an existing peers of type Participant, can be empty if first
 	 */
@@ -148,19 +155,22 @@ public class Room implements Closeable {
 
 	/**
 	 * Add to a set of participant a Participant
-	 *  
-	 * @param participant - instance of Participant
+	 * 
+	 * @param participant
+	 *            - instance of Participant
 	 */
 	public void add(Participant participant) {
 		if (participant != null)
-		participants.put(participant.getId(), participant);
+			participants.put(participant.getId(), participant);
 	}
 
 	/**
-	 * Allows a participant to leave a room 
+	 * Allows a participant to leave a room
 	 * 
-	 * @param user - The participant
-	 * @throws IOException - on error leaving the room
+	 * @param user
+	 *            - The participant
+	 * @throws IOException
+	 *             - on error leaving the room
 	 */
 	public void leave(Participant user) throws IOException {
 
@@ -175,10 +185,12 @@ public class Room implements Closeable {
 	}
 
 	/**
-	 * Allows a participant to leave a room via its identifier.  
+	 * Allows a participant to leave a room via its identifier.
 	 * 
-	 * @param userId - Identifier of a participant
-	 * @throws IOException - on error leaving the room
+	 * @param userId
+	 *            - Identifier of a participant
+	 * @throws IOException
+	 *             - on error leaving the room
 	 */
 	public void leave(String userId) throws IOException {
 		Participant user = participants.get(userId);
@@ -188,9 +200,10 @@ public class Room implements Closeable {
 	}
 
 	/**
-	 * Allows a participant to join a room. 
+	 * Allows a participant to join a room.
 	 * 
-	 * @param newParticipant - Instance of Participant
+	 * @param newParticipant
+	 *            - Instance of Participant
 	 */
 	public void joinRoom(Participant newParticipant) {
 		final JsonObject newParticipantMsg = new JsonObject();
@@ -203,14 +216,16 @@ public class Room implements Closeable {
 	/**
 	 * Send a Json message to a the participants of a room
 	 * 
-	 * @param message - Instance of JsonObject
-	 * @param exception - ???
+	 * @param message
+	 *            - Instance of JsonObject
+	 * @param exception
+	 *            - ???
 	 */
 	public void broadcast(JsonObject message, Participant exception) {
 
 		for (final Participant participant : participants.values()) {
 
-			if (!(participant.equals(exception)) || participant instanceof WebUser){
+			if (!(participant.equals(exception)) || participant instanceof WebUser) {
 				try {
 					participant.sendMessage(message);
 				} catch (final IOException e) {
@@ -223,17 +238,20 @@ public class Room implements Closeable {
 	/**
 	 * Send a Json message to all the participants of a room
 	 * 
-	 * @param message - Instance of JsonObject
+	 * @param message
+	 *            - Instance of JsonObject
 	 */
 	public void broadcast(JsonObject message) {
 		broadcast(message, null);
 	}
 
 	/**
-	 *  Remove a participant of the room and notify every members of this room.
-	 *  
-	 * @param participant - Instance of Participant
-	 * @throws IOException - if the participant does not exist
+	 * Remove a participant of the room and notify every members of this room.
+	 * 
+	 * @param participant
+	 *            - Instance of Participant
+	 * @throws IOException
+	 *             - if the participant does not exist
 	 */
 	public void removeParticipant(Participant participant) throws IOException {
 		participants.remove(participant.getId());
@@ -268,10 +286,11 @@ public class Room implements Closeable {
 	}
 
 	/**
-	 *  close the channel of video communication
-	 *  
+	 * close the channel of video communication
 	 * 
-	 * @throws IOException - if there is no Participant
+	 * 
+	 * @throws IOException
+	 *             - if there is no Participant
 	 */
 	public void cancelPresentation() throws IOException {
 		if (screensharer != null) {
@@ -290,12 +309,17 @@ public class Room implements Closeable {
 			screensharer = null;
 		}
 	}
+
 	/**
-	 * send the names of all participants in the room exept the one who send it to an over user.
-	 *  
-	 * @param participant -  Instance of Participant
-	 * @param id 			 id of the one who received the information
-	 * @throws IOException - if the participant does not exist
+	 * send the names of all participants in the room exept the one who send it
+	 * to an over user.
+	 * 
+	 * @param participant
+	 *            - Instance of Participant
+	 * @param id
+	 *            id of the one who received the information
+	 * @throws IOException
+	 *             - if the participant does not exist
 	 */
 	public void sendInformation(Participant user, String id) throws IOException {
 
@@ -332,6 +356,7 @@ public class Room implements Closeable {
 	public Collection<Participant> getParticipantsValues() {
 		return participants.values();
 	}
+
 	/**
 	 * @return all the information about the id
 	 */
@@ -379,38 +404,47 @@ public class Room implements Closeable {
 
 		log.debug("Room {} closed", this.name);
 	}
+
 	/**
 	 * @return the composite pipeline
 	 */
 	public MediaPipeline getCompositePipeline() {
 		return compositePipeline;
 	}
+
 	/**
 	 * @return the presentation pipeline
 	 */
 	public MediaPipeline getPresentationPipeline() {
 		return presentationPipeline;
 	}
+
 	/**
 	 * change the one who share his screen
-	 * @param user the new screensharer
+	 * 
+	 * @param user
+	 *            the new screensharer
 	 */
 	public void setScreensharer(WebUser user) {
 		this.screensharer = user;
 	}
+
 	/**
 	 * @return true if there is a sreensharer, false if not
 	 */
 	public boolean hasScreensharer() {
 		return (screensharer != null);
 	}
+
 	/**
-	 * @param the new identification number to the room
+	 * @param the
+	 *            new identification number to the room
 	 */
 	public long setCSeq(long cseq) {
 		this.cseq = cseq;
 		return cseq;
 	}
+
 	/**
 	 * @return give an identification number to the room
 	 */
@@ -421,6 +455,7 @@ public class Room implements Closeable {
 	public Line getLine() {
 		return this.line;
 	}
+
 	/**
 	 * @return received the identifier of the room
 	 */
@@ -431,24 +466,28 @@ public class Room implements Closeable {
 	public void setLine(Line line) {
 		this.line = line;
 	}
+
 	/**
 	 * inform if the room is in instance of closing
 	 */
 	public boolean isClosing() {
 		return closing;
 	}
+
 	/**
 	 * indicate that the room will be close in a few time
 	 */
 	public void setClosing() {
 		this.closing = true;
 	}
+
 	/**
 	 * @return the number of participant
 	 */
 	public int size() {
 		return participants.size();
 	}
+
 	/**
 	 * start the record and save it on a web page
 	 */
@@ -460,6 +499,7 @@ public class Room implements Closeable {
 		this.recorderEndpoint.record();
 
 	}
+
 	/**
 	 * stop the record
 	 */
@@ -467,26 +507,13 @@ public class Room implements Closeable {
 		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();
 	}
-	/**
-	 * @return the participants
-	 */
-	public ConcurrentHashMap<String, Participant> getParticipants() {
-		return participants;
-	}
-	/**
-	 * @param participants the participants to set
-	 */
-	public void setParticipants(ConcurrentHashMap<String, Participant> participants) {
-		this.participants = participants;
-	}
+
+	
 	/**
 	 * @return the screensharer
 	 */
 	public WebUser getScreensharer() {
 		return screensharer;
 	}
-
-
-	
 
 }

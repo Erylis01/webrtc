@@ -50,9 +50,8 @@ public class RoomManager {
 	@Autowired
 	private LineRegistry sipRegistry;
 
-	private final ConcurrentMap<String, Room> rooms = new ConcurrentHashMap();
-	private ConcurrentHashMap<String, Participant> participants= new ConcurrentHashMap();
-
+	private final ConcurrentMap<String, Room> rooms = new ConcurrentHashMap<>();
+	
 	/**
 	 * Return a currently active Room via its identifier. If the room does not
 	 * exist, it is create and return.
@@ -69,7 +68,7 @@ public class RoomManager {
 
 		if (room == null) {
 			log.debug("Room {} not existent. Will create now!", roomName);
-			room = new Room(roomName, kurento,participants);
+			room = new Room(roomName, kurento);
 			try {
 				sipHandler.register(room, null);
 			} catch (Exception e) {
@@ -100,7 +99,7 @@ public class RoomManager {
 
 		if ((room == null) && create) {
 			log.debug("Room {} not existent. Will create now!", roomName);
-			room = new Room(roomName, kurento,participants);
+			room = new Room(roomName, kurento);
 			try {
 				sipHandler.register(room, null);
 			} catch (Exception e) {
