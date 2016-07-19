@@ -1,0 +1,28 @@
+module.exports = function(grunt) {
+  grunt.initConfig({
+    jasmine : {
+      // Your project's source files
+      src : 'jasmine/src/app.js',
+      src : 'jasmine/src/kurento-utils.min.js',
+      src : 'jasmine/src/factories/constraints.js',
+      src : 'jasmine/src/factories/participants.js',
+      src : 'jasmine/src/factories/upload.js',
+      src : 'jasmine/src/factories/variables.js',
+      src : 'jasmine/src/factories/websocket.js',
+      src : 'jasmine/src/controllers/room.js',
+      src : 'jasmine/src/controllers/user.js'
+
+      // Your Jasmine spec files
+      specs : 'specs/**/*spec.js',
+      // Your spec helper files
+      helpers : 'specs/helpers/*.js'
+    }
+  });
+
+  // Register tasks.
+  grunt.loadNpmTasks('grunt-jasmine-runner');
+
+  // Default task.
+  grunt.registerTask('default', 'jasmine');
+};
+

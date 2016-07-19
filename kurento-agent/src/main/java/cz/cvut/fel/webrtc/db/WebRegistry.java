@@ -34,27 +34,27 @@ public class WebRegistry {
 	private final ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
 
 	/**
+	 * Constructor of WebRegistry
+	 */
+	/*public WebRegistry(ConcurrentHashMap<String, WebUser> users) {
+		this.users = users;
+	}*/
+
+	/**
 	 * Add a WebUser in the ConncurrentHashMap. The key is the Id of the user.
 	 * 
-	 * @param user - Instance of WebUser
+	 * @param user
+	 *            - Instance of WebUser
 	 */
 	public void register(WebUser user) {
 		users.put(user.getSession().getId(), user);
 	}
 
 	/**
-	 * Get the ConcurrentHashMap
-	 * 
-	 * @return - ConcurrentHashMap
-	 */
-	public Collection<WebUser> getAll() {
-		return users.values();
-	}
-	
-	/**
 	 * Get a user from the ConcurrentHashMap by his WebSocketSession
 	 * 
-	 * @param session - WebSocketSession associated to the user
+	 * @param session
+	 *            - WebSocketSession associated to the user
 	 * 
 	 * @return - an instance of WebUser
 	 */
@@ -65,29 +65,51 @@ public class WebRegistry {
 	/**
 	 * Remove a user from the ConcurrentHashMap by his WebSocketSession
 	 * 
-	 * @param session - WebSocketSession associated to the user
+	 * @param session
+	 *            - WebSocketSession associated to the user
 	 * 
 	 * @return - the removed WebUser
 	 */
 	public WebUser removeBySession(WebSocketSession session) {
 		final WebUser user = getBySession(session);
-		
+
 		if (user != null) {
 			users.remove(session.getId());
 		}
-		
+
 		return user;
 	}
 
 	/**
+	 * Get the ConcurrentHashMap
+	 * 
+	 * @return - ConcurrentHashMap
+	 */
+	public Collection<WebUser> getAll() {
+		return users.values();
+}
+	
+	/**
 	 * Get a user from the ConcurrentHashMap by his String Key (UserId)
 	 * 
-	 * @param keyID - String corresponding to the UserId
+	 * @param keyID
+	 *            - String corresponding to the UserId
 	 * 
 	 * @return - a WebUser
 	 */
-	public WebUser getUser(String keyID){
+	public WebUser getUser(String keyID) {
 		return users.get(keyID);
 	}
+
+	/**
+	 * Allow to get the a concurrent hash map to store users
+	 * 
+	 * @return - users ConcurrentHashMap
+	 */
+	public ConcurrentHashMap<String, WebUser> getUsers() {
+		return users;
+	}
+
+
 
 }

@@ -341,7 +341,7 @@ public class WebHandler extends TextWebSocketHandler {
 		if (user != null) {
 			final Room room = roomManager.getRoom(user.getRoomName());
 			room.leave(user);
-			if (room.getParticipants().isEmpty()) {
+			if (room.getParticipantsValues().isEmpty()) {
 				if (room.getLine() == null)
 					roomManager.removeRoom(room);
 				else

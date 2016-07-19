@@ -140,8 +140,8 @@ public abstract class Participant implements Closeable {
 	@Override
 	public int hashCode() {
 		int result = 1;
-		result = 31 * result + id.hashCode();
-		result = 31 * result + roomName.hashCode();
+		result = 31 * result + this.getId().hashCode();
+		result = 31 * result + this.getRoomName().hashCode();
 		return result;
 	}
 
