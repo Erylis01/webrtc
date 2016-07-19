@@ -67,7 +67,7 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public WebRegistry registry() {
-		return new WebRegistry(null);
+		return new WebRegistry();
 	}
 
 	@Bean
