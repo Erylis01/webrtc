@@ -19,6 +19,9 @@ import cz.cvut.fel.webrtc.db.RoomManager;
 import cz.cvut.fel.webrtc.db.WebRegistry;
 import cz.cvut.fel.webrtc.handlers.SipHandler;
 import cz.cvut.fel.webrtc.handlers.WebHandler;
+import cz.cvut.fel.webrtc.resources.Participant;
+import cz.cvut.fel.webrtc.resources.Room;
+
 import org.kurento.client.KurentoClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -34,6 +37,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * 
@@ -62,12 +67,12 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public WebRegistry registry() {
-		return new WebRegistry(null);
+		return new WebRegistry();
 	}
 
 	@Bean
 	public RoomManager roomManager() {
-		return new RoomManager(null);
+		return new RoomManager();
 	}
 
 	@Bean

@@ -31,14 +31,14 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class WebRegistry {
 
-	private ConcurrentHashMap<String, WebUser> users;
+	private final ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
 
 	/**
 	 * Constructor of WebRegistry
 	 */
-	public WebRegistry(ConcurrentHashMap<String, WebUser> users) {
+	/*public WebRegistry(ConcurrentHashMap<String, WebUser> users) {
 		this.users = users;
-	}
+	}*/
 
 	/**
 	 * Add a WebUser in the ConncurrentHashMap. The key is the Id of the user.
@@ -110,13 +110,6 @@ public class WebRegistry {
 		return users;
 	}
 
-	/**
-	 * Allow to set the a concurrent hash map to store users
-	 * 
-	 * @param - users ConcurrentHashMap
-	 */
-	public void setUsers(ConcurrentHashMap<String, WebUser> users) {
-		this.users = users;
-	}
+
 
 }

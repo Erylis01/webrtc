@@ -50,17 +50,7 @@ public class RoomManager {
 	@Autowired
 	private LineRegistry sipRegistry;
 
-	private final ConcurrentMap<String, Room> rooms;
-	private ConcurrentHashMap<String, Participant> participants;
-
-	/**
-	 * Constructor of the class RoomManager
-	 * 
-	 * @param rooms
-	 */
-	public RoomManager (ConcurrentMap<String, Room> rooms){
-		this.rooms=rooms;
-	}
+	private final ConcurrentMap<String, Room> rooms = new ConcurrentHashMap<>();
 	
 	/**
 	 * Return a currently active Room via its identifier. If the room does not
@@ -78,7 +68,7 @@ public class RoomManager {
 
 		if (room == null) {
 			log.debug("Room {} not existent. Will create now!", roomName);
-			room = new Room(roomName, kurento,participants);
+			room = new Room(roomName, kurento);
 			try {
 				sipHandler.register(room, null);
 			} catch (Exception e) {
@@ -96,8 +86,10 @@ public class RoomManager {
 	 * Return a currently active Room via its identifier. If the room does not
 	 * exist and the boolean true, it is create and return.
 	 * 
-	 * @param roomName = name or identifier of the room
-	 * @param create = boolean for creating a room
+	 * @param roomName
+	 *            = name or identifier of the room
+	 * @param create
+	 *            = boolean for creating a room
 	 * @return the room if it was already created, or a new one if it is the
 	 *         first time this room is accessed and the boolean is true
 	 */
@@ -107,7 +99,7 @@ public class RoomManager {
 
 		if ((room == null) && create) {
 			log.debug("Room {} not existent. Will create now!", roomName);
-			room = new Room(roomName, kurento,participants);
+			room = new Room(roomName, kurento);
 			try {
 				sipHandler.register(room, null);
 			} catch (Exception e) {
@@ -128,7 +120,7 @@ public class RoomManager {
 	 * @param room
 	 * @throws IOException
 	 */
-	public Room removeRoom(Room room) {
+	public void removeRoom(Room room) {
 		if (room != null) {
 			this.rooms.remove(room.getName());
 
@@ -143,7 +135,6 @@ public class RoomManager {
 
 			log.info("Room {} removed and closed", room.getName());
 		}
-		return room;
 	}
 
 }
