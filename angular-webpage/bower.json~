@@ -13,8 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "angularjs": "~1.5.7",
-      "ng-device-detector": "~1.1.8",
+    "angularjs": "~1.4.3",
+     "ng-device-detector": "~1.1.8",
      "webrtc-adapter": "~0.2.1",
      "angular-route": "~1.4.3",
      "underscore": "~1.8.3",
