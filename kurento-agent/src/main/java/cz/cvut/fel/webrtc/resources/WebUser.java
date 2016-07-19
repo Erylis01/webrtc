@@ -190,9 +190,11 @@ public class WebUser extends Participant {
 	}
 
 	/**
-	 * Run the javascript fonction ICEcandidate and the fonction OnPresenterReady
+	 * Run the javascript fonction ICEcandidate and the fonction
+	 * OnPresenterReady
 	 * 
-	 * @param sender - the user
+	 * @param sender
+	 *            - the user
 	 * 
 	 * @return the Endpoint used to receive media from a certain user
 	 */
@@ -202,8 +204,11 @@ public class WebUser extends Participant {
 			if ((this.isScreensharer && this.equals(sender)) || (sender.isScreensharer)) {
 
 				if (this.sharingMedia == null) {
+
 					this.sharingMedia = new WebRtcEndpoint.Builder(presentationPipeline).build();
+
 					final Participant presenter = (this.isScreensharer) ? this : sender;
+
 					this.sharingMedia.addOnIceCandidateListener(new EventListener<OnIceCandidateEvent>() {
 
 						@Override
@@ -229,6 +234,7 @@ public class WebUser extends Participant {
 						newPresenterMsg.addProperty("id", "presenterReady");
 						newPresenterMsg.addProperty("userId", this.getId());
 						newPresenterMsg.addProperty("presenter", this.getName());
+
 						room.broadcast(newPresenterMsg);
 					}
 				}
@@ -279,7 +285,8 @@ public class WebUser extends Participant {
 
 	/**
 	 * 
-	 * @param b - boolean to know if the screen is shared
+	 * @param b
+	 *            - boolean to know if the screen is shared
 	 */
 	public void isScreensharer(boolean b) {
 		this.isScreensharer = b;
@@ -294,6 +301,7 @@ public class WebUser extends Participant {
 		releaseOutgoingMedia();
 		releaseSharingMedia();
 	}
+
 	/**
 	 * 
 	 * disconnetion from the hub
@@ -304,6 +312,7 @@ public class WebUser extends Participant {
 			outgoingMedia = null;
 		}
 	}
+
 	/**
 	 * 
 	 * disconnetion the webrtc endpoint
@@ -353,15 +362,5 @@ public class WebUser extends Participant {
 				log.warn("PARTICIPANT {}: {}", WebUser.this.getName(), error);
 			}
 		};
-	}
-
-	/**
-	 * Allow to set a WebSocketSession
-	 * 
-	 * @param session
-	 *            - WebSocketSession
-	 */
-	public void setSession(WebSocketSession session) {
-		this.session = session;
 	}
 }

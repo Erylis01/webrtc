@@ -47,30 +47,32 @@ public class LineRegistry {
 
 	@Autowired
 	private RoomManager roomManager;
-	
+
 	private Stack<Line> lines = new Stack<>();
 	private final Stack<Line> roomLines = new Stack<>();
 	private final ConcurrentMap<String, String> roomByURI = new ConcurrentHashMap<>();
-	
+
 	private final String roomPattern = "Room ([0-9]+)";
 
-	protected LineRegistry() {}
-	
+	protected LineRegistry() {
+	}
+
 	/**
 	 * Constructor of the class LineRegistry
 	 * 
-	 * @param strUri - Represents a Uniform Resource Identifier reference
+	 * @param strUri
+	 *            - Represents a Uniform Resource Identifier reference
 	 * @param login
 	 * @param password
 	 */
 	public LineRegistry(String strUri, String login, String password) {
-		
+
 		if (strUri == null || login == null || password == null)
 			return;
 
-	    try {
+		try {
 
-	    	URI uri = new URI(strUri);
+			URI uri = new URI(strUri);
 			HttpGet get = new HttpGet(uri);
 
 			CloseableHttpClient client = getSSLClient();
@@ -87,7 +89,7 @@ public class LineRegistry {
 				processContent(response);
 
 			client.close();
-			
+
 			// Only keep lines for rooms
 			filterLines(Pattern.compile(roomPattern));
 
@@ -96,17 +98,16 @@ public class LineRegistry {
 		}
 	}
 
-
 	private void filterLines(Pattern p) {
 		Matcher m;
 		for (Iterator<Line> iterator = roomLines.iterator(); iterator.hasNext();) {
-		    Line line = iterator.next();
-		    m = p.matcher(line.getName());
-		    
-		    if (!m.matches()) {
+			Line line = iterator.next();
+			m = p.matcher(line.getName());
+
+			if (!m.matches()) {
 				lines.push(line);
-			    iterator.remove();
-		    }
+				iterator.remove();
+			}
 		}
 	}
 
@@ -127,46 +128,45 @@ public class LineRegistry {
 		roomLines.addAll(getContent(response));
 	}
 
-	private CloseableHttpClient getSSLClient() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
+	private CloseableHttpClient getSSLClient()
+			throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
 
-		SSLContext sslContext = new SSLContextBuilder()
-				.loadTrustMaterial(null, new TrustSelfSignedStrategy())
-				.build();
-		
-		SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext, SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-		
-		 return HttpClients
-			.custom()
-	        .setSSLSocketFactory(sslConnectionSocketFactory)
-	        .build();
+		SSLContext sslContext = new SSLContextBuilder().loadTrustMaterial(null, new TrustSelfSignedStrategy()).build();
+
+		SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(sslContext,
+				SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+
+		return HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory).build();
 	}
 
-	private CloseableHttpResponse processDigest(CloseableHttpClient client, HttpGet get, CloseableHttpResponse response, String login, String password) throws MalformedChallengeException, AuthenticationException, IOException {
+	private CloseableHttpResponse processDigest(CloseableHttpClient client, HttpGet get, CloseableHttpResponse response,
+			String login, String password) throws MalformedChallengeException, AuthenticationException, IOException {
 
-		String strHeaderResponse = DigestAuth.getHeaderResponse(HttpGet.METHOD_NAME, get.getURI().toString(), response.getFirstHeader(AUTH.WWW_AUTH).getValue(), login, password);
+		String strHeaderResponse = DigestAuth.getHeaderResponse(HttpGet.METHOD_NAME, get.getURI().toString(),
+				response.getFirstHeader(AUTH.WWW_AUTH).getValue(), login, password);
 		Header headerResponse = new BasicHeader(AUTH.WWW_AUTH_RESP, strHeaderResponse);
-		
+
 		get.addHeader(headerResponse);
 		get.addHeader("Cookie", response.getFirstHeader("Set-Cookie").getValue());
 		get.addHeader("Accept", MediaType.APPLICATION_JSON_VALUE);
-		
+
 		return client.execute(get);
 	}
 
 	public Line popLine(Room room) {
-	
+
 		Line line = roomLines.pop();
-		
+
 		if (line != null)
 			room.setLine(line);
-		
+
 		return line;
 	}
-	
+
 	public void pushLine(Line line) {
 		roomLines.push(line);
 	}
-	
+
 	public void addRoomByURI(String uri, String room) {
 		roomByURI.put(uri, room);
 	}
@@ -174,13 +174,13 @@ public class LineRegistry {
 	public Room getRoomBySipURI(String uri) {
 		String roomName = roomByURI.get(uri);
 		Room room = null;
-		
+
 		if (roomName != null)
 			room = roomManager.getRoom(roomName);
-		
+
 		return room;
 	}
-	
+
 	public String getName(String extension) {
 		for (Line line : lines) {
 			if (line.getExtension().equals(extension))
@@ -191,14 +191,14 @@ public class LineRegistry {
 
 	public boolean isCallable(String extension) {
 		boolean isCallable = false;
-		
+
 		for (Line line : lines) {
 			if (line.getExtension().equals(extension)) {
 				isCallable = true;
 				break;
 			}
 		}
-		
+
 		return isCallable;
 	}
 }

@@ -195,6 +195,7 @@ public class WebHandler extends TextWebSocketHandler {
 				user.setLastPing(Calendar.getInstance());
 			}
 			break;
+
 		case "record":
 			record(jsonMessage);
 			break;
@@ -245,12 +246,14 @@ public class WebHandler extends TextWebSocketHandler {
 		}
 
 		sipHandler.generateInviteRequest(room, extension);
+
 	}
 
 	/**
 	 * Run the function to stop the screen sharing for the WebUser
 	 * 
-	 * @param user - Instance of WebUser
+	 * @param user
+	 *            - Instance of WebUser
 	 * @throws IOException
 	 */
 	private void stopPresenting(WebUser user) throws IOException {
@@ -265,7 +268,8 @@ public class WebHandler extends TextWebSocketHandler {
 	 * Allows to start the screen sharing if nobody in the room is already
 	 * sharing its screen
 	 * 
-	 * @param user - Instance of WebUser
+	 * @param user
+	 *            - Instance of WebUser
 	 * @throws IOException
 	 */
 	private void presenter(WebUser user) throws IOException {
@@ -341,7 +345,7 @@ public class WebHandler extends TextWebSocketHandler {
 		if (user != null) {
 			final Room room = roomManager.getRoom(user.getRoomName());
 			room.leave(user);
-			if (room.getParticipantsValues().isEmpty()) {
+			if (room.getParticipants().isEmpty()) {
 				if (room.getLine() == null)
 					roomManager.removeRoom(room);
 				else

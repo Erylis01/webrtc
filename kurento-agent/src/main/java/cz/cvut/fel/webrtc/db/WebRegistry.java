@@ -34,13 +34,6 @@ public class WebRegistry {
 	private final ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
 
 	/**
-	 * Constructor of WebRegistry
-	 */
-	/*public WebRegistry(ConcurrentHashMap<String, WebUser> users) {
-		this.users = users;
-	}*/
-
-	/**
 	 * Add a WebUser in the ConncurrentHashMap. The key is the Id of the user.
 	 * 
 	 * @param user
@@ -87,29 +80,6 @@ public class WebRegistry {
 	 */
 	public Collection<WebUser> getAll() {
 		return users.values();
-}
-	
-	/**
-	 * Get a user from the ConcurrentHashMap by his String Key (UserId)
-	 * 
-	 * @param keyID
-	 *            - String corresponding to the UserId
-	 * 
-	 * @return - a WebUser
-	 */
-	public WebUser getUser(String keyID) {
-		return users.get(keyID);
 	}
-
-	/**
-	 * Allow to get the a concurrent hash map to store users
-	 * 
-	 * @return - users ConcurrentHashMap
-	 */
-	public ConcurrentHashMap<String, WebUser> getUsers() {
-		return users;
-	}
-
-
 
 }

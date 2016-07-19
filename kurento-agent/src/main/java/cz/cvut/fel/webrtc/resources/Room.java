@@ -32,7 +32,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-
 //import org.kurento.client.HubPort;
 
 /**
@@ -58,11 +57,9 @@ public class Room implements Closeable {
 
 	private final Logger log = LoggerFactory.getLogger(Room.class);
 
-	private ConcurrentMap<String, Participant> participants = new ConcurrentSkipListMap<>();
-
+	private final ConcurrentMap<String, Participant> participants = new ConcurrentSkipListMap<>();
 	private MediaPipeline presentationPipeline;
 	private MediaPipeline compositePipeline;
-
 	private Composite composite;
 	private final String name;
 
@@ -70,11 +67,11 @@ public class Room implements Closeable {
 	private final String callId;
 	private long cseq;
 	private boolean closing;
+
 	private WebUser screensharer;
 
 	// Record
 	private HubPort hubPort;
-
 	private RecorderEndpoint recorderEndpoint;
 
 	/**
@@ -149,7 +146,6 @@ public class Room implements Closeable {
 		} catch (Exception e) {
 			log.info("ROOM {}: adding participant {} failed: {}", name, userId, e);
 		}
-
 		return participant;
 	}
 
@@ -177,10 +173,9 @@ public class Room implements Closeable {
 		log.debug("PARTICIPANT {}: Leaving room {}", user.getName(), this.name);
 		this.removeParticipant(user);
 
-		if (user.equals(this.getScreensharer())) {
+		if (user.equals(screensharer)) {
 			this.screensharer = null;
 		}
-
 		user.close();
 	}
 
@@ -221,16 +216,17 @@ public class Room implements Closeable {
 	 * @param exception
 	 *            - ???
 	 */
-	public void broadcast(JsonObject message, Participant exception) {
+	private void broadcast(JsonObject message, Participant exception) {
 
 		for (final Participant participant : participants.values()) {
 
-			if (!(participant.equals(exception)) || participant instanceof WebUser) {
-				try {
-					participant.sendMessage(message);
-				} catch (final IOException e) {
-					log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
-				}
+			if (participant.equals(exception) || !(participant instanceof WebUser))
+				continue;
+
+			try {
+				participant.sendMessage(message);
+			} catch (final IOException e) {
+				log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
 			}
 		}
 	}
@@ -253,7 +249,7 @@ public class Room implements Closeable {
 	 * @throws IOException
 	 *             - if the participant does not exist
 	 */
-	public void removeParticipant(Participant participant) throws IOException {
+	private void removeParticipant(Participant participant) throws IOException {
 		participants.remove(participant.getId());
 
 		boolean isScreensharer = (screensharer != null && participant.equals(screensharer));
@@ -268,7 +264,7 @@ public class Room implements Closeable {
 
 		final JsonArray participantsArray = new JsonArray();
 
-		for (final Participant p : this.getParticipantsValues()) {
+		for (final Participant p : this.getParticipants()) {
 			final JsonElement participantName = new JsonPrimitive(p.getName());
 			participantsArray.add(participantName);
 		}
@@ -282,7 +278,6 @@ public class Room implements Closeable {
 				p.sendMessage(participantLeftJson);
 			}
 		}
-
 	}
 
 	/**
@@ -305,7 +300,6 @@ public class Room implements Closeable {
 					webParticipant.sendMessage(cancelPresentationMsg);
 				}
 			}
-
 			screensharer = null;
 		}
 	}
@@ -325,7 +319,7 @@ public class Room implements Closeable {
 
 		final JsonArray participantsArray = new JsonArray();
 
-		for (final Participant participant : this.getParticipantsValues()) {
+		for (final Participant participant : this.getParticipants()) {
 			if (!participant.equals(user)) {
 				final JsonElement participantName = new JsonPrimitive(participant.getName());
 				participantsArray.add(participantName);
@@ -353,7 +347,7 @@ public class Room implements Closeable {
 	/**
 	 * @return a collection with all the participants in the room
 	 */
-	public Collection<Participant> getParticipantsValues() {
+	public Collection<Participant> getParticipants() {
 		return participants.values();
 	}
 
@@ -507,13 +501,4 @@ public class Room implements Closeable {
 		this.recorderEndpoint.stop();
 		this.recorderEndpoint.release();
 	}
-
-	
-	/**
-	 * @return the screensharer
-	 */
-	public WebUser getScreensharer() {
-		return screensharer;
-	}
-
 }

@@ -15,7 +15,6 @@
 package cz.cvut.fel.webrtc.db;
 
 import cz.cvut.fel.webrtc.handlers.SipHandler;
-import cz.cvut.fel.webrtc.resources.Participant;
 import cz.cvut.fel.webrtc.resources.Room;
 import org.kurento.client.KurentoClient;
 import org.slf4j.Logger;
@@ -51,7 +50,7 @@ public class RoomManager {
 	private LineRegistry sipRegistry;
 
 	private final ConcurrentMap<String, Room> rooms = new ConcurrentHashMap<>();
-	
+
 	/**
 	 * Return a currently active Room via its identifier. If the room does not
 	 * exist, it is create and return.

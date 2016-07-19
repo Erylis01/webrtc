@@ -57,8 +57,8 @@ public class SipHandler extends TextWebSocketHandler {
 
 		this.pbxIp = pbxIp;
 		this.sipFactory = new SipMessageFactory();
-	}
 
+	}
 
 	@Override
 	public void afterConnectionEstablished(final WebSocketSession session) throws Exception {
@@ -80,7 +80,6 @@ public class SipHandler extends TextWebSocketHandler {
 		Timer timer = new Timer();
 		timer.scheduleAtFixedRate(task, 0, 30000);
 	}
-
 
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -112,28 +111,11 @@ public class SipHandler extends TextWebSocketHandler {
 			log.info("Received a SIP Message \n{}", payload);
 	}
 
-	/**
-	 * Gets the method of CSeqHeader
-	 * 
-	 * @param response
-	 *            - Defines the contract between a returned instance and the
-	 *            runtime when an application needs to provide meta-data to the
-	 *            runtime.
-	 * 
-	 * @return - methods of the CSeqHeader
-	 */
 	private String getMethod(Response response) {
 		CSeqHeader cSeqHeader = (CSeqHeader) response.getHeader("CSeq");
 		return cSeqHeader.getMethod();
 	}
 
-	/**
-	 * Get the instance of the class Room
-	 * 
-	 * @param response
-	 * 
-	 * @return - a instance of Room
-	 */
 	private Room getRoom(Response response) {
 		FromHeader fromHeader = (FromHeader) response.getHeader("From");
 		String roomName = fromHeader.getAddress().getDisplayName();
@@ -143,7 +125,6 @@ public class SipHandler extends TextWebSocketHandler {
 
 		return room;
 	}
-
 
 	@Async
 	private void processResponse(Response response) {
@@ -432,7 +413,6 @@ public class SipHandler extends TextWebSocketHandler {
 		}
 	}
 
-	
 	@Async
 	private void processByeRequest(Request request) {
 
@@ -455,10 +435,6 @@ public class SipHandler extends TextWebSocketHandler {
 		}
 	}
 
-	/**
-	 *
-	 * @return - pbxIP
-	 */
 	public String getPbxIp() {
 		return pbxIp;
 	}

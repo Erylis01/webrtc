@@ -19,9 +19,6 @@ import cz.cvut.fel.webrtc.db.RoomManager;
 import cz.cvut.fel.webrtc.db.WebRegistry;
 import cz.cvut.fel.webrtc.handlers.SipHandler;
 import cz.cvut.fel.webrtc.handlers.WebHandler;
-import cz.cvut.fel.webrtc.resources.Participant;
-import cz.cvut.fel.webrtc.resources.Room;
-
 import org.kurento.client.KurentoClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -37,8 +34,6 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * 
@@ -52,16 +47,16 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Value("${kurento.websocket}")
 	private String kms_uri;
-	
+
 	@Value("${xivo.websocket}")
 	private String xivo_ws;
-	
+
 	@Value("${xivo.rest.uri}")
 	private String xivo_rest_uri;
-	
+
 	@Value("${xivo.rest.login}")
 	private String xivo_rest_login;
-	
+
 	@Value("${xivo.rest.password}")
 	private String xivo_rest_password;
 
@@ -85,17 +80,19 @@ public class GroupCallApp implements WebSocketConfigurer {
 		URI uri = new URI(xivo_ws);
 		return new SipHandler(uri.getHost());
 	}
-	
+
 	@Bean
 	public LineRegistry sipRegistry() {
 		return new LineRegistry(xivo_rest_uri, xivo_rest_login, xivo_rest_password);
 	}
-	
+
 	@Bean
 	public WebSocketConnectionManager asteriskConnection() throws URISyntaxException {
-		@SuppressWarnings("Convert2Diamond") ArrayList<String> protocols = new ArrayList<>();
+		@SuppressWarnings("Convert2Diamond")
+		ArrayList<String> protocols = new ArrayList<>();
 		protocols.add("sip");
-		WebSocketConnectionManager manager = new WebSocketConnectionManager(new StandardWebSocketClient(), sipHandler(), xivo_ws);
+		WebSocketConnectionManager manager = new WebSocketConnectionManager(new StandardWebSocketClient(), sipHandler(),
+				xivo_ws);
 		manager.setSubProtocols(protocols);
 		manager.setAutoStartup(true);
 		return manager;
@@ -114,12 +111,11 @@ public class GroupCallApp implements WebSocketConfigurer {
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(webHandler(), "/groupcall");
 	}
-	
+
 	/*
 	 * For ImageOverlay
 	 * 
-	 * @Bean
-	public ImageController imageController() {
-		return new ImageController();
-	}*/
+	 * @Bean public ImageController imageController() { return new
+	 * ImageController(); }
+	 */
 }

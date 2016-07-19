@@ -9,45 +9,53 @@ public class Line {
 	private String secret;
 	private String callerid;
 	private String extension;
-	
+
 	/**
-	 *  
+	 * 
 	 * @return the name of the user
 	 */
 	public String getUsername() {
 		return username;
 	}
-	
+
 	/**
 	 * @return the password
 	 */
 	public String getSecret() {
 		return secret;
 	}
+
 	/**
-	 * @param username change the name of the user
+	 * @param username
+	 *            change the name of the user
 	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	/**
-	 * @param secret change the password
+	 * @param secret
+	 *            change the password
 	 */
 	public void setPassword(String secret) {
 		this.secret = secret;
 	}
+
 	/**
 	 * @return the id of the one who invit you in the room
 	 */
 	public String getCallerid() {
 		return this.callerid;
 	}
+
 	/**
-	 * @param callerid the name of the user who call 
+	 * @param callerid
+	 *            the name of the user who call
 	 */
 	public void setCallerid(String callerid) {
 		this.callerid = callerid;
 	}
+
 	/**
 	 * @return the name of the message
 	 */
@@ -56,6 +64,7 @@ public class Line {
 			setProperties();
 		return name;
 	}
+
 	/**
 	 * @return put a message in the line
 	 */
@@ -64,20 +73,23 @@ public class Line {
 			setProperties();
 		return extension;
 	}
+
 	/**
-	 * find the name of the caller with his id and add it to the line and set the message in extension
+	 * find the name of the caller with his id and add it to the line and set
+	 * the message in extension
 	 */
 	private void setProperties() {
 		if (extension == null || name == null) {
-			Pattern p = Pattern.compile("\"(.*)\" <([0-9]+)>");     
+			Pattern p = Pattern.compile("\"(.*)\" <([0-9]+)>");
 			Matcher m = p.matcher(callerid);
-			
+
 			try {
 				if (m.matches()) {
 					name = m.group(1);
 					extension = m.group(m.groupCount());
 				}
-			} catch (Exception e) {}
+			} catch (Exception e) {
+			}
 		}
 	}
 }

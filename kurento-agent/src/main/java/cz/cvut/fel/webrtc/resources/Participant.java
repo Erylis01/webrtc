@@ -27,8 +27,6 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.Closeable;
 import java.io.IOException;
 
-
-
 /**
  * 
  * @author Ivan Gracia (izanmail@gmail.com)
@@ -48,15 +46,22 @@ public abstract class Participant implements Closeable {
 	// Record
 	private PassThrough passThru;
 
-/**
- * constructor of the class participant
- * @param id					 identifier of the participant
- * @param roomName				 The room to which the user is currently attending
- * @param session				 the link between internet and the participant
- * @param compositePipeline		 container of MediaElements, canal from kurento to user
- * @param presentationPipeline   container of MediaElements, canal from user to kurento
- * @param hub					 this is where all the participant of the room connect themself
- */
+	/**
+	 * constructor of the class participant
+	 * 
+	 * @param id
+	 *            identifier of the participant
+	 * @param roomName
+	 *            The room to which the user is currently attending
+	 * @param session
+	 *            the link between internet and the participant
+	 * @param compositePipeline
+	 *            container of MediaElements, canal from kurento to user
+	 * @param presentationPipeline
+	 *            container of MediaElements, canal from user to kurento
+	 * @param hub
+	 *            this is where all the participant of the room connect themself
+	 */
 	public Participant(final String id, String roomName, final WebSocketSession session,
 			MediaPipeline compositePipeline, MediaPipeline presentationPipeline, Hub hub) {
 
@@ -66,20 +71,20 @@ public abstract class Participant implements Closeable {
 		this.passThru = new PassThrough.Builder(compositePipeline).build();
 		this.hub = hub;
 		this.hubPort = new HubPort.Builder(hub).build();
-		
-		//newHubPort();
-
 	}
 
 	/**
-	 * @return 				the name the participant 
+	 * @return the name the participant
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * change the name of the participant
-	 * @param name 			new name of the participant
+	 * 
+	 * @param name
+	 *            new name of the participant
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -100,6 +105,7 @@ public abstract class Participant implements Closeable {
 	public String getRoomName() {
 		return this.roomName;
 	}
+
 	/**
 	 * send the message to the participants of the room
 	 * 
@@ -140,13 +146,14 @@ public abstract class Participant implements Closeable {
 	@Override
 	public int hashCode() {
 		int result = 1;
-		result = 31 * result + this.getId().hashCode();
-		result = 31 * result + this.getRoomName().hashCode();
+		result = 31 * result + id.hashCode();
+		result = 31 * result + roomName.hashCode();
 		return result;
 	}
 
 	@Override
 	public abstract void close() throws IOException;
+
 	/**
 	 * creation of a link between the participant and the hub
 	 * 
@@ -156,6 +163,7 @@ public abstract class Participant implements Closeable {
 		if (hubPort == null)
 			this.hubPort = new HubPort.Builder(hub).build();
 	}
+
 	/**
 	 * destruction of the link between the participant and the hub
 	 * 
@@ -165,6 +173,7 @@ public abstract class Participant implements Closeable {
 		hubPort.release();
 		hubPort = null;
 	}
+
 	/**
 	 * creation of a link between the participant and the current preferred hub
 	 * 
@@ -174,8 +183,9 @@ public abstract class Participant implements Closeable {
 		releaseHubPort();
 		newHubPort();
 	}
+
 	/**
-	 * 	  
+	 * 
 	 * @return the id of the participant
 	 */
 	public String getId() {
