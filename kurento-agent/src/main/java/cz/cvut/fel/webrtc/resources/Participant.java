@@ -52,7 +52,7 @@ public abstract class Participant implements Closeable {
  * constructor of the class participant
  * @param id					 identifier of the participant
  * @param roomName				 The room to which the user is currently attending
- * @param session				 the link betwenn internet and the participant
+ * @param session				 the link between internet and the participant
  * @param compositePipeline		 container of MediaElements, canal from kurento to user
  * @param presentationPipeline   container of MediaElements, canal from user to kurento
  * @param hub					 this is where all the participant of the room connect themself
