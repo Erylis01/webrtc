@@ -200,6 +200,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		getType: getType,
 		setType: setType,
 		get: get,
+        setRes: setRes,
 		setCompositeOptions: setCompositeOptions,
 		getWarning: getWarning,
 		setWarning: setWarning
