@@ -103,9 +103,25 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
         
 	}
     
-    function setRes(width, height) {
+    function setRes(width, height, isAuto) {
+        if (isAuto) {
+            if (upload.speed() >= 0.7) {
+                console.log(upload.speed());
+                consMaxWidth = 640;
+                consMaxHeight = 480;
+            } else if (upload.speed() >= 0.5) {
+                console.log(upload.speed());
+				consMaxWidth = 320;
+				consMaxHeight = 240;
+			} else {
+                console.log(upload.speed());
+				consMaxWidth = 160;
+				consMaxHeight = 120;
+			}    
+        } else {
         constraints.video.width.max = constraints.video.width.ideal = width;
         constraints.video.height.max = constraints.video.height.ideal = height;
+        }
     }
     
     /**
