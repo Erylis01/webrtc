@@ -57,7 +57,7 @@ public class Room implements Closeable {
 
 	private final Logger log = LoggerFactory.getLogger(Room.class);
 
-	private final ConcurrentMap<String, Participant> participants = new ConcurrentSkipListMap<>();
+	private ConcurrentMap<String, Participant> participants;
 	private MediaPipeline presentationPipeline;
 	private MediaPipeline compositePipeline;
 	private Composite composite;
@@ -86,10 +86,11 @@ public class Room implements Closeable {
 	 * @param roomname
 	 *            this is the name user want to give to the room
 	 */
-	protected Room(String roomName) {
+	public Room(String roomName) {
 		this.callId = UUID.randomUUID().toString();
 		this.cseq = (new Random()).nextInt(100);
 		this.name = roomName;
+		this.participants= new ConcurrentSkipListMap<>();
 	}
 
 	/**
@@ -249,7 +250,7 @@ public class Room implements Closeable {
 	 * @throws IOException
 	 *             - if the participant does not exist
 	 */
-	private void removeParticipant(Participant participant) throws IOException {
+	public void removeParticipant(Participant participant) throws IOException {
 		participants.remove(participant.getId());
 
 		boolean isScreensharer = (screensharer != null && participant.equals(screensharer));
