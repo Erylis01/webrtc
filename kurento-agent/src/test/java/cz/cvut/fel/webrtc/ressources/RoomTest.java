@@ -57,7 +57,6 @@ public class RoomTest {
 	public void testLeaveParticipant() throws IOException {
 		Participant pMocked = Mockito.mock(Participant.class);
 		Room room = Mockito.mock(Room.class);
-		
 		Mockito.when(pMocked.getId()).thenReturn("pmocked");
 
 	}

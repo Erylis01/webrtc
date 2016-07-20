@@ -106,7 +106,7 @@ public class Room implements Closeable {
 		this.compositePipeline = kurento.createMediaPipeline();
 		this.presentationPipeline = kurento.createMediaPipeline();
 		this.composite = new Composite.Builder(compositePipeline).build();
-
+		this.participants= new ConcurrentSkipListMap<>();
 		log.info("ROOM {} has been created", roomName);
 	}
 
