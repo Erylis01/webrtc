@@ -45,7 +45,7 @@
 			</div> -->
             
             <!-- Setting selector -->
-			<div flex-item="6" class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
+			<div class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
 				<span>{{ 'SHOW_SETTINGS' | translate }}</span>
 			</div>
@@ -73,24 +73,24 @@
 			</div>
             
             <!-- Advanced settings for resolution-->
-            <div class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
+            <div flex-item="6" class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
 				<div class="radio-button" checked>
-					<input type="radio" id="radio4" name="radio2" value="auto" class="radio-button__input" ng-click="setRes(160,120,true)">
+					<input type="radio" id="radio4" name="radio4" value="auto" class="radio-button__input" ng-click="setRes(160,120,true)">
 					<label for="radio4" class="radio-button__label">Auto</label>
 				</div>
 
 				<div class="radio-button">
-					<input type="radio" id="radio5" name="radio2" value="160_120" class="radio-button__input" ng-click="setRes(160,120, false)">
+					<input type="radio" id="radio5" name="radio5" value="160_120" class="radio-button__input" ng-click="setRes(160,120, false)">
 					<label for="radio5" class="radio-button__label">160*120</label>
 				</div>
 
 				<div class="radio-button">
-					<input type="radio" id="radio5" name="radio2" value="320_240" class="radio-button__input" ng-click="setRes(320,240, false)">
+					<input type="radio" id="radio5" name="radio5" value="320_240" class="radio-button__input" ng-click="setRes(320,240, false)">
 					<label for="radio5" class="radio-button__label">320*240</label>
 				</div>
                 
                 <div class="radio-button">
-					<input type="radio" id="radio6" name="radio2" value="640_480" class="radio-button__input" ng-click="setRes(640,480, false)">
+					<input type="radio" id="radio6" name="radio6" value="640_480" class="radio-button__input" ng-click="setRes(640,480, false)">
 					<label for="radio6" class="radio-button__label">640_480</label>
 				</div>
 			</div>
