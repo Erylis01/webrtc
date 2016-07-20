@@ -403,6 +403,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     $scope.setResolution = function (width,height,isAuto) {
+        console.log('CLick has been seen !');
         constraints.setRes(width, height, isAuto);
         updateScope();
     };
