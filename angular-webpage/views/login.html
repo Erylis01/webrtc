@@ -34,7 +34,7 @@
 			</div>
             
             <!-- Resolution -->
-            <div ng-controller="TranslateController" class="pt+++ pb" flex-container="row">
+            <!-- <div ng-controller="TranslateController" class="pt+++ pb" flex-container="row">
 				<button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="">Auto</button>
                 <span flex-item="1" lx-ripple></span>
                 <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="">160*120</button>
@@ -42,7 +42,7 @@
                 <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="">320*240</button>
                 <span flex-item="1" lx-ripple></span>
                 <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="">640*380</button>
-			</div>
+			</div> -->
             
             <!-- Setting selector -->
 			<div class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
@@ -54,7 +54,7 @@
 				<span>{{ 'HIDE_SETTINGS' | translate }}</span>
 			</div>
 
-			<!-- Advanced settings -->
+			<!-- Advanced settings for constraints -->
 			<div class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
 				<div class="radio-button" checked>
 					<input type="radio" id="radio1" name="radio1" value="normal" class="radio-button__input" ng-model="participant.compositeOptions">
@@ -69,6 +69,28 @@
 				<div class="radio-button">
 					<input type="radio" id="radio3" name="radio1" value="watchOnly" class="radio-button__input" ng-model="participant.compositeOptions">
 					<label for="radio3" class="radio-button__label">{{ 'END_USER_MEDIA' | translate }}</label>
+				</div>
+			</div>
+            <!-- Advanced settings for resolution-->
+            <div class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
+				<div class="radio-button" checked>
+					<input type="radio" id="radio1" name="radio2" value="auto" class="radio-button__input" ng-model="participant.compositeOptions">
+					<label for="radio1" class="radio-button__label">Auto</label>
+				</div>
+
+				<div class="radio-button">
+					<input type="radio" id="radio2" name="radio2" value="160_120" class="radio-button__input" ng-model="participant.compositeOptions">
+					<label for="radio2" class="radio-button__label">160*120</label>
+				</div>
+
+				<div class="radio-button">
+					<input type="radio" id="radio3" name="radio2" value="320_240" class="radio-button__input" ng-model="participant.compositeOptions">
+					<label for="radio3" class="radio-button__label">320*240</label>
+				</div>
+                
+                <div class="radio-button">
+					<input type="radio" id="radio4" name="radio2" value="640_480" class="radio-button__input" ng-model="participant.compositeOptions">
+					<label for="radio4" class="radio-button__label">640_480</label>
 				</div>
 			</div>
 		</form>
