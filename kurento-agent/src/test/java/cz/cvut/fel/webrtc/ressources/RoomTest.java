@@ -56,14 +56,37 @@ public class RoomTest {
 	@Test
 	public void testLeaveParticipant() throws IOException {
 		Participant pMocked = Mockito.mock(Participant.class);
-		Room room = Mockito.mock(Room.class);
-		Mockito.when(pMocked.getId()).thenReturn("pmocked");
+		Room room = new Room ("roomTest");
+		room=Mockito.spy(room);
 
+		//Stubbing :
+		Mockito.doNothing().when(room).removeParticipant(pMocked);
+		Mockito.doNothing().when(pMocked).close();
+		
+		//Test if the different method are called
+		for (int i=1;i<6;i++){
+		room.leave(pMocked);
+		Mockito.verify(room,Mockito.times(i)).removeParticipant(pMocked);
+		Mockito.verify(pMocked,Mockito.times(i)).close();
+		}
 	}
 
 	@Test
-	public void testLeaveString() {
-		fail("Not yet implemented");
+	public void testLeaveString() throws IOException {
+		Participant pMocked = Mockito.mock(Participant.class);
+		Room room = new Room ("roomTest");
+		room=Mockito.spy(room);
+		
+		//Stubbing :
+		Mockito.when(room.getParticipantbyId("pMocked")).thenReturn(pMocked);
+		Mockito.doNothing().when(room).leave(pMocked);
+		
+		//Test that leave user is called
+		for (int i=1 ; i<6; i++){
+			room.leave("pMocked");
+			Mockito.verify(room,Mockito.times(i)).leave(pMocked);
+		}
+		
 	}
 
 	@Test

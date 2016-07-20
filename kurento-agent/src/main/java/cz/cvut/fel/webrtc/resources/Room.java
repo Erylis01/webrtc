@@ -189,8 +189,7 @@ public class Room implements Closeable {
 	 *             - on error leaving the room
 	 */
 	public void leave(String userId) throws IOException {
-		Participant user = participants.get(userId);
-
+		Participant user = this.getParticipantbyId(userId);
 		if (user != null)
 			leave(user);
 	}
@@ -482,6 +481,11 @@ public class Room implements Closeable {
 	public int size() {
 		return participants.size();
 	}
+	
+	public Participant getParticipantbyId(String userId){
+		return participants.get(userId);
+	}
+	
 
 	/**
 	 * start the record and save it on a web page
