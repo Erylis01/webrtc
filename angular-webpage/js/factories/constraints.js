@@ -80,10 +80,16 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		} else {
 			constraints = constraintWebcam;
 
-			if (upload.speed() >= 0.5) {
+            if (upload.speed() >= 0.7) {
+                console.log(upload.speed());
+                consMaxWidth = 640;
+                consMaxHeight = 480;
+            } else if (upload.speed() >= 0.5) {
+                console.log(upload.speed());
 				consMaxWidth = 320;
 				consMaxHeight = 240;
 			} else {
+                console.log(upload.speed());
 				consMaxWidth = 160;
 				consMaxHeight = 120;
 			}
