@@ -45,7 +45,7 @@
 			</div> -->
             
             <!-- Setting selector -->
-			<div class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
+			<div flex-item="6" class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
 				<span>{{ 'SHOW_SETTINGS' | translate }}</span>
 			</div>
@@ -55,7 +55,7 @@
 			</div>
 
 			<!-- Advanced settings for constraints -->
-			<div class="text-left radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
+			<div flex-item="6" class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
 				<div class="radio-button" checked>
 					<input type="radio" id="radio1" name="radio1" value="normal" class="radio-button__input" ng-model="participant.compositeOptions">
 					<label for="radio1" class="radio-button__label">Webcam + microphone</label>
@@ -73,7 +73,7 @@
 			</div>
             
             <!-- Advanced settings for resolution-->
-            <div class="text-right radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
+            <div class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
 				<div class="radio-button" checked>
 					<input type="radio" id="radio4" name="radio2" value="auto" class="radio-button__input" ng-click="setRes(160,120,true)">
 					<label for="radio4" class="radio-button__label">Auto</label>
