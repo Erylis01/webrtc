@@ -119,10 +119,10 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 				consMaxHeight = 120;
 			}    
         } else {
-        constraints.video.width.max = constraints.video.width.ideal = width;
-        constraints.video.height.max = constraints.video.height.ideal = height;
+        constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
+        constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
         }
-        console.log('JOB DONE !');
+        console.log('Set to '+width+' * 'height);
     }
     
     /**
