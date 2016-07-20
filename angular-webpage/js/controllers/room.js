@@ -404,6 +404,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     
     $scope.setResolution = function (width,height,isAuto) {
         constraints.setRes(width, height, isAuto);
+        updateScope();
     };
     
     
