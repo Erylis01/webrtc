@@ -33,6 +33,14 @@
                 <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="5" lx-ripple ng-click="changeLanguage('en')" translate="BUTTON_TEXT_EN"></button>
 			</div>
             
+            <!-- Resolution -->
+            <div ng-controller="RoomCtrl" class="pt+++ pb" flex-column="12" flex-container="row">
+				<button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(160, 120, true)">Auto</button>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(160, 120, false)">160*120</button>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(320, 240, false)">320*240</button>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(640, 480, false)">640*380</button>
+			</div> 
+            
             <!-- Setting selector -->
 			<div class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
@@ -42,9 +50,9 @@
 				<span class="pr">&#9650;</span>
 				<span>{{ 'HIDE_SETTINGS' | translate }}</span>
 			</div>
-
-			<!-- Advanced settings -->
-			<div class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
+            
+			<!-- Advanced settings for constraints -->
+			<div flex-item="6" class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
 				<div class="radio-button" checked>
 					<input type="radio" id="radio1" name="radio1" value="normal" class="radio-button__input" ng-model="participant.compositeOptions">
 					<label for="radio1" class="radio-button__label">Webcam + microphone</label>
@@ -60,6 +68,30 @@
 					<label for="radio3" class="radio-button__label">{{ 'END_USER_MEDIA' | translate }}</label>
 				</div>
 			</div>
+            <!--
+            Advanced settings for resolution
+            <div flex-item="6" class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
+				<div class="radio-button" checked>
+					<input type="radio" id="radio4" name="radio4" value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(160, 120, true)">
+					<label for="radio4" class="radio-button__label">Auto</label>
+				</div>
+
+				<div class="radio-button">
+					<input type="radio" id="radio5" name="radio5" value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(160, 120, false)">
+					<label for="radio5" class="radio-button__label">160*120</label>
+				</div>
+
+				<div class="radio-button">
+					<input type="radio" id="radio6" name="radio6"  value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(320, 240, false)">
+					<label for="radio6" class="radio-button__label">320*240</label>
+				</div>
+                
+                <div class="radio-button">
+					<input type="radio" id="radio7" name="radio7" value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(640, 480, false)">
+					<label for="radio7" class="radio-button__label">640*480</label>
+				</div>
+			</div>
+            -->
 		</form>
 
 	</div>

@@ -401,7 +401,14 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 	}
-
+    
+    $scope.setResolution = function (width,height,isAuto) {
+        console.log('CLick has been seen !');
+        constraints.setRes(width, height, isAuto);
+        updateScope();
+    };
+    
+    
 	function sendStream(message, type) {
 		var emptyTrack = false;
 		var c = constraints.get();

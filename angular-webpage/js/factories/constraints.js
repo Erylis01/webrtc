@@ -79,7 +79,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 			constraints =  { audio: true, video: false };
 		} else {
 			constraints = constraintWebcam;
-
+             /**
             if (upload.speed() >= 0.7) {
                 console.log(upload.speed());
                 consMaxWidth = 640;
@@ -93,15 +93,37 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 				consMaxWidth = 160;
 				consMaxHeight = 120;
 			}
-
+           
 			constraints.video.width.max = constraints.video.width.ideal = consMaxWidth;
 			constraints.video.height.max = constraints.video.height.ideal = consMaxHeight;
-
+            */
 		}
 
 		return constraints;
-
+        
 	}
+    
+    function setRes(width, height, isAuto) {
+        if (isAuto) {
+            if (upload.speed() >= 0.7) {
+                console.log(upload.speed());
+                consMaxWidth = 640;
+                consMaxHeight = 480;
+            } else if (upload.speed() >= 0.5) {
+                console.log(upload.speed());
+				consMaxWidth = 320;
+				consMaxHeight = 240;
+			} else {
+                console.log(upload.speed());
+				consMaxWidth = 160;
+				consMaxHeight = 120;
+			}    
+        } else {
+        constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
+        constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
+        }
+        console.log('Set to '+width+' * 'height);
+    }
     
     /**
     * @function setCompositeOptions() - composite setters
@@ -179,6 +201,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		getType: getType,
 		setType: setType,
 		get: get,
+        setRes: setRes,
 		setCompositeOptions: setCompositeOptions,
 		getWarning: getWarning,
 		setWarning: setWarning
