@@ -33,6 +33,14 @@
                 <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="5" lx-ripple ng-click="changeLanguage('en')" translate="BUTTON_TEXT_EN"></button>
 			</div>
             
+            <!-- Resolution -->
+            <div class="pt+++ pb" flex-column="12" flex-container="row">
+				<button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(160, 120, true)">Auto</button>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(160, 120, false)">160*120</button>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(320, 240, false)">320*240</button>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(640, 480, false)">640*380</button>
+			</div> 
+            
             <!-- Setting selector -->
 			<div class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
@@ -86,13 +94,7 @@
             -->
 		</form>
         
-        <!-- Resolution -->
-            <div class="pt+++ pb" flex-column="12" flex-container="row">
-				<button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(160, 120, true)">Auto</button>
-                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(160, 120, false)">160*120</button>
-                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(320, 240, false)">320*240</button>
-                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="3" lx-ripple ng-click="setResolution(640, 480, false)">640*380</button>
-			</div> 
+
 
 	</div>
 	<div flex-item="3" flex-item-order="3"></div>
