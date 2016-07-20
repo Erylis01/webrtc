@@ -33,6 +33,17 @@
                 <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="5" lx-ripple ng-click="changeLanguage('en')" translate="BUTTON_TEXT_EN"></button>
 			</div>
             
+            <!-- Resolution -->
+            <div ng-controller="TranslateController" class="pt+++ pb" flex-container="row">
+				<button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="2" lx-ripple ng-click="">Auto</button>
+                <span flex-item="1" lx-ripple></span>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="2" lx-ripple ng-click="">160*120</button>
+                <span flex-item="1" lx-ripple></span>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="2" lx-ripple ng-click="">320*240</button>
+                <span flex-item="1" lx-ripple></span>
+                <button type="button" class="width--100 btn btn--m btn--blue-grey btn--raised" flex-item="2" lx-ripple ng-click="">640*380</button>
+			</div>
+            
             <!-- Setting selector -->
 			<div class="text-center cursor-pointer tc-grey-500 pt pb fs-caption" ng-click="settings = 'shown'" text-center ng-hide="settings == 'shown'">
 				<span class="tc-grey-400 pr">&#9660;</span>
