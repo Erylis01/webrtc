@@ -401,7 +401,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 	}
-
+    
+    $scope.setResolution = function (width,height,isAuto) {
+        constraints.setRes(width, height, isAuto);
+    };
+    
 	function sendStream(message, type) {
 		var emptyTrack = false;
 		var c = constraints.get();
@@ -474,7 +478,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     /**
-    * End od the flow bloc
+    * End of the flow bloc
     */
     
     //Function used at the beggining of a presentation

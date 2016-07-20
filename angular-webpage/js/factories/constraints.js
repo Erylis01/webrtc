@@ -122,6 +122,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
         constraints.video.width.max = constraints.video.width.ideal = width;
         constraints.video.height.max = constraints.video.height.ideal = height;
         }
+        console.log('JOB DONE !');
     }
     
     /**
