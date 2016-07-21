@@ -86,7 +86,12 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		return constraints;
         
 	}
-    
+    /**
+    * @function setRes() - set the webcam resolution
+    * @params number - Width in pixel
+    * @params number - height in pixel 
+    * @params boolean - isAuto for auto-resolution adjustment
+    */
     function setRes(width, height, isAuto) {
         if (isAuto) {
             if (upload.speed() >= 0.7) {

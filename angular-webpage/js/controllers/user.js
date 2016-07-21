@@ -105,7 +105,11 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
 $scope.setResolution = function (width, height, isAuto) {
         constraints.setRes(width, height, isAuto);
-        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');        
+        if (isAuto) {
+        notifications.notify('Resolution auto adjustment');       
+        } else {
+        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
+        }
     };
 
 }
