@@ -7,7 +7,10 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 import org.mockito.Mockito;
+
+
 
 import cz.cvut.fel.webrtc.resources.Participant;
 import cz.cvut.fel.webrtc.resources.Room;
@@ -23,6 +26,7 @@ public class RoomTest {
 		Room room = new Room("roomTest");
 
 		// Test that the room is correctly created
+		Assert.assertTrue(room !=null);
 		Assert.assertTrue(room.getName().equals("roomTest"));
 		Assert.assertTrue(!(room.getCallId().isEmpty()));
 	}
@@ -86,11 +90,10 @@ public class RoomTest {
 			room.leave("pMocked");
 			Mockito.verify(room,Mockito.times(i)).leave(pMocked);
 		}
-		
 	}
 
 	@Test
-	public void testJoinRoom() {
+	public void testJoinRoom() throws Exception {
 		fail("Not yet implemented");
 	}
 

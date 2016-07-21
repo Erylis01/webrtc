@@ -216,7 +216,7 @@ public class Room implements Closeable {
 	 * @param exception
 	 *            - ???
 	 */
-	private void broadcast(JsonObject message, Participant exception) {
+	public void broadcast(JsonObject message, Participant exception) {
 
 		for (final Participant participant : participants.values()) {
 
