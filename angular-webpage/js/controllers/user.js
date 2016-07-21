@@ -106,14 +106,14 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 $scope.setResolution = function (width, height, isAuto) {
     
         angular.element(document.querySelector('#auto')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#160_120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#320_240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#640_480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#1280_720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#1900_1080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#r160120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#r320240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#r640480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#r1280720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#r19001080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        angular.element(document.querySelector('#'+width+'_'+height)).className = "width--100 btn btn--m btn--teal btn--raised";
+        angular.element(document.querySelector('#r'+width+height)).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
         angular.element(document.querySelector('#auto')).className = "width--100 btn btn--m btn--teal btn--raised";    
         }
