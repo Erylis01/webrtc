@@ -105,17 +105,17 @@ function UserCtrl($scope, $document, $location, socket, constraints, notificatio
     
 $scope.setResolution = function (width, height, isAuto) {
     
-        $document.getElementById(auto).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        $document.getElementById('160_120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        $document.getElementById('320_240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        $document.getElementById('640_480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        $document.getElementById('1280_720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        $document.getElementById('1900_1080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document[0].getElementById(auto).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document[0].getElementById('160_120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document[0].getElementById('320_240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document[0].getElementById('640_480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document[0].getElementById('1280_720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document[0].getElementById('1900_1080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        $document.getElementById(''+width+'_'+height).className = "width--100 btn btn--m btn--teal btn--raised";
+        $document[0].getElementById(''+width+'_'+height).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
-        $document.getElementById('auto').className = "width--100 btn btn--m btn--teal btn--raised";    
+        $document[0].getElementById('auto').className = "width--100 btn btn--m btn--teal btn--raised";    
         }
         
         constraints.setRes(width, height, isAuto);
