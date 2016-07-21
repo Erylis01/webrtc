@@ -102,9 +102,11 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 
 	}
     
+
     
 $scope.setResolution = function (width, height, isAuto) {
     
+        /**
         document.querySelector('#auto').className = "width--100 btn btn--m btn--blue-grey btn--raised";
         document.querySelector('#r160120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
         document.querySelector('#r320240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
@@ -117,7 +119,7 @@ $scope.setResolution = function (width, height, isAuto) {
         } else {
         document.querySelector('#auto').className = "width--100 btn btn--m btn--teal btn--raised";    
         }
-        
+        */
         constraints.setRes(width, height, isAuto);
         if (isAuto) {
         notifications.notify('Resolution auto adjustment');       
