@@ -105,17 +105,17 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
 $scope.setResolution = function (width, height, isAuto) {
     
-        angular.element(document.querySelector('#auto')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#r160120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#r320240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#r640480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#r1280720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.querySelector('#r19001080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#auto').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r160120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r320240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r640480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r1280720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r19001080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        angular.element(document.querySelector('#r'+width+height)).className = "width--100 btn btn--m btn--teal btn--raised";
+        document.querySelector('#r'+width+height).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
-        angular.element(document.querySelector('#auto')).className = "width--100 btn btn--m btn--teal btn--raised";    
+        document.querySelector('#auto').className = "width--100 btn btn--m btn--teal btn--raised";    
         }
         
         constraints.setRes(width, height, isAuto);
