@@ -101,13 +101,15 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 		constraints.setWarning(null);
 
 	}
-}
-
-
+    
+    
 $scope.setResolution = function (width, height, isAuto) {
         console.log('CLick has been seen !');
         constraints.setRes(width, height, isAuto);
     };
+
+}
+
 
 /**
 * @funtion createGuid() - Create an id for the user
