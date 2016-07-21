@@ -81,7 +81,7 @@ app.config(['$translateProvider',function($translateProvider) {
 
 
 // Injections
-app.controller('UserCtrl', ['$scope', '$location', '$element', 'socket', 'constraints', 'LxNotificationService', 'participants', UserCtrl]);
+app.controller('UserCtrl', ['$scope', '$location', 'socket', 'constraints', 'LxNotificationService', 'participants', UserCtrl]);
 app.controller('RoomCtrl', ['$scope', '$location', '$window', '$routeParams', '$timeout', 'socket', 'constraints', 'LxNotificationService', 'LxProgressService', 'participants', RoomCtrl]);
 app.controller('TranslateController', function($translate, $scope) {
   $scope.changeLanguage = function (langKey) {
