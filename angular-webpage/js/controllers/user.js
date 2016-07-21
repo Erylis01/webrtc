@@ -106,6 +106,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 $scope.setResolution = function (width, height, isAuto) {
     
         angular.element('#auto').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        console.log(angular.element('#auto').className);
         angular.element('#160_120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
         angular.element('#320_240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
         angular.element('#640_480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
