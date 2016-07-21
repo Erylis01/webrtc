@@ -8,7 +8,7 @@
 * @param {object} notifications - Object containing required functionnalities to use notifications
 * @param {Participant{}} - Dictionnary of the current participant
 */
-function UserCtrl($scope, $document, $location, socket, constraints, notifications, participants) {
+function UserCtrl($scope, $location, socket, constraints, notifications, participants) {
 
     //Set the field to null value
 	$scope.participant = {
@@ -105,17 +105,17 @@ function UserCtrl($scope, $document, $location, socket, constraints, notificatio
     
 $scope.setResolution = function (width, height, isAuto) {
     
-        angular.element('auto').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element('160_120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element('320_240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element('640_480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element('1280_720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element('1900_1080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('auto')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('160_120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('320_240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('640_480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('1280_720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('1900_1080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        angular.element(''+width+'_'+height).className = "width--100 btn btn--m btn--teal btn--raised";
+        angular.element(document.getElementById(''+width+'_'+height)).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
-        angular.element('auto').className = "width--100 btn btn--m btn--teal btn--raised";    
+        angular.element(document.getElementById('auto')).className = "width--100 btn btn--m btn--teal btn--raised";    
         }
         
         constraints.setRes(width, height, isAuto);
