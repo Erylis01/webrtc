@@ -36,12 +36,12 @@
             <!-- Resolution -->
             <div class="pt+++ pb" flex-column="12" flex-container="row">.
                 <lx-radio-group>
-				<lx-radio-button type="button" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(160, 120, true)">Auto</lx-radio-button>
-                <lx-radio-button type="button" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(160, 120, false)">160*120</lx-radio-button>
-                <lx-radio-button type="button" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(320, 240, false)">320*240</lx-radio-button>
-                <lx-radio-button type="button" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(640, 480, false)">640*380</lx-radio-button>
-                <lx-radio-button type="button" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(1280, 720, false)">1280*720</lx-radio-button>
-                <lx-radio-button type="button" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(1900, 1080, false)">1900*1080</lx-radio-button>
+				<lx-radio-button type="radio" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(160, 120, true)">Auto</lx-radio-button>
+                <lx-radio-button type="radio" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(160, 120, false)">160*120</lx-radio-button>
+                <lx-radio-button type="radio" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(320, 240, false)">320*240</lx-radio-button>
+                <lx-radio-button type="radio" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(640, 480, false)">640*380</lx-radio-button>
+                <lx-radio-button type="radio" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(1280, 720, false)">1280*720</lx-radio-button>
+                <lx-radio-button type="radio" flex-item="2" lx-ripple ng-model="vm.radioButtons.basic.test1" ng-click="setResolution(1900, 1080, false)">1900*1080</lx-radio-button>
                 </lx-radio-group>
 			</div> 
             
@@ -72,30 +72,6 @@
 					<label for="radio3" class="radio-button__label">{{ 'END_USER_MEDIA' | translate }}</label>
 				</div>
 			</div>
-            <!--
-            Advanced settings for resolution
-            <div flex-item="6" class="radio-group fs-caption tc-grey-700 pl++" ng-show="settings == 'shown'">
-				<div class="radio-button" checked>
-					<input type="radio" id="radio4" name="radio4" value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(160, 120, true)">
-					<label for="radio4" class="radio-button__label">Auto</label>
-				</div>
-
-				<div class="radio-button">
-					<input type="radio" id="radio5" name="radio5" value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(160, 120, false)">
-					<label for="radio5" class="radio-button__label">160*120</label>
-				</div>
-
-				<div class="radio-button">
-					<input type="radio" id="radio6" name="radio6"  value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(320, 240, false)">
-					<label for="radio6" class="radio-button__label">320*240</label>
-				</div>
-                
-                <div class="radio-button">
-					<input type="radio" id="radio7" name="radio7" value="normal" ng-model="participant.compositeOptions" class="radio-button__input" ng-click="setRes(640, 480, false)">
-					<label for="radio7" class="radio-button__label">640*480</label>
-				</div>
-			</div>
-            -->
 		</form>
         
 
