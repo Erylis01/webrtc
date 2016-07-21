@@ -105,17 +105,17 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
 $scope.setResolution = function (width, height, isAuto) {
     
-        angular.element(document.getElementById('auto')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.getElementById('160_120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.getElementById('320_240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.getElementById('640_480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.getElementById('1280_720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        angular.element(document.getElementById('1900_1080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#auto')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#160_120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#320_240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#640_480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#1280_720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.querySelector('#1900_1080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        angular.element(document.getElementById(''+width+'_'+height)).className = "width--100 btn btn--m btn--teal btn--raised";
+        angular.element(document.querySelector('#'+width+'_'+height)).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
-        angular.element(document.getElementById('auto')).className = "width--100 btn btn--m btn--teal btn--raised";    
+        angular.element(document.querySelector('#auto')).className = "width--100 btn btn--m btn--teal btn--raised";    
         }
         
         constraints.setRes(width, height, isAuto);
