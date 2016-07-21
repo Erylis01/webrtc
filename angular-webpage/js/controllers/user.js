@@ -105,17 +105,17 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
 $scope.setResolution = function (width, height, isAuto) {
     
-        elem.find('#auto').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        elem.find('#160_120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        elem.find('#320_240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        elem.find('#640_480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        elem.find('#1280_720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
-        elem.find('#1900_1080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('auto')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('160_120')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('320_240')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('640_480')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('1280_720')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        angular.element(document.getElementById('1900_1080')).className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        elem.find('#'+width+'_'+height).className = "width--100 btn btn--m btn--teal btn--raised";
+        angular.element(document.getElementById(''+width+'_'+height)).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
-        elem.find('#auto').className = "width--100 btn btn--m btn--teal btn--raised";    
+        angular.element(document.getElementById('auto')).className = "width--100 btn btn--m btn--teal btn--raised";    
         }
         
         constraints.setRes(width, height, isAuto);
