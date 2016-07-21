@@ -79,26 +79,10 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 			constraints =  { audio: true, video: false };
 		} else {
 			constraints = constraintWebcam;
-             /**
-            if (upload.speed() >= 0.7) {
-                console.log(upload.speed());
-                consMaxWidth = 640;
-                consMaxHeight = 480;
-            } else if (upload.speed() >= 0.5) {
-                console.log(upload.speed());
-				consMaxWidth = 320;
-				consMaxHeight = 240;
-			} else {
-                console.log(upload.speed());
-				consMaxWidth = 160;
-				consMaxHeight = 120;
-			}
-           
-			constraints.video.width.max = constraints.video.width.ideal = consMaxWidth;
-			constraints.video.height.max = constraints.video.height.ideal = consMaxHeight;
-            */
 		}
-
+        
+        console.log(constraintWebcam.video.width.ideal);
+        console.log(constraintWebcam.video.height.ideal);
 		return constraints;
         
 	}
@@ -122,7 +106,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
         constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
         constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
         }
-        console.log('Resolution set to' + width + ' * ' + height);
+        console.log('Resolution set to ' + width + ' * ' + height);
     }
     
     /**
