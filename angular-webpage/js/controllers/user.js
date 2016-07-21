@@ -105,6 +105,16 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
 $scope.setResolution = function (width, height, isAuto) {
         constraints.setRes(width, height, isAuto);
+        var warning = {
+					title: 'Resolution changed',
+					content: 'You\'re now using :' + width + ' * ' + height
+				};
+        notifications.alert(warning.title, warning.content, 'Ok', function(answer) {
+					// This should be handled by lumx (it must be a bug)
+					// May be removed in the future
+					$('.dialog-filter').remove();
+					$('.dialog').remove();
+				});
     };
 
 }
