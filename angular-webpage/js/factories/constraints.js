@@ -122,7 +122,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
         constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
         constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
         }
-        console.log('Resolution set');
+        console.log('Resolution set to' + width + ' * ' + height);
     }
     
     /**

@@ -104,7 +104,6 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
     
 $scope.setResolution = function (width, height, isAuto) {
-        console.log('CLick has been seen !');
         constraints.setRes(width, height, isAuto);
     };
 
