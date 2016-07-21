@@ -8,7 +8,7 @@
 * @param {object} notifications - Object containing required functionnalities to use notifications
 * @param {Participant{}} - Dictionnary of the current participant
 */
-function UserCtrl($scope, $location, socket, constraints, notifications, participants) {
+function UserCtrl($scope, $document, $location, socket, constraints, notifications, participants) {
 
     //Set the field to null value
 	$scope.participant = {
@@ -105,17 +105,17 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     
 $scope.setResolution = function (width, height, isAuto) {
     
-        document.getElementById('auto').class = "width--100 btn btn--m btn--blue-grey btn--raised";
-        document.getElementById('160_120').class = "width--100 btn btn--m btn--blue-grey btn--raised";
-        document.getElementById('320_240').class = "width--100 btn btn--m btn--blue-grey btn--raised";
-        document.getElementById('640_480').class = "width--100 btn btn--m btn--blue-grey btn--raised";
-        document.getElementById('1280_720').class = "width--100 btn btn--m btn--blue-grey btn--raised";
-        document.getElementById('1900_1080').class = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document.getElementById(auto).className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document.getElementById('160_120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document.getElementById('320_240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document.getElementById('640_480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document.getElementById('1280_720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        $document.getElementById('1900_1080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
     
         if (!isAuto) {
-        document.getElementById(''+width+'_'+height).className = "width--100 btn btn--m btn--red-grey btn--raised";
+        $document.getElementById(''+width+'_'+height).className = "width--100 btn btn--m btn--teal btn--raised";
         } else {
-        document.getElementById('auto').className = "width--100 btn btn--m btn--red-grey btn--raised";    
+        $document.getElementById('auto').className = "width--100 btn btn--m btn--teal btn--raised";    
         }
         
         constraints.setRes(width, height, isAuto);
