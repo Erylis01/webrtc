@@ -403,8 +403,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     $scope.setResolution = function (width,height,isAuto) {
+        console.log('CLick has been seen !');
         constraints.setRes(width, height, isAuto);
+        updateScope();
     };
+    
     
 	function sendStream(message, type) {
 		var emptyTrack = false;
@@ -478,7 +481,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     /**
-    * End of the flow bloc
+    * End od the flow bloc
     */
     
     //Function used at the beggining of a presentation

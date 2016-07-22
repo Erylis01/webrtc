@@ -41,7 +41,7 @@ app.factory('socket', ['$window', 'variables', function($window, variables) {
 			}, 1000);
 		};
 	}
-    
+
     /**
     * @function send() - Send a JSON message to server
     * @param String{} - message
@@ -64,10 +64,10 @@ app.factory('socket', ['$window', 'variables', function($window, variables) {
 	function get() {
 		return socket;
 	}
-
+    
     /**
-    * @function getMessage() - messagePrepared getter
-    * @return socket - Websocket
+    * @function get() - messagePrepared Getter
+    * @return messagePreparer - JSON message
     */
 	function getMessage() {
 		return messagePrepared;

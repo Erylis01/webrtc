@@ -17,6 +17,11 @@ describe('General parameters for testing controller', function() {
         
         var $scope, controller;
         
+        console = {};    
+        console.error = jasmine.createSpy();   
+        console.log = jasmine.createSpy();   
+        console.warn = jasmine.createSpy();   
+        
         beforeEach(function() {
         $scope = {};    
         var controller = $controller('UserCtrl', {$scope: $scope})
@@ -46,6 +51,13 @@ describe('General parameters for testing controller', function() {
         expect($scope.isIncompatible()).toBe(true);
         constraints.browser = 'Other';  
         expect($scope.isIncompatible()).toBe(false);         
+        });
+        
+        it('verify the resolution setter', function() {
+           $scope.setResolution(140,140,false);
+           expect(console.log).toHaveBeenCalledWith('Resolution set to : '+140+' * '+140);
+           $scope.setResolution(140,140,true); 
+           expect(console.log).toHaveBeenCalledWith('Resolution auto adjustment'); 
         });
         
         it('verify the joining process - $scope.join()', function() {

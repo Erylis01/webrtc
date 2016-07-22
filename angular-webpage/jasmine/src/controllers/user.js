@@ -48,7 +48,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 			$scope.color = 'red';
 
 		} else {
-            //Room is existing try to contact other participants
+            // Room is existing, try to contact other participants
 			if (socket.isOpen()) {
 
 				var userId = createGuid();
@@ -67,7 +67,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 				$location.path("/rooms/" + participant.room);
             
 			} else {
-                //WebSocket fail server unreacheable
+                //WebSocket fail - server unreacheable
 				var warning = {
 					title: 'Websocket Error',
 					content: 'Unable to connect to the server. Please try later.'
@@ -101,7 +101,37 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 		constraints.setWarning(null);
 
 	}
+    
+
+    
+$scope.setResolution = function (width, height, isAuto) {
+    
+        /**
+        document.querySelector('#auto').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r160120').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r320240').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r640480').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r1280720').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+        document.querySelector('#r19001080').className = "width--100 btn btn--m btn--blue-grey btn--raised";
+    
+        if (!isAuto) {
+        document.querySelector('#r'+width+height).className = "width--100 btn btn--m btn--teal btn--raised";
+        } else {
+        document.querySelector('#auto').className = "width--100 btn btn--m btn--teal btn--raised";    
+        }
+        */
+        constraints.setRes(width, height, isAuto);
+        if (isAuto) {
+        notifications.notify('Resolution auto adjustment', 'account-plus');  
+        console.log('Resolution auto adjustment');
+        } else {
+        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
+        console.log('Resolution set to : '+width+' * '+height);
+        }
+    };
+
 }
+
 
 /**
 * @funtion createGuid() - Create an id for the user

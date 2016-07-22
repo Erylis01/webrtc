@@ -79,23 +79,40 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 			constraints =  { audio: true, video: false };
 		} else {
 			constraints = constraintWebcam;
-
-			if (upload.speed() >= 0.5) {
+		}
+        
+        console.log(constraintWebcam.video.width.ideal);
+        console.log(constraintWebcam.video.height.ideal);
+		return constraints;
+        
+	}
+    /**
+    * @function setRes() - set the webcam resolution
+    * @params number - Width in pixel
+    * @params number - height in pixel 
+    * @params boolean - isAuto for auto-resolution adjustment
+    */
+    function setRes(width, height, isAuto) {
+        if (isAuto) {
+            if (upload.speed() >= 0.7) {
+                console.log(upload.speed());
+                consMaxWidth = 640;
+                consMaxHeight = 480;
+            } else if (upload.speed() >= 0.5) {
+                console.log(upload.speed());
 				consMaxWidth = 320;
 				consMaxHeight = 240;
 			} else {
+                console.log(upload.speed());
 				consMaxWidth = 160;
 				consMaxHeight = 120;
-			}
-
-			constraints.video.width.max = constraints.video.width.ideal = consMaxWidth;
-			constraints.video.height.max = constraints.video.height.ideal = consMaxHeight;
-
-		}
-
-		return constraints;
-
-	}
+			}    
+        } else {
+        constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
+        constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
+        }
+        console.log('Resolution set to ' + width + ' * ' + height);
+    }
     
     /**
     * @function setCompositeOptions() - composite setters
@@ -173,6 +190,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 		getType: getType,
 		setType: setType,
 		get: get,
+        setRes: setRes,
 		setCompositeOptions: setCompositeOptions,
 		getWarning: getWarning,
 		setWarning: setWarning
