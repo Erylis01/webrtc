@@ -21,6 +21,7 @@
     "jquery": "~2.1.4",
     "lumx": "~0.3.74",
     "roboto-fontface": "~0.4.3",
-    "angular-translate": "~2.11.0"
+    "angular-translate": "~2.11.0",
+    "kurento-utils": "~6.5.0"
   }
 }
