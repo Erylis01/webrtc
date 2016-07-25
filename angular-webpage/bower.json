@@ -15,14 +15,12 @@
   "dependencies": {
     "angularjs": "~1.4.3",
     "ng-device-detector": "~1.1.8",
-    "requirejs": "~2.2.0",
-    "webrtc-adapter": "1.0.2",
+    "webrtc-adapter": "0.2.1",
     "angular-route": "~1.4.3",
     "underscore": "~1.8.3",
     "jquery": "~2.1.4",
     "lumx": "~0.3.74",
     "roboto-fontface": "~0.4.3",
     "angular-translate": "~2.11.0",
-    "kurento-utils": "~6.5.0"
   }
 }

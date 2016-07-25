@@ -81,6 +81,8 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 			constraints = constraintWebcam;
 		}
         
+        console.log(constraintWebcam.video.width.ideal);
+        console.log(constraintWebcam.video.height.ideal);
 		return constraints;
         
 	}
@@ -106,8 +108,8 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 				consMaxHeight = 120;
 			}    
         } else {
-        constraintWebcam.video.minWidth = constraintWebcam.video.maxWidth = width;
-        constraintWebcam.video.minHeight = constraintWebcam.video.maxHeight  = height;
+        constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
+        constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
         }
         console.log('Resolution set to ' + width + ' * ' + height);
     }
