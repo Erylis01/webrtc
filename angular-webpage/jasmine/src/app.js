@@ -75,7 +75,7 @@ app.config(['$translateProvider',function($translateProvider) {
             'BUTTON_TEXT_FR': 'Français'
         });  
     
-    
+        $translateProvider.useSanitizeValueStrategy('sanitize');
         $translateProvider.preferredLanguage('en');
             }]);
 
