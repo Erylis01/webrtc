@@ -399,7 +399,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				}
                 
                 //this.generateOffer
-				this.createOffer(participant.offerToReceive[type].bind(participant));
+				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 	}
     
@@ -468,8 +468,9 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 						e.stop();
 					});
 				}
-
-				this.createOffer(participant.offerToReceive[type].bind(participant));
+                
+                //this.generateOffer
+				kurentoUtils.WebRtcPeer.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 
 		if (message.existingScreensharer && type == 'composite') {
