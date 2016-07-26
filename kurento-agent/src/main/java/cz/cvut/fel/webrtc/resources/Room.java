@@ -220,13 +220,14 @@ public class Room implements Closeable {
 
 		for (final Participant participant : this.getParticipants()) {
 
-			if (!(participant.equals(exception)) || (participant instanceof WebUser)){
+			if ((participant.equals(exception)) || !(participant instanceof WebUser))
+				continue;
+			
 				try {
 					participant.sendMessage(message);
 				} catch (final IOException e) {
 					log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
-				}
-			}	
+				}	
 		}
 	}
 
