@@ -441,7 +441,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		}
          
         //participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly
-		participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendOnly(options,
+		participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
 			function(error) {
 				if (error)
 					$scope.presentation.presenterIsMe = false;
