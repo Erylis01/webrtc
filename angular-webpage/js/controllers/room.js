@@ -397,8 +397,9 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				if (error) {
 					return console.error(error);
 				}
-
-				this.generateOffer(participant.offerToReceive[type].bind(participant));
+                
+                //this.generateOffer
+				this.createOffer(participant.offerToReceive[type].bind(participant));
 			});
 	}
     
