@@ -439,8 +439,9 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			options.localVideo = document.getElementById(type);
 			$scope.presentation.disabled[constraints.getType()] = true;
 		}
-
-		participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
+         
+        //participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly
+		participant.rtcPeer[type] = kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
 			function(error) {
 				if (error)
 					$scope.presentation.presenterIsMe = false;
