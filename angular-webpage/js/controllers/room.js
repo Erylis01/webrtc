@@ -470,7 +470,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				}
                 
                 //this.generateOffer
-				kurentoUtils.WebRtcPeer.generateOffer(participant.offerToReceive[type].bind(participant));
+				kurentoUtils.WebRtcPeer.WebRtcPeerSendonly.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 
 		if (message.existingScreensharer && type == 'composite') {
