@@ -469,7 +469,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 					});
 				}
 
-				this.generateOffer(participant.offerToReceive[type].bind(participant));
+				this.createOffer(participant.offerToReceive[type].bind(participant));
 			});
 
 		if (message.existingScreensharer && type == 'composite') {
