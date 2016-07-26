@@ -398,7 +398,6 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 					return console.error(error);
 				}
                 
-                //this.generateOffer
 				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 	}
@@ -442,7 +441,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		}
          
         //participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly
-		participant.rtcPeer[type] = kurentoUtils.WebRtcPeer.startSendOnly(options,
+		participant.rtcPeer[type] = kurentoUtils.WebRtcPeer.WebRtcPeerSendOnly(options,
 			function(error) {
 				if (error)
 					$scope.presentation.presenterIsMe = false;
@@ -470,7 +469,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				}
                 
                 //this.generateOffer
-				kurentoUtils.WebRtcPeer.WebRtcPeerSendonly.generateOffer(participant.offerToReceive[type].bind(participant));
+				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 
 		if (message.existingScreensharer && type == 'composite') {
@@ -484,14 +483,13 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     /**
-    * End od the flow bloc
+    * End of the flow bloc
     */
     
     //Function used at the beggining of a presentation
 	function onPresenterReady(message) {
 
 		enablePresentationClass();
-
 		if (message.userId != participants.me().userId) {
 			receiveVideo(message.userId, message.presenter, true);
 		}
