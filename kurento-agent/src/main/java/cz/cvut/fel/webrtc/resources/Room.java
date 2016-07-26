@@ -218,16 +218,15 @@ public class Room implements Closeable {
 	 */
 	public void broadcast(JsonObject message, Participant exception) {
 
-		for (final Participant participant : participants.values()) {
+		for (final Participant participant : this.getParticipants()) {
 
-			if (participant.equals(exception) || !(participant instanceof WebUser))
-				continue;
-
-			try {
-				participant.sendMessage(message);
-			} catch (final IOException e) {
-				log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
-			}
+			if (!(participant.equals(exception)) || (participant instanceof WebUser)){
+				try {
+					participant.sendMessage(message);
+				} catch (final IOException e) {
+					log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
+				}
+			}	
 		}
 	}
 
