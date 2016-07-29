@@ -428,12 +428,6 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			});
 	}
     
-    $scope.setResolution = function (width,height,isAuto) {
-        console.log('CLick has been seen !');
-        constraints.setRes(width, height, isAuto);
-        updateScope();
-    };
-    
     
 	function sendStream(message, type) {
 		var emptyTrack = false;
@@ -806,7 +800,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}, 200);
 			$(document).off('click');
 		} else {
-			dropdownElt.css('display', 'block');
+			dropdownElt.css('display', 'flex');
 			dropdownElt.animate({
 				'opacity': 1,
 				'top': '52px',
