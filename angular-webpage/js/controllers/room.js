@@ -817,20 +817,21 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
             dropdownElt.css('top','52px');
             dropdownElt.css('right','16px');
 
+            /**
 			$(document).click(function(e) {
 
 				if ($(e.target).closest('.dropdown-menu').length != 0)
 					return false;
                 
-                /**
+                
                 if ($(e.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
-                }*/
+                }
 				
 
 				$scope.toggleDropdown();
 			});
-
+            */
 		}
 
 		$scope.dropdownDropped = !$scope.dropdownDropped;
