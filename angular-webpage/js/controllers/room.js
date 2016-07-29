@@ -822,15 +822,10 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				if ($(e.target).closest('.dropdown-menu').length != 0)
 					return false;
                 
-                if (constraints.browserIsFirefox) {
-                    var btnProtect = document.getElementById( "dropMenu" );
-                    if ($(e.target).closest("#one", btnProtect).length != 0)
-                    return false;
-                } 
-                
+                /**
                 if ($(e.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
-                }
+                }*/
 				
 
 				$scope.toggleDropdown();
