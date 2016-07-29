@@ -822,8 +822,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			});
             
             setTimeout(function() {
-				dropdownElt.css('display', 'none');
-			}, 400);
+				dropdownElt.css('display', 'block');
+			}, 600);
 		}
 
 		$scope.dropdownDropped = !$scope.dropdownDropped;
