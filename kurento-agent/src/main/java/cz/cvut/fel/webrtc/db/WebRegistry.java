@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class WebRegistry {
 
-	private final ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
+	private ConcurrentHashMap<String, WebUser> users = new ConcurrentHashMap<>();
 
 	/**
 	 * Add a WebUser in the ConncurrentHashMap. The key is the Id of the user.

@@ -10,10 +10,11 @@ import org.junit.Test;
 
 import org.mockito.Mockito;
 
-
+import com.google.gson.JsonObject;
 
 import cz.cvut.fel.webrtc.resources.Participant;
 import cz.cvut.fel.webrtc.resources.Room;
+import cz.cvut.fel.webrtc.resources.WebUser;
 
 public class RoomTest {
 
@@ -98,10 +99,50 @@ public class RoomTest {
 	}
 
 	@Test
-	public void testBroadcast() {
-		fail("Not yet implemented");
+	public void testBroadcast() throws IOException {
+		Participant pMocked = Mockito.mock(Participant.class);
+		Participant pMocked2 = Mockito.mock(Participant.class);
+		WebUser wuMocked = Mockito.mock(WebUser.class);
+		WebUser wuMocked2 = Mockito.mock(WebUser.class);
+		JsonObject message = new JsonObject();
+		Room room = new Room ("roomTest");
+		room=Mockito.spy(room);
+		
+		// Stubbing
+		Mockito.doNothing().when(pMocked).sendMessage(message);
+		Mockito.when(pMocked.getId()).thenReturn("pMocked");
+		
+		Mockito.doNothing().when(pMocked2).sendMessage(message);
+		Mockito.when(pMocked2.getId()).thenReturn("pMocked2");
+		
+		Mockito.doNothing().when(wuMocked).sendMessage(message);
+		Mockito.when(wuMocked.getId()).thenReturn("wuMocked");
+		
+		Mockito.doNothing().when(wuMocked2).sendMessage(message);
+		Mockito.when(wuMocked2.getId()).thenReturn("wuMocked2");
+		
+		Mockito.doCallRealMethod().when(room).getParticipants();
+					
+		//test if the !(participant=Webuser) and  (participant=exeption)
+		room.add(pMocked);
+		room.broadcast(message, pMocked);
+		Mockito.verify(pMocked,Mockito.never()).sendMessage(message);
+		
+		//Test if the (participant=Webuser) and  !(participant=exeption)
+		room.broadcast(message,wuMocked);
+		Mockito.verify(wuMocked,Mockito.never()).sendMessage(message);
+		
+		//test if the !(participant=Webuser) and  !(participant=exeption)
+		room.broadcast(message, pMocked2);
+		Mockito.verify(pMocked2,Mockito.never()).sendMessage(message);
+		
+		//Test if the (participant=Webuser) and  (participant=exeption)
+		room.add(wuMocked2);
+		room.broadcast(message,wuMocked2);
+		Mockito.verify(wuMocked2,Mockito.times(1)).sendMessage(message);
 	}
 
+	
 	@Test
 	public void testCancelPresentation() {
 		fail("Not yet implemented");
