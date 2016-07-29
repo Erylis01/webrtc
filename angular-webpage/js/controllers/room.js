@@ -332,7 +332,33 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     /**
     *End of recording bloc
     */
-                                                          
+    
+    /**
+    *Start of the resolution setting bloc
+    */
+    
+    /**
+    * @function - setResolution() : change user resolution according param
+    * @param number - width : width of the sending video
+    * @param number - height : height of the sending video
+    * @param boolean - isAuto : tru if the user wants an auto setting
+    */
+    $scope.setResolution = function (width, height, isAuto) {
+
+        constraints.setRes(width, height, isAuto);
+        if (isAuto) {
+        notifications.notify('Resolution auto adjustment', 'account-plus');  
+        console.log('Resolution auto adjustment');
+        } else {
+        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
+        console.log('Resolution set to : '+width+' * '+height);
+        }
+    };
+    
+    /**
+    *End of the resolution setting bloc
+    */
+    
     /**
     * Start of media selection block
     */

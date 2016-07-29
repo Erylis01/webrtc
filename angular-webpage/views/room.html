@@ -102,23 +102,10 @@
                             </a>
                         </li>
                         
-                        <!-- Working recording
-						<li>
-							<a class="dropdown-link" ng-click="record()">
-								<i class="mdi mdi-camcorder"></i>
-								<span>Record</span>
-							</a>
-						</li>
-						<li
-							<a class="dropdown-link" ng-click="stopRecord()">
-								<i class="mdi mdi-camcorder"></i>
-								<span>Stop record</span>
-							</a>
-						</li>
-
-						<li class="dropdown-divider"></li> -->
 
 						<!-- Mute / unmute -->
+                        <li class="dropdown-divider"></li>
+                        
 						<li><a class="dropdown-link dropdown-link--is-header">{{ 'VOLUME' | translate }}</a></li>
 
 						<li>
@@ -127,6 +114,27 @@
 								<span>{{ volume.text | translate}}</span>
 							</a>
 						</li>
+                        
+                        <!-- Resolution setters -->
+                        <li><a class="dropdown-link dropdown-link--is-header">Resolution</a></li>
+                        
+                        <li><a class="dropdown-link" ng-click="setResolution(160,120,true)">Auto</a>
+                        </li>
+                        
+                        <li><a class="dropdown-link" ng-click="setResolution(160,120,false)">160*120</a>
+                        </li>
+                        
+                        <li><a class="dropdown-link" ng-click="setResolution(320,240,false)">320*240</a>
+                        </li>
+                        
+                        <li><a class="dropdown-link" ng-click="setResolution(640,480,false)">640*480</a>
+                        </li>
+                        
+                        <li><a class="dropdown-link" ng-click="setResolution(1280,720,false)">1280*720</a>
+                        </li>
+                        
+                        <li><a class="dropdown-link" ng-click="setResolution(1900,1080,false)">1900*1080</a>
+                        </li>
 
 						<!-- Leave room -->
 						<li class="dropdown-divider widescreen-hide"></li>
