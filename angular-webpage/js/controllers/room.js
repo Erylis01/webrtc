@@ -353,6 +353,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
         notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
         console.log('Resolution set to : '+width+' * '+height);
         }
+        renewConstraints('normal');
     };
     
     /**
