@@ -794,7 +794,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'top': '40px',
 				'right': '16px'
 			}, 200);
-            
+            dropdownElt.css('opacity','0');
             /**
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
@@ -809,6 +809,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'top': '52px',
 				'right': '16px'
 			}, 200);
+            dropdownElt.css('opacity','1');
 
 			$(document).click(function(e) {
 
@@ -820,10 +821,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 				$scope.toggleDropdown();
 			});
-            
-            setTimeout(function() {
-				dropdownElt.css('display', 'block');
-			}, 600);
+
 		}
 
 		$scope.dropdownDropped = !$scope.dropdownDropped;
