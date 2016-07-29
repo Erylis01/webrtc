@@ -794,7 +794,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'top': '40px',
 				'right': '16px'
 			}, 200);
+            dropdownElt.css('display', 'none');
             dropdownElt.css('opacity','0');
+            dropdownElt.css('top','40px');
+            dropdownElt.css('right','16px');
+            
             /**
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
@@ -803,13 +807,16 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
             
 			$(document).off('click');
 		} else {
-			dropdownElt.css('display', 'flex');
 			dropdownElt.animate({
 				'opacity': 1,
 				'top': '52px',
 				'right': '16px'
 			}, 200);
+            
+            dropdownElt.css('display', 'block');
             dropdownElt.css('opacity','1');
+            dropdownElt.css('top','52px');
+            dropdownElt.css('right','16px');
 
 			$(document).click(function(e) {
 
