@@ -794,10 +794,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'top': '40px',
 				'right': '16px'
 			}, 200);
-
+            /**
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
 			}, 200);
+            */
 			$(document).off('click');
 		} else {
 			dropdownElt.css('display', 'flex');
