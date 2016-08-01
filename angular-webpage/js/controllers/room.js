@@ -814,6 +814,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				if ($(event.target).closest('.dropdown-menu').length != 0)
 					return false;
                 
+                if (constraints.browserIsFirefox) {
+                    if ($(event.target).closest('.mdi-dots-vertical').length === 0)
+					return false;
+                }
+                
 				if ($(event.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
 
