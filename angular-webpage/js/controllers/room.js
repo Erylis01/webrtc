@@ -807,14 +807,14 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'right': '16px'
 			}, 200);
 
-			$(document).click(function(e) {
+			$(document).click(function(event) {
 
-                console.log($(e.target).closest('.mdi-dots-vertical').length);
+                console.log($(event.target).closest('.mdi-dots-vertical').length);
                 
-				if ($(e.target).closest('.dropdown-menu').length != 0)
+				if ($(event.target).closest('.dropdown-menu').length != 0)
 					return false;
                 
-				if ($(e.target).closest('.mdi-dots-vertical').length != 0)
+				if ($(event.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
 
 				$scope.toggleDropdown();
