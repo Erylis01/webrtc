@@ -814,10 +814,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                 
                 if (constraints.browserIsFirefox) {
                     
-                    console.log($(event.target).className);
-                    console.log($(event.target).attr('class'));
-                    
-                    if ($(event.target).hasClass('.mdi-dots-vertical')) {
+                    if ($(event.target).attr('class') === 'btn btn--l btn--white btn--icon') {
 					return false;
                     }
                 }
