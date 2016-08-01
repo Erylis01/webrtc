@@ -814,10 +814,12 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                 
                 if (constraints.browserIsFirefox) {
                     
-                    console.log($(event.srcElement).closest('.mdi-dots-vertical').length);
+                    console.log($(event.target).className);
+                    console.log($(event.target).attr('class'));
                     
-                    if ($(event.srcElement).closest('.mdi-dots-vertical').length != 0)
+                    if ($(event.target).hasClass('.mdi-dots-vertical')) {
 					return false;
+                    }
                 }
                 
 				if ($(event.target).closest('.mdi-dots-vertical').length != 0)
