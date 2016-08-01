@@ -809,9 +809,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 			$(document).click(function(e) {
 
+                console.log($(e.target).closest('.mdi-dots-vertical').length);
+                
 				if ($(e.target).closest('.dropdown-menu').length != 0)
 					return false;
-
+                
 				if ($(e.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
 
