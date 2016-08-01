@@ -14,12 +14,12 @@ RUN echo "deb http://ubuntu.kurento.org trusty kms6" | tee /etc/apt/sources.list
 #RUN apt-add-repository http://ubuntu.kurento.org
 RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | apt-key add -
 RUN apt-get update
-RUN apt-get install -y kurento-media-server-6.5
+RUN apt-get install -y kurento-media-server-6.0
 
 RUN echo "#!/bin/bash" > start.sh
 #RUN mkdir -p /var/log/kurento-media-server
 #RUN touch /var/log/kurento-media-server/media-server.log
-#RUN echo "service kurento-media-server-6.5 start" >> start.sh
+#RUN echo "service kurento-media-server-6.0 start" >> start.sh
 #RUN echo "tail -f /var/log/kurento-media-server/media-server.log -f" >> start.sh
 RUN echo "kurento-media-server" >> start.sh
 #RUN echo "top" >> start.sh
