@@ -96,7 +96,7 @@
 						</li>
                         
                         <li>
-                            <a class="dropdown-link" href="/record/{{ roomName }}.mp4" target="_blank">
+                            <a class="dropdown-link" href="/record/{{ roomName }}.mp4" onclick="window.open(this.href); return false;">
                                 <i class="mdi mdi-download"></i>
                                 <span>{{ 'DOWNLOAD' | translate }}</span>
                             </a>
