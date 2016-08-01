@@ -802,6 +802,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
             
 			$(document).off('click');
 		} else {
+            dropdownElt.css('display', 'block');
 			dropdownElt.animate({
 				'opacity': 1,
 				'top': '52px',
@@ -816,7 +817,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
                 
                 if ($(e.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
-                }
+                });dropdownElt.css('display', 'none');
 				
 
 				$scope.toggleDropdown();

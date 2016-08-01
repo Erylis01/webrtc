@@ -13,7 +13,6 @@ beforeEach(angular.mock.module('app'));
 beforeEach(function() {
     
   mock = {alert: jasmine.createSpy()}; 
-  console.log('Print');
 
   inject(function($injector) {
     constraints = $injector.get('constraints'); 
@@ -22,10 +21,12 @@ beforeEach(function() {
 
 });
     
-   //Check the factory injection
-   it("verify factory injection", function() {
-     expect(constraints).not.toBe(undefined);
-     expect(variables).not.toBe(undefined);
-   }); 
+//Check the factory injection
+it("verify factory injection", function() {
+expect(constraints).not.toBe(undefined);
+expect(variables).not.toBe(undefined);
+}); 
+    
+
     
 });

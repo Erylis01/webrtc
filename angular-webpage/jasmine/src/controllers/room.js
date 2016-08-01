@@ -332,7 +332,33 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     /**
     *End of recording bloc
     */
-                                                          
+    
+    /**
+    *Start of the resolution setting bloc
+    */
+    
+    /**
+    * @function - setResolution() : change user resolution according param
+    * @param number - width : width of the sending video
+    * @param number - height : height of the sending video
+    * @param boolean - isAuto : tru if the user wants an auto setting
+    */
+    $scope.setResolution = function (width, height, isAuto) {
+
+        constraints.setRes(width, height, isAuto);
+        if (isAuto) {
+        notifications.notify('Resolution auto adjustment', 'account-plus');  
+        console.log('Resolution auto adjustment');
+        } else {
+        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
+        console.log('Resolution set to : '+width+' * '+height);
+        }
+    };
+    
+    /**
+    *End of the resolution setting bloc
+    */
+    
     /**
     * Start of media selection block
     */
@@ -397,16 +423,10 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				if (error) {
 					return console.error(error);
 				}
-
+                
 				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 	}
-    
-    $scope.setResolution = function (width,height,isAuto) {
-        console.log('CLick has been seen !');
-        constraints.setRes(width, height, isAuto);
-        updateScope();
-    };
     
     
 	function sendStream(message, type) {
@@ -439,7 +459,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			options.localVideo = document.getElementById(type);
 			$scope.presentation.disabled[constraints.getType()] = true;
 		}
-
+         
+        //participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly
 		participant.rtcPeer[type] = new kurentoUtils.WebRtcPeer.WebRtcPeerSendonly(options,
 			function(error) {
 				if (error)
@@ -466,7 +487,8 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 						e.stop();
 					});
 				}
-
+                
+                //this.generateOffer
 				this.generateOffer(participant.offerToReceive[type].bind(participant));
 			});
 
@@ -481,14 +503,13 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	}
     
     /**
-    * End od the flow bloc
+    * End of the flow bloc
     */
     
     //Function used at the beggining of a presentation
 	function onPresenterReady(message) {
 
 		enablePresentationClass();
-
 		if (message.userId != participants.me().userId) {
 			receiveVideo(message.userId, message.presenter, true);
 		}
@@ -773,29 +794,34 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'top': '40px',
 				'right': '16px'
 			}, 200);
-
+            
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
 			}, 200);
+            
+            
 			$(document).off('click');
 		} else {
-			dropdownElt.css('display', 'block');
 			dropdownElt.animate({
 				'opacity': 1,
 				'top': '52px',
 				'right': '16px'
 			}, 200);
-
+            
 			$(document).click(function(e) {
 
 				if ($(e.target).closest('.dropdown-menu').length != 0)
 					return false;
-
-				if ($(e.target).closest('.mdi-dots-vertical').length != 0)
+                
+                
+                if ($(e.target).closest('.mdi-dots-vertical').length != 0)
 					return false;
+                }
+				
 
 				$scope.toggleDropdown();
 			});
+            
 		}
 
 		$scope.dropdownDropped = !$scope.dropdownDropped;
