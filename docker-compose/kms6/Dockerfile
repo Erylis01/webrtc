@@ -14,14 +14,15 @@ RUN echo "deb http://ubuntu.kurento.org trusty kms6" | tee /etc/apt/sources.list
 #RUN apt-add-repository http://ubuntu.kurento.org
 RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | apt-key add -
 RUN apt-get update
+RUN apt-get -y upgrade openssl
 RUN apt-get install -y kurento-media-server-6.0
 
 RUN echo "#!/bin/bash" > start.sh
 RUN echo "apt-get update" >> start.sh
 RUN echo "apt-get upgrade" >> start.sh
 RUN echo "kurento-media-server" >> start.sh
-RUN echo "ulimit -u 65536" >> start.sh
 RUN chmod +x start.sh
+RUN echo "ulimit -u 65536" >> start.sh
 ENTRYPOINT ["./start.sh"]
 
 EXPOSE 8888
