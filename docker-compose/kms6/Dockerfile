@@ -19,6 +19,7 @@ RUN apt-get install -y kurento-media-server-6.0
 RUN echo "#!/bin/bash" > start.sh
 RUN echo "apt-get update" >> start.sh
 RUN echo "apt-get upgrade" >> start.sh
+RUN echo "ulimit -u 65536" >> start.sh
 RUN echo "kurento-media-server" >> start.sh
 RUN chmod +x start.sh
 ENTRYPOINT ["./start.sh"]
