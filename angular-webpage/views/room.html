@@ -89,14 +89,14 @@
                         
                         
                         <li>
-							<a class="dropdown-link" ng-click="record.change()">
+							<a class="dropdown-link" ng-click="record.change();toggleDropdown()">
 								<i class="mdi mdi-camcorder"></i>
 								<span>{{ record.text | translate }}</span>
 							</a>
 						</li>
                         
                         <li>
-                            <a class="dropdown-link" href="/record/{{ roomName }}.mp4" download="1.mp4" target="_blank">
+                            <a class="dropdown-link" href="/record/{{ roomName }}.mp4" target="_blank">
                                 <i class="mdi mdi-download"></i>
                                 <span>{{ 'DOWNLOAD' | translate }}</span>
                             </a>
