@@ -42,8 +42,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'STOP_RECORD':'Stop record',
             'MUTE':'Mute',
             'UNMUTE':'Unmute',
-            'BUTTON_TEXT_EN': 'English',
-            'BUTTON_TEXT_FR': 'French'              
+            'BUTTON_TEXT_EN': 'English (EN)',
+            'BUTTON_TEXT_FR': 'Français (FR)'              
         });    
         
     
@@ -71,8 +71,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'STOP_RECORD':'Arrêter l\'enregistrement',
             'MUTE':'Silencieux',
             'UNMUTE':'Sonore',
-            'BUTTON_TEXT_EN': 'Anglais',
-            'BUTTON_TEXT_FR': 'Français'
+            'BUTTON_TEXT_EN': 'English (EN)',
+            'BUTTON_TEXT_FR': 'Français (FR)'
         });  
     
     
