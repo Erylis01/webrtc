@@ -808,14 +808,15 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 			}, 200);
 
 			$(document).click(function(event) {
-
-                console.log($(event.target).closest('.mdi-dots-vertical').length);
                 
 				if ($(event.target).closest('.dropdown-menu').length != 0)
 					return false;
                 
                 if (constraints.browserIsFirefox) {
-                    if ($(event.target).closest('.mdi-dots-vertical').length === 0)
+                    
+                    console.log($(event.srcElement).closest('.mdi-dots-vertical').length);
+                    
+                    if ($(event.srcElement).closest('.mdi-dots-vertical').length != 0)
 					return false;
                 }
                 
