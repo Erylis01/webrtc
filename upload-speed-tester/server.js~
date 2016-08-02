@@ -34,5 +34,5 @@ app.post('/upload', function(req, res) {
 	res.end();
 });
 
-secureServer.listen(443)
+secureServer.listen(443);
 app.listen(opts.port);

@@ -2,7 +2,6 @@ var express = require('express');
 
 var forceSSL = require('express-force-ssl');
 var fs = require('fs');
-var http = require('http');
 var https = require('https');
 var ssl_options = {
   key: fs.readFileSync('./etc/nginx/ssl/nginx.key'),
