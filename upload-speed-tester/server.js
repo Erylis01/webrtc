@@ -1,6 +1,5 @@
 var express = require('express');
-var app = express().createServer({key: fs.readFilesSync('/etc/nginx/ssl/nginx.key'),
-				  cert: fs.readFilesSync('/etc/nginx/ssl/ngnx.crt')});
+var app = express()
 var cors = require('cors');
 var bodyParser = require("body-parser");
 
