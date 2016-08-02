@@ -1,5 +1,6 @@
 var express = require('express');
-var app = express();
+var app = express().createServer({key: fs.readFilesSync('/etc/OpenSSL/key.pem'),
+				  cert: fs.readFilesSync('/etc/OPenSSL/cert.pem')});
 var cors = require('cors');
 var bodyParser = require("body-parser");
 
@@ -19,4 +20,3 @@ app.post('/upload', function(req, res) {
 });
 
 app.listen(opts.port);
-app.listen(443);
