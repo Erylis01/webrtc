@@ -43,10 +43,10 @@ app.config(['$translateProvider',function($translateProvider) {
             'MUTE':'Mute',
             'UNMUTE':'Unmute',
             'BUTTON_TEXT_EN': 'English (EN)',
-            'BUTTON_TEXT_FR': 'Français (FR)'              
+            'BUTTON_TEXT_FR': 'Français (FR)',
+            'RES_AUTO' : 'Resolution auto-adjustment'
         });    
         
-    
         $translateProvider.translations('fr', {
             'WARNING_BROWSER':'Votre navigateur est potentiellement incompatible avec WebRTC. Veuillez utiliser Mozilla Firefox, Google Chrome ou Opera à la place.',
             'NAME':'Nom',
@@ -72,7 +72,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'MUTE':'Silencieux',
             'UNMUTE':'Sonore',
             'BUTTON_TEXT_EN': 'English (EN)',
-            'BUTTON_TEXT_FR': 'Français (FR)'
+            'BUTTON_TEXT_FR': 'Français (FR)',
+            'RES_AUTO' : 'Ajustement automatique de la résolution'
         });  
     
     
@@ -81,10 +82,12 @@ app.config(['$translateProvider',function($translateProvider) {
 
 
 // Injections
-app.controller('UserCtrl', ['$scope', '$location', 'socket', 'constraints', 'LxNotificationService', 'participants', UserCtrl]);
-app.controller('RoomCtrl', ['$scope', '$location', '$window', '$routeParams', '$timeout', 'socket', 'constraints', 'LxNotificationService', 'LxProgressService', 'participants', RoomCtrl]);
-app.controller('TranslateController', function($translate, $scope) {
+app.controller('UserCtrl', ['$scope', '$rootScope', '$location', 'socket', 'constraints', 'LxNotificationService', 'participants', UserCtrl]);
+app.controller('RoomCtrl', ['$scope', '$rootScope', '$location', '$window', '$routeParams', '$timeout', 'socket', 'constraints', 'LxNotificationService', 'LxProgressService', 'participants', RoomCtrl]);
+app.controller('TranslateController', function($translate, $scope, $rootScope) {
+  $rootScope.langKey = 'en';    
   $scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
+    $rootScope.langKey = langKey;  
   };
 });

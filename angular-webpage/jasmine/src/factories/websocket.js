@@ -66,8 +66,8 @@ app.factory('socket', ['$window', 'variables', function($window, variables) {
 	}
     
     /**
-    * @function getMessage() - Socket prepared message getter
-    * @return JSON object - messagePrepared
+    * @function getMessage() - prepared message getter
+    * @return String - messagePrepared
     */
 	function getMessage() {
 		return messagePrepared;

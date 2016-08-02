@@ -562,7 +562,11 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
             notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été démarré par " + request.userJava, 'account-plus');    
             }
         } else {
+            if ($rootScope.langKey === 'en') {
             notifications.notify("You started a recording", 'account-plus');
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify("Vous avez démarré l'enregistrement", 'account-plus');     
+            }
         }
     }
 
@@ -576,7 +580,11 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
             notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été terminé " + request.userJava, 'account-plus');    
             }
         } else {
+            if ($rootScope.langKey === 'en') {
             notifications.notify("You stopped a recording", 'account-plus');
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify("Vous avez arrété l'enregistrement", 'account-plus');     
+            }
         }
     }
 

@@ -8,7 +8,7 @@
 * @param {object} notifications - Object containing required functionnalities to use notifications
 * @param {Participant{}} - Dictionnary of the current participant
 */
-function UserCtrl($scope, $location, socket, constraints, notifications, participants) {
+function UserCtrl($scope, $rootScope, $location, socket, constraints, notifications, participants) {
 
     //Set the field to null value
 	$scope.participant = {
@@ -68,10 +68,17 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
             
 			} else {
                 //WebSocket fail - server unreacheable
-				var warning = {
-					title: 'Websocket Error',
-					content: 'Unable to connect to the server. Please try later.'
-				};
+                if ($rootScope.langKey === 'en') {
+				    var warning = {
+					   title: 'Websocket Error',
+					   content: 'Unable to connect to the server. Please try later.'
+				    };
+                } else if ($rootScope.langKey === 'fr') {
+                    var warning = {
+					   title: 'Erreur Websocket',
+					   content: 'Impossible de se connecter au serveur. Merci d\'essayer plus tard.'
+				    };
+                };
 
 				notifications.alert(warning.title, warning.content, 'Ok', function(answer) {
 					// This should be handled by lumx (it must be a bug)
@@ -82,9 +89,9 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 
 			}
 		}
-    };	
+    };    
 
-     /**
+    /**
     * This bloc is not yet implemented
     */
 	if (constraints.getWarning()) {
@@ -107,7 +114,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
     /**
     *End of the previous bloc
     */
-    
+
 
 /**
 * @function - setResolution() : change user resolution according param
@@ -119,11 +126,19 @@ $scope.setResolution = function (width, height, isAuto) {
 
         constraints.setRes(width, height, isAuto);
         if (isAuto) {
-        notifications.notify('Resolution auto adjustment', 'account-plus');  
-        console.log('Resolution auto adjustment');
+            if ($rootScope.langKey === 'en') {
+            notifications.notify('Resolution auto adjustment', 'account-plus')
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify('Ajustement automatique de la résolution', 'account-plus')    
+            };  
+            console.log('Resolution auto adjustment');
         } else {
-        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
-        console.log('Resolution set to : '+width+' * '+height);
+            if ($rootScope.langKey === 'en') {
+            notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');  
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify('Resolution choisie : '+width+' * '+height, 'account-plus');      
+            };
+            console.log('Resolution set to : '+width+' * '+height);
         }
     };
 
