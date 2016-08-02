@@ -120,6 +120,7 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 	function setCompositeOptions(opt) {
 		if (opt && (opt == 'normal' || opt == 'audioOnly' || opt == 'watchOnly'))
 			compositeOptions = opt;
+            console.log(compositeOptions);
 	}
     
     /**
