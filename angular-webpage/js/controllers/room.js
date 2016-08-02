@@ -12,7 +12,7 @@
 * @param {object} progress - Native object in charge of the loading circle
 * @param {Participant{}} - Dictionnary of the current participant 
 */
-function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constraints, notifications, progress, participants) {
+function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, socket, constraints, notifications, progress, participants) {
 
     /**
     *Room initialisation
@@ -347,11 +347,19 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
         constraints.setRes(width, height, isAuto);
         if (isAuto) {
-        notifications.notify('Resolution auto adjustment', 'account-plus');  
-        console.log('Resolution auto adjustment');
+            if ($rootScope.langKey === 'en') {
+            notifications.notify('Resolution auto adjustment', 'account-plus')
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify('Ajustement automatique de la résolution', 'account-plus')    
+            };  
+            console.log('Resolution auto adjustment');
         } else {
-        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
-        console.log('Resolution set to : '+width+' * '+height);
+            if ($rootScope.langKey === 'en') {
+            notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');  
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify('Resolution choisie : '+width+' * '+height, 'account-plus');      
+            };
+            console.log('Resolution set to : '+width+' * '+height);
         }
     };
     
@@ -534,9 +542,12 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 		participants.add(request.userId, request.name);
 		$scope.participantNames.push(request.name);
 		updateScope();
-
-		notifications.notify(request.name + ' has joined the room !', 'account-plus');
-
+        
+        if ($rootScope.langKey === 'en') {
+		  notifications.notify(request.name + ' has joined the room !', 'account-plus');
+        } else if ($rootScope.langKey === 'fr') {
+          notifications.notify(request.name + ' a rejoins la salle !', 'account-plus');    
+        }
 		console.log(request.name + " has just arrived ! Welcome him !");
 
 	}
@@ -545,7 +556,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     function recordJava (request) {
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
+            if ($rootScope.langKey === 'en') {
             notifications.notify("A record of room " + request.roomJava + " has been started by " + request.userJava, 'account-plus');
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été démarré par " + request.userJava, 'account-plus');    
+            }
         } else {
             notifications.notify("You started a recording", 'account-plus');
         }
@@ -555,7 +570,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
     function stopRecordJava (request) {
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
+            if ($rootScope.langKey === 'en') {
             notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.userJava, 'account-plus');
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été terminé " + request.userJava, 'account-plus');    
+            }
         } else {
             notifications.notify("You stopped a recording", 'account-plus');
         }
@@ -576,7 +595,11 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
 		participants.remove(request.userId);
 
+        if ($rootScope.langKey === 'en') {
 		notifications.notify(request.name + ' has left the room', 'account-remove');
+        } else if ($rootScope.langKey === 'fr')  {
+        notifications.notify(request.name + ' a quitté la salle', 'account-remove');    
+        }
 
 		$scope.participantNames = request.data;
 		updateScope();

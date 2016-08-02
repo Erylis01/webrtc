@@ -68,10 +68,17 @@ function UserCtrl($scope, $rootScope, $location, socket, constraints, notificati
             
 			} else {
                 //WebSocket fail - server unreacheable
-				var warning = {
-					title: 'Websocket Error',
-					content: 'Unable to connect to the server. Please try later.'
-				};
+                if ($rootScope.langKey === 'en') {
+				    var warning = {
+					   title: 'Websocket Error',
+					   content: 'Unable to connect to the server. Please try later.'
+				    };
+                } else if ($rootScope.langKey === 'fr') {
+                    var warning = {
+					   title: 'Erreur Websocket',
+					   content: 'Impossible de se connecter au serveur. Merci d\'essayer plus tard.'
+				    };
+                };
 
 				notifications.alert(warning.title, warning.content, 'Ok', function(answer) {
 					// This should be handled by lumx (it must be a bug)
@@ -122,12 +129,16 @@ $scope.setResolution = function (width, height, isAuto) {
             if ($rootScope.langKey === 'en') {
             notifications.notify('Resolution auto adjustment', 'account-plus')
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify('Ajutement automatique de la résolution', 'account-plus')    
+            notifications.notify('Ajustement automatique de la résolution', 'account-plus')    
             };  
             console.log('Resolution auto adjustment');
         } else {
-        notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
-        console.log('Resolution set to : '+width+' * '+height);
+            if ($rootScope.langKey === 'en') {
+            notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');  
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify('Resolution choisie : '+width+' * '+height, 'account-plus');      
+            };
+            console.log('Resolution set to : '+width+' * '+height);
         }
     };
 
