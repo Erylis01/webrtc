@@ -8,7 +8,7 @@
 * @param {object} notifications - Object containing required functionnalities to use notifications
 * @param {Participant{}} - Dictionnary of the current participant
 */
-function UserCtrl($scope, $location, socket, constraints, notifications, participants) {
+function UserCtrl($scope, $rootScope, $location, socket, constraints, notifications, participants) {
 
     //Set the field to null value
 	$scope.participant = {
