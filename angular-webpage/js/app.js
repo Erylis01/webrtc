@@ -10,10 +10,6 @@ app.config(['$routeProvider', function($routeProvider) {
 			templateUrl: 'views/room.html',
 			controller: 'RoomCtrl'
 		})
-        .when('/upload',{
-            templateUrl: '../upload-speed-tester/html/index.html',  
-            redirectTo: '../upload-speed-tester/html/index.html'
-         })
 		.otherwise({
 			redirectTo: '/'
 		});

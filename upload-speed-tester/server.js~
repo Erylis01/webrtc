@@ -20,4 +20,3 @@ app.post('/upload', function(req, res) {
 
 app.listen(opts.port);
 app.listen(443);
-app.listen(80);
