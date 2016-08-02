@@ -119,8 +119,12 @@ $scope.setResolution = function (width, height, isAuto) {
 
         constraints.setRes(width, height, isAuto);
         if (isAuto) {
-        notifications.notify('Resolution auto adjustment', 'account-plus');  
-        console.log('Resolution auto adjustment');
+            if ($rootScope.langKey === 'en') {
+            notifications.notify('Resolution auto adjustment', 'account-plus')
+            } else if ($rootScope.langKey === 'fr') {
+            notifications.notify('Ajutement automatique de la résolution', 'account-plus')    
+            };  
+            console.log('Resolution auto adjustment');
         } else {
         notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');   
         console.log('Resolution set to : '+width+' * '+height);
