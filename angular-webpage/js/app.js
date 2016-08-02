@@ -43,7 +43,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'MUTE':'Mute',
             'UNMUTE':'Unmute',
             'BUTTON_TEXT_EN': 'English (EN)',
-            'BUTTON_TEXT_FR': 'Français (FR)'
+            'BUTTON_TEXT_FR': 'Français (FR)',
+            'RES_AUTO' : 'Resolution auto-adjustment'
         });    
         
     
@@ -72,7 +73,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'MUTE':'Silencieux',
             'UNMUTE':'Sonore',
             'BUTTON_TEXT_EN': 'English (EN)',
-            'BUTTON_TEXT_FR': 'Français (FR)'
+            'BUTTON_TEXT_FR': 'Français (FR)',
+            'RES_AUTO' : 'Ajustement automatique de la résolution'
         });  
     
     

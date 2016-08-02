@@ -347,7 +347,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 
         constraints.setRes(width, height, isAuto);
         if (isAuto) {
-        var autoResText = '{{ \'RES_AUTO\' | translate}}';
+        var autoResText = 'RES_AUTO | translate';
         notifications.notify(autoResText, 'account-plus');  
         console.log('Resolution auto adjustment');
         } else {
