@@ -37,7 +37,7 @@ expect(constraintToTest.video.width.min).toBe(160);
 expect(constraintToTest.video.height.min).toBe(120);
 });
     
-//CHeck the resolution setter function 
+//Check the resolution setter function 
 it('verify the resolution setter function - setRes()', function () {
 //First test to check the setting ability
 constraints.setRes(160,120,false);
@@ -49,11 +49,23 @@ constraints.setRes(320,240,false);
 constraintToTest = constraints.get();
 expect(constraintToTest.video.width.ideal).toBe(320);
 expect(constraintToTest.video.height.ideal).toBe(240);
-//Check the first case of auto-adjusment BUT SPEED SHOULD BE MOCK FOR FURTHER TEST   
+//Check the first case of auto-adjusment
 constraints.setRes(160,120,true);
 constraintToTest = constraints.get();
 expect(constraintToTest.video.width.ideal).toBe(160);
 expect(constraintToTest.video.height.ideal).toBe(120);
+//Check the second case of auto-adjusment
+upload.speed =  function () { return 0.6 };
+constraints.setRes(160,120,true);
+constraintToTest = constraints.get();
+expect(constraintToTest.video.width.ideal).toBe(320);
+expect(constraintToTest.video.height.ideal).toBe(240);
+//Check the third case of auto-adjusment
+upload.speed =  function () { return 0.8 };
+constraints.setRes(160,120,true);
+constraintToTest = constraints.get();
+expect(constraintToTest.video.width.ideal).toBe(640);
+expect(constraintToTest.video.height.ideal).toBe(480); 
 });
     
 });
