@@ -66,6 +66,14 @@ app.factory('socket', ['$window', 'variables', function($window, variables) {
 	}
     
     /**
+    * @function getMessage() - Socket prepared message getter
+    * @return JSON object - messagePrepared
+    */
+	function getMessage() {
+		return messagePrepared;
+	}
+    
+    /**
     * @function prepareJoiningRoom() - Set prepared message to * param
     * @param String{} - message
     */
@@ -101,6 +109,7 @@ app.factory('socket', ['$window', 'variables', function($window, variables) {
 	return {
 		send: send,
 		get: get,
+        getMessage: getMessage,
 		prepareJoiningRoom: prepareJoiningRoom,
 		roomReady: roomReady,
 		isOpen: isOpen

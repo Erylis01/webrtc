@@ -81,8 +81,6 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
 			constraints = constraintWebcam;
 		}
         
-        console.log(constraintWebcam.video.width.ideal);
-        console.log(constraintWebcam.video.height.ideal);
 		return constraints;
         
 	}
@@ -96,21 +94,20 @@ app.factory('constraints', ['$window', 'deviceDetector', 'upload', function($win
         if (isAuto) {
             if (upload.speed() >= 0.7) {
                 console.log(upload.speed());
-                consMaxWidth = 640;
-                consMaxHeight = 480;
+                width = 640;
+                height = 480;
             } else if (upload.speed() >= 0.5) {
                 console.log(upload.speed());
-				consMaxWidth = 320;
-				consMaxHeight = 240;
+				width = 320;
+				height = 240;
 			} else {
                 console.log(upload.speed());
-				consMaxWidth = 160;
-				consMaxHeight = 120;
+				width = 160;
+				height = 120;
 			}    
-        } else {
+        } 
         constraintWebcam.video.width.max = constraintWebcam.video.width.ideal = width;
         constraintWebcam.video.height.max = constraintWebcam.video.height.ideal = height;
-        }
         console.log('Resolution set to ' + width + ' * ' + height);
     }
     

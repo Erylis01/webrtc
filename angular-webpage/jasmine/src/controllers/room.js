@@ -786,7 +786,7 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 	};
 
 	$scope.dropdownDropped = false;
-	$scope.toggleDropdown = function() {
+    $scope.toggleDropdown = function() {
 		var dropdownElt = $('.dropdown-menu');
 		if ($scope.dropdownDropped) {
 			dropdownElt.animate({
@@ -794,39 +794,42 @@ function RoomCtrl($scope, $location, $window, $params, $timeout, socket, constra
 				'top': '40px',
 				'right': '16px'
 			}, 200);
-            
+
 			setTimeout(function() {
 				dropdownElt.css('display', 'none');
 			}, 200);
-            
-            
 			$(document).off('click');
 		} else {
+			dropdownElt.css('display', 'block');
 			dropdownElt.animate({
 				'opacity': 1,
 				'top': '52px',
 				'right': '16px'
 			}, 200);
-            
-			$(document).click(function(e) {
 
-				if ($(e.target).closest('.dropdown-menu').length != 0)
+			$(document).click(function(event) {
+                
+				if ($(event.target).closest('.dropdown-menu').length != 0)
 					return false;
                 
-                
-                if ($(e.target).closest('.mdi-dots-vertical').length != 0)
+                if (constraints.browserIsFirefox) {
+                    
+                    if ($(event.target).attr('class') === 'btn btn--l btn--white btn--icon') {
 					return false;
+                    }
                 }
-				
+                
+				if ($(event.target).closest('.mdi-dots-vertical').length != 0)
+					return false;
 
 				$scope.toggleDropdown();
 			});
-            
 		}
 
 		$scope.dropdownDropped = !$scope.dropdownDropped;
 
 	};
+
 
 	function updateScope() {
 		_.defer(function() {
