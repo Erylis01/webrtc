@@ -32,7 +32,7 @@ expect(participants).not.toBe(undefined);
 expect(socket).not.toBe(undefined);
 }); 
     
-it("verify the object participant",function() {
+it("verify the object participant with function get() and add()",function() {
     //Call the add function and check basic property
     participants.add("145RBC","Jean");
     expect(participants.get("145RBC").name).not.toBe(undefined);

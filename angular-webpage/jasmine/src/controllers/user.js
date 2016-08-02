@@ -82,7 +82,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 
 			}
 		}
-	};
+	
 
 	if (constraints.getWarning()) {
 
@@ -101,6 +101,7 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 		constraints.setWarning(null);
 
 	}
+};
     
 
 /**

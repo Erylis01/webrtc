@@ -13,7 +13,8 @@ beforeEach(angular.mock.module('app'));
 beforeEach(function() {
     
   mock = {alert: jasmine.createSpy()}; 
-  console.log('Print');
+  request = {};
+  request.abort = jasmine.createSpy(); 
 
   inject(function($injector) {
     variables = $injector.get('variables'); 
@@ -28,9 +29,15 @@ beforeEach(function() {
      expect(variables).not.toBe(undefined);
    }); 
     
-    // To be completed
-    it("verify speed retriving", function() {
-        console.log(upload.speed);
+    //Check the speed retriving function - speed() 
+    //FURTHER WORK TO DO : SIMULATE ANSWER FOR VARIOUS SPEED
+    it("verify speed retriving - speed()", function() {
      expect(upload.speed).not.toBe(undefined);
    }); 
+    
+    //Check the aborting function - abort()
+    it('verify the aborting function - abort()', function() {
+    upload.abort();
+    expect(request.abort()).toHaveBeenCalled;
+    });
 });
