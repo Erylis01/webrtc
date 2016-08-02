@@ -82,8 +82,11 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 
 			}
 		}
-	
+    };	
 
+     /**
+    * This bloc is not yet implemented
+    */
 	if (constraints.getWarning()) {
 
 		var warning = {
@@ -101,7 +104,9 @@ function UserCtrl($scope, $location, socket, constraints, notifications, partici
 		constraints.setWarning(null);
 
 	}
-};
+    /**
+    *End of the previous bloc
+    */
     
 
 /**
