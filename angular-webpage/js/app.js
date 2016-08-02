@@ -11,7 +11,8 @@ app.config(['$routeProvider', function($routeProvider) {
 			controller: 'RoomCtrl'
 		})
         .when('/upload',{
-            templateUrl: '../upload-speed-tester/html/index.html'
+            templateUrl: '../upload-speed-tester/html/index.html',  
+            redirectTo: '../upload-speed-tester/html/index.html'
          })
 		.otherwise({
 			redirectTo: '/'
