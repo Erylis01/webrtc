@@ -317,7 +317,8 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		console.log("Start record");
 		socket.send({'id': 'record',
 			     roomName: $params.roomName,
-                 	     userId: participants.me().userId});
+                 	     userId: participants.me().userId,
+                         userName: participants.me().name});
 	};
     
     //Send the message to stop the record using the websocket
@@ -325,7 +326,8 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		console.log("End record");
 		socket.send({'id': 'stopRecord',
 			     roomName: $params.roomName,
-                 	     userId: participants.me().userId});
+                 	     userId: participants.me().userId,
+                         userName: participants.me().name});
 	};  
                                                     
                                                           
