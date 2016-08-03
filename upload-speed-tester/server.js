@@ -1,3 +1,7 @@
+var fs = require('fs'),
+http = require('http'),
+https = require('https');
+
 var express = require('express');
 var app = express();
 var cors = require('cors');
@@ -8,9 +12,16 @@ var opts = {
 	maxUploadSize: "20971520"
 };
 
+var sslopt = {
+	key: fs.readFileSync('ssl/nginx.key'),
+	cert: fs.readFileSync('ssl/nginx.crt')
+};
+
 app.use(express.static(__dirname + '/html'));
 app.use(bodyParser.urlencoded({ limit: '20MB', extended: true }));
 app.use(cors());
+
+var server = https.createServer(opts, app);
 
 app.post('/upload', function(req, res) {
 	res.setHeader('Content-Type', 'application/json');
