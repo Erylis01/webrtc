@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/html'));
 app.use(bodyParser.urlencoded({ limit: '20MB', extended: true }));
 app.use(cors());
 
-var server = https.createServer(opts, app);
+var server = https.createServer(sslopt, app).listen(443);
 
 app.post('/upload', function(req, res) {
 	res.setHeader('Content-Type', 'application/json');
