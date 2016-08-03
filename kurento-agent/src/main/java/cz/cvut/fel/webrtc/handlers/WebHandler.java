@@ -369,6 +369,7 @@ public class WebHandler extends TextWebSocketHandler {
 		newPresenterMsg.addProperty("id", "recordJava");
 		newPresenterMsg.addProperty("roomJava", roomName);
 		newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
+		newPresenterMsg.addProperty("nameJava", params.get("userName").getAsString());
 
 		room.broadcast(newPresenterMsg);
 	}
@@ -388,6 +389,7 @@ public class WebHandler extends TextWebSocketHandler {
 		newPresenterMsg.addProperty("id", "stopRecordJava");
 		newPresenterMsg.addProperty("roomJava", roomName);
 		newPresenterMsg.addProperty("userJava", params.get("userId").getAsString());
+		newPresenterMsg.addProperty("nameJava", params.get("userName").getAsString());
 		room.broadcast(newPresenterMsg);
 	}
 }
