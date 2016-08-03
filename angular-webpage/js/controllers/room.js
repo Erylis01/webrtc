@@ -559,9 +559,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
             if ($rootScope.langKey === 'en') {
-            notifications.notify("A record of room " + request.roomJava + " has been started by " + request.userJava, 'account-plus');
+            notifications.notify("A record of room " + request.roomJava + " has been started by " + request.nameJava + " who have ID " + request.userJava, 'account-plus');
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été démarré par " + request.userJava, 'account-plus');    
+            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été démarré par " + request.nameJava + " qui a l'ID " + request.userJava, 'account-plus');    
             }
         } else {
             if ($rootScope.langKey === 'en') {
@@ -577,9 +577,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
             if ($rootScope.langKey === 'en') {
-            notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.userJava, 'account-plus');
+            notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.nameJava + " who have ID " + request.userJava, 'account-plus');
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été terminé " + request.userJava, 'account-plus');    
+            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été terminé " + request.nameJava + " qui a l'ID " + request.userJava, 'account-plus');    
             }
         } else {
             if ($rootScope.langKey === 'en') {
