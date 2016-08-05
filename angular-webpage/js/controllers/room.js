@@ -785,11 +785,14 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 
     $scope.setOutputVideoResolution = function (mode) {
         if (mode === "test") {
-        $('#composite-container').css('max-width', '640px'); 
+        $('#composite-container').css('max-width', '640px');
+        console.log('640px');
         } else if (mode === "normal") {
-        $('#composite-container').css('max-width', '60%');     
+        $('#composite-container').css('max-width', '60%');
+        console.log('60%');
         } else if (mode === "cinema") {
-        $('#composite-container').css('max-width', '99%');     
+        $('#composite-container').css('max-width', '99%');
+        console.log('90%');    
         }
     };
     

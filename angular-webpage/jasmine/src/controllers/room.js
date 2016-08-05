@@ -317,7 +317,8 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		console.log("Start record");
 		socket.send({'id': 'record',
 			     roomName: $params.roomName,
-                 	     userId: participants.me().userId});
+                 	     userId: participants.me().userId,
+                         userName: participants.me().name});
 	};
     
     //Send the message to stop the record using the websocket
@@ -325,7 +326,8 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		console.log("End record");
 		socket.send({'id': 'stopRecord',
 			     roomName: $params.roomName,
-                 	     userId: participants.me().userId});
+                 	     userId: participants.me().userId,
+                         userName: participants.me().name});
 	};  
                                                     
                                                           
@@ -557,9 +559,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
             if ($rootScope.langKey === 'en') {
-            notifications.notify("A record of room " + request.roomJava + " has been started by " + request.userJava, 'account-plus');
+            notifications.notify("A record of room " + request.roomJava + " has been started by " + request.nameJava + " who have ID " + request.userJava, 'account-plus');
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été démarré par " + request.userJava, 'account-plus');    
+            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été démarré par " + request.nameJava + " qui a l'ID " + request.userJava, 'account-plus');    
             }
         } else {
             if ($rootScope.langKey === 'en') {
@@ -575,9 +577,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         if (!(request.userJava === participants.me().userId)) {
             $scope.record.update();
             if ($rootScope.langKey === 'en') {
-            notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.userJava, 'account-plus');
+            notifications.notify("A record of room " + request.roomJava + " has been cancelled by " + request.nameJava + " who have ID " + request.userJava, 'account-plus');
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été terminé " + request.userJava, 'account-plus');    
+            notifications.notify("Un enregistrement de la salle " + request.roomJava + " a été terminé " + request.nameJava + " qui a l'ID " + request.userJava, 'account-plus');    
             }
         } else {
             if ($rootScope.langKey === 'en') {
@@ -651,7 +653,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 	});
 
 	function adaptCompositeContainer() {
-		$('video').css('max-height', $(window).height() - 90 + 'px');
+		$('video').css('max-height', $(window).height() - 30 + 'px');
 	}
 
 	function enablePresentationClass() {
@@ -781,6 +783,19 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		clickHandler('presentation', changePresentationSize, setPresentationFullScreen);
 	};
 
+    $scope.setOutputVideoResolution = function (mode) {
+        if (mode === "test") {
+        $('#composite-container').css('max-width', '640px');
+        console.log('640px');
+        } else if (mode === "normal") {
+        $('#composite-container').css('max-width', '60%');
+        console.log('60%');
+        } else if (mode === "cinema") {
+        $('#composite-container').css('max-width', '99%');
+        console.log('90%');    
+        }
+    };
+    
 	$scope.toggleSidebar = function() {
 		var matrix = $('.sidebar').css('transform');
 		if (matrix != 'none') {

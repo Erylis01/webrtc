@@ -44,7 +44,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'UNMUTE':'Unmute',
             'BUTTON_TEXT_EN': 'English (EN)',
             'BUTTON_TEXT_FR': 'Français (FR)',
-            'PLAYER_SETTING' : 'Player setting'
+            'PLAYER_SETTING' : 'Player setting',
+            'TEST_MODE' : 'Test mode : 640 px'
         });    
         
         $translateProvider.translations('fr', {
@@ -73,7 +74,8 @@ app.config(['$translateProvider',function($translateProvider) {
             'UNMUTE':'Sonore',
             'BUTTON_TEXT_EN': 'English (EN)',
             'BUTTON_TEXT_FR': 'Français (FR)',
-            'PLAYER_SETTING' : 'Paramètre du lecteur'
+            'PLAYER_SETTING' : 'Paramètre du lecteur',
+            'TEST_MODE' : 'Mode de test : 640 px'
         });  
     
     

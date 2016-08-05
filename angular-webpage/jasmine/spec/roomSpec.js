@@ -14,9 +14,14 @@ describe('General parameters for testing controller', function() {
    
     
     
-    describe('Unit testing for user controller', function() {
+    describe('Unit testing for RoomCtrl', function() {
         
         var $scope, controller;
+        
+        console = {};    
+        console.error = jasmine.createSpy();   
+        console.log = jasmine.createSpy();   
+        console.warn = jasmine.createSpy(); 
         
         beforeEach(function() {
         $scope = {
@@ -29,7 +34,7 @@ describe('General parameters for testing controller', function() {
         constraints = $injector.get('constraints'); 
         socket = $injector.get('socket'); 
         participants = $injector.get('participants');
-        });
+        });  
             
         });
         
@@ -50,6 +55,15 @@ describe('General parameters for testing controller', function() {
         expect($scope.presentation.disabled.window).toBeFalsy;
         //Participant variable    
         expect($scope.participantNames).toBeDefined;        
+        });
+        
+        it('verify the Output resolution setter - setOutputVideoResolution()', function () {
+        $scope.setOutputVideoResolution('test');
+        expect(console.log).toHaveBeenCalledWith('640px'); 
+        $scope.setOutputVideoResolution('normal');
+        expect(console.log).toHaveBeenCalledWith('60%');
+        $scope.setOutputVideoResolution('cinema');
+        expect(console.log).toHaveBeenCalledWith('90%');
         });
     });
     
