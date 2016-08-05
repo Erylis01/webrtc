@@ -783,6 +783,16 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		clickHandler('presentation', changePresentationSize, setPresentationFullScreen);
 	};
 
+    $scope.setOutputVideoResolution = function (mode) {
+        if (mode === "test") {
+        $('#composite-container').css('max-width', '640px'); 
+        } else if (mode === "normal") {
+        $('#composite-container').css('max-width', '70%');     
+        } else if (mode === "cinema") {
+        $('#composite-container').css('max-width', '100%');     
+        }
+    };
+    
 	$scope.toggleSidebar = function() {
 		var matrix = $('.sidebar').css('transform');
 		if (matrix != 'none') {

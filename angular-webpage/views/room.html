@@ -115,6 +115,32 @@
 							</a>
 						</li>
                         
+                        <!-- Player setting -->
+                        <li class="dropdown-divider"></li>
+                        
+                        <li><a class="dropdown-link dropdown-link--is-header">Player setting</a></li>
+                        
+                        <li>
+                            <a class="dropdown-link" ng-click="setOutputVideoResolution('test')"> 
+                                <i class="mdi mdi-auto-fix"></i>
+                                <span>Test mode : 640 px</span>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a class="dropdown-link" ng-click="setOutputVideoResolution('normal')"> 
+                                <i class="mdi mdi-auto-fix"></i>
+                                <span>Normal</span>
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a class="dropdown-link" ng-click="setOutputVideoResolution('cinema')"> 
+                                <i class="mdi mdi-auto-fix"></i>
+                                <span>Cinema</span>
+                            </a>
+                        </li>
+                        
                         <!-- Resolution setters -->
                         <li><a class="dropdown-link dropdown-link--is-header">Resolution</a></li>
                         
@@ -226,7 +252,7 @@
 <div class="text-center sidebar-adaptive">
 	<!-- Composite -->
 	<div id="composite-container" class="container video-room noPresentation" ng-click="compositeVideoClick()">
-		<video id="composite" width="auto" autoplay></video>
+		<video id="composite" height="auto" autoplay></video>
 	</div>
 
 	<!-- Presentation -->
