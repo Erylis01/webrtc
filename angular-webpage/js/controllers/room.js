@@ -653,7 +653,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 	});
 
 	function adaptCompositeContainer() {
-		$('video').css('max-height', $(window).height() - 90 + 'px');
+		$('video').css('max-height', $(window).height() - 30 + 'px');
 	}
 
 	function enablePresentationClass() {
