@@ -44,7 +44,7 @@ app.config(['$translateProvider',function($translateProvider) {
             'UNMUTE':'Unmute',
             'BUTTON_TEXT_EN': 'English (EN)',
             'BUTTON_TEXT_FR': 'Français (FR)',
-            'RES_AUTO' : 'Resolution auto-adjustment'
+            'PLAYER_SETTING' : 'Player setting'
         });    
         
         $translateProvider.translations('fr', {
@@ -73,7 +73,7 @@ app.config(['$translateProvider',function($translateProvider) {
             'UNMUTE':'Sonore',
             'BUTTON_TEXT_EN': 'English (EN)',
             'BUTTON_TEXT_FR': 'Français (FR)',
-            'RES_AUTO' : 'Ajustement automatique de la résolution'
+            'PLAYER_SETTING' : 'Paramètre du lecteur'
         });  
     
     

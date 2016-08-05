@@ -787,9 +787,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         if (mode === "test") {
         $('#composite-container').css('max-width', '640px'); 
         } else if (mode === "normal") {
-        $('#composite-container').css('max-width', '70%');     
+        $('#composite-container').css('max-width', '60%');     
         } else if (mode === "cinema") {
-        $('#composite-container').css('max-width', '100%');     
+        $('#composite-container').css('max-width', '99%');     
         }
     };
     
