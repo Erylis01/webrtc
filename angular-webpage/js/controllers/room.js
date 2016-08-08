@@ -25,7 +25,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 
 	$scope.roomName = $params.roomName;
 
-	$scope.lineAvailable = false;
+	//FOR SIP MERGING / DO NOT EXIST IN SIP BRANCH  : $scope.lineAvailable = false;
+    $scope.lineAvailable = true;
+    
 	$scope.lineExtension = '';
 
 	$scope.presentation = {
@@ -133,7 +135,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 				break;
 
 			case 'lineAvailable':
-				setLineExtension(parsedMessage.extension);
+				setLineExtension(parsedMessage.extension);$scope.lineAvailable = false
 				break;
 
 			case 'callInformation':
@@ -623,6 +625,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		});
 	}
 
+    //WORK FOR SIP MERGING : This function has already been re-write with the use of of scope variable, much better than old git one
 	function setLineExtension(extension) {
 		$scope.lineExtension = extension;
 		$scope.lineAvailable = true;
