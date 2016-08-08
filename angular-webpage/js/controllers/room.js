@@ -791,10 +791,10 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         $('#composite-container').css('max-width', '640px');
         console.log('640px');
         } else if (mode === "normal") {
-        $('#composite-container').css('max-width', '60%');
+        $('#composite-container').css('max-width', '800px');
         console.log('60%');
         } else if (mode === "cinema") {
-        $('#composite-container').css('max-width', '99%');
+        $('#composite-container').css('max-width', '1280px');
         console.log('90%');    
         }
     };
