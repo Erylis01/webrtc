@@ -13,8 +13,9 @@ RUN apt-get -y install software-properties-common python-software-properties
 RUN echo "deb http://ubuntu.kurento.org trusty kms6" | tee /etc/apt/sources.list.d/kurento.list
 #RUN apt-add-repository http://ubuntu.kurento.org
 RUN wget -O - http://ubuntu.kurento.org/kurento.gpg.key | apt-key add -
+RUN apt-get clean
 RUN apt-get update
-RUN apt-get -y upgrade openssl --fix-missing
+RUN apt-get -y upgrade openssl
 RUN apt-get install -y kurento-media-server-6.0
 
 RUN echo "#!/bin/bash" > start.sh
