@@ -205,8 +205,10 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		var success = true;
 
 		// if there is already a presenter who is not me
-		if ($scope.presentation.active && !$scope.presentation.presenterIsMe)
-			return;
+		if ($scope.presentation.active && !$scope.presentation.presenterIsMe){
+            console.log('A presentation is already running');
+			return
+        };
 
 		// on Chrome, the extension handles window or screen
 		if ((type != currentType || constraints.browserIsChrome) && constraints.canPresent) {
@@ -217,6 +219,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 			if (constraints.browserIsChrome) {
 
 				if (!constraints.isChromeExtensionInstalled()) {
+					
+					console.log('Extension need to be installed');
+					
 					var warning = {
 						title: 'Chrome extension needed',
 						content: 'To enable screensharing or window sharing, please use our extension.'

@@ -25,7 +25,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 
 	$scope.roomName = $params.roomName;
 
-	$scope.lineAvailable = false;
+	//FOR SIP MERGING / DO NOT EXIST IN SIP BRANCH  : $scope.lineAvailable = false;
+    $scope.lineAvailable = true;
+    
 	$scope.lineExtension = '';
 
 	$scope.presentation = {
@@ -70,6 +72,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 
 			case 'compositeInfo':
 				sendStream(parsedMessage, 'composite');
+                console.log('Test de simulation');
 				break;
 
 			case 'presentationInfo':
@@ -133,7 +136,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 				break;
 
 			case 'lineAvailable':
-				setLineExtension(parsedMessage.extension);
+				setLineExtension(parsedMessage.extension);$scope.lineAvailable = false
 				break;
 
 			case 'callInformation':
@@ -203,18 +206,22 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		var success = true;
 
 		// if there is already a presenter who is not me
-		if ($scope.presentation.active && !$scope.presentation.presenterIsMe)
-			return;
+		if ($scope.presentation.active && !$scope.presentation.presenterIsMe) {
+            console.log('A presentation is already running');
+			return
+        };
 
 		// on Chrome, the extension handles window or screen
 		if ((type != currentType || constraints.browserIsChrome) && constraints.canPresent) {
-
 			if (currentType != 'composite')
 				this.stopPresenting();
 
 			if (constraints.browserIsChrome) {
 
 				if (!constraints.isChromeExtensionInstalled()) {
+                    
+                    console.log('Extension need to be installed');
+                    
 					var warning = {
 						title: 'Chrome extension needed',
 						content: 'To enable screensharing or window sharing, please use our extension.'
@@ -246,7 +253,9 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 				});
 
 			}
-		}
+		} else {
+            console.log('Your browser does not support screensharing');
+        }
 	};
     
     //Check the ability of browser to perform a screensharing meeting
@@ -623,6 +632,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 		});
 	}
 
+    //WORK FOR SIP MERGING : This function has already been re-write with the use of of scope variable, much better than old git one
 	function setLineExtension(extension) {
 		$scope.lineExtension = extension;
 		$scope.lineAvailable = true;
@@ -788,10 +798,10 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         $('#composite-container').css('max-width', '640px');
         console.log('640px');
         } else if (mode === "normal") {
-        $('#composite-container').css('max-width', '60%');
+        $('#composite-container').css('max-width', '800px');
         console.log('60%');
         } else if (mode === "cinema") {
-        $('#composite-container').css('max-width', '99%');
+        $('#composite-container').css('max-width', '1280px');
         console.log('90%');    
         }
     };
