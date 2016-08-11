@@ -241,7 +241,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 			}
 
 			if (success) {
-
+				
 				constraints.setType(type);
 				$scope.presentation.presenterIsMe = true;
 

@@ -16,7 +16,7 @@ describe('General parameters for testing controller', function() {
     
     describe('Unit testing for RoomCtrl', function() {
         
-        var $scope, $rootScope, controller;
+        var $scope, location, $rootScope, controller;
         
         console = {};    
         console.error = jasmine.createSpy();   
@@ -30,10 +30,11 @@ describe('General parameters for testing controller', function() {
         
         var controller = $controller('RoomCtrl', {$scope: $scope, $rootScope: $rootScope});
             
-        inject(function($injector) {
+        inject(function($injector, $location) {
         constraints = $injector.get('constraints'); 
         socket = $injector.get('socket'); 
         participants = $injector.get('participants');
+		location = $location;
         });  
             
         });
@@ -77,13 +78,29 @@ describe('General parameters for testing controller', function() {
         it('verify the location change event', function() {
         expect('Test').toBe('Not implemented yet, need to find how to spy $on event');    
         });
+		
+		//Test the presentation ability checker
+		it('verify the presentation ability checker function - canPresent()', function() {
+			//Case 1 : False because it can't present
+			constraints.canPresent = false
+			constraints.browserIsChrome = true;
+			expect($scope.canPresent).toBeFalsy;
+			//Case 2 : False because it isn't chrome browser
+			constraints.canPresent = true
+			constraints.browserIsChrome = false;
+			expect($scope.canPresent).toBeFalsy;
+			//Case 3 : True
+			constraints.canPresent = true
+			constraints.browserIsChrome = true;
+			expect($scope.canPresent).toBeTruthy;
+		});
         
         //Check the stopPresenting function 
         it('verify the presentation cancelling function - $scope.stopPresenting', function () {
         $scope.stopPresenting();
         expect($scope.presentation.presenterIsMe).toBeFalsy;
         expect(constraints.getType()).toBe('composite');
-        expect(console.warn).toHaveBeenCalledWith('Socket was closed before sending message'); 
+        expect(console.warn).toHaveBeenCalledTimes(1);
         });
         
         //Check the sharing function 
@@ -111,7 +128,23 @@ describe('General parameters for testing controller', function() {
 			$scope.share('composite');
 			expect($scope.presenterIsMe).toBeTruthy;
         });
+		
+		
+		//Check the invite function - Need to be completed with server answer
+		it('verify the invite function - $scope.invite()', function () {
+			$scope.invite('0638457456');
+			expect(console.warn).toHaveBeenCalledTimes(2);
+		});
         
+		//Check the leaving function and scope
+		it('verify the leaving function and related scope - leave() and $scope.leave()', function() {
+			$scope.leave();
+			expect(console.warn).toHaveBeenCalledTimes(3);
+			expect(constraints.getType()).toBe('composite');
+			expect(participants.isEmpty()).toBeTruthy;
+			expect(location.path()).toBe('/');
+		});
+
     });
     
 });
