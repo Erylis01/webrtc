@@ -4,31 +4,33 @@
 
 describe('General parameters for testing controller', function() {
    
-    var mock, $controller;
+    var mock, $rootScope, $controller;
    
     beforeEach(angular.mock.module('app'));
     
-    beforeEach(inject(function(_$controller_) {
+    beforeEach(inject(function(_$controller_, _$rootScope_) {
     $controller = _$controller_;
+	$rootScope = _$rootScope_;
     }));
    
     
     
     describe('Unit testing for RoomCtrl', function() {
         
-        var $scope, location, $rootScope, controller;
+        var $scope, location, rootScope, controller;
         
         console = {};    
         console.error = jasmine.createSpy();   
         console.log = jasmine.createSpy();   
         console.warn = jasmine.createSpy(); 
+		
         
         beforeEach(function() {
         $scope = {
             $on: function() {}
         };
         
-        var controller = $controller('RoomCtrl', {$scope: $scope, $rootScope: $rootScope});
+        var controller = $controller('RoomCtrl', {$scope: $scope, rootScope: $rootScope});
             
         inject(function($injector, $location) {
         constraints = $injector.get('constraints'); 
@@ -36,7 +38,7 @@ describe('General parameters for testing controller', function() {
         participants = $injector.get('participants');
 		location = $location;
         });  
-            
+			
         });
 
         
@@ -144,7 +146,77 @@ describe('General parameters for testing controller', function() {
 			expect(participants.isEmpty()).toBeTruthy;
 			expect(location.path()).toBe('/');
 		});
-
-    });
-    
+		
+		//Check the $scope.record
+		it('verify the recording scope element - $scope.record', function() {
+			//We have to add a participant for the change function (construct socket message)
+			participants.add("1515184",'Jean');
+			expect($scope.record.recording).toBeFalsy;
+			expect($scope.record.text).toBe('RECORD');
+			$scope.record.change(); //Don't forget to count call to socket.send
+			expect($scope.record.recording).toBeTruthy;
+			expect($scope.record.text).toBe('STOP_RECORD');
+		});
+		
+		//Check both recordJS and stopRecordJS()
+		it('verify the ability to ask to server for a recording -recordJS() and stopRecordJS()', function() {
+			participants.add("1515184",'Jean');
+			$scope.record.change();
+			expect(console.log).toHaveBeenCalledWith('Start record');
+			expect(console.warn).toHaveBeenCalledTimes(5);
+			$scope.record.change();
+			expect(console.log).toHaveBeenCalledWith('End record');
+			expect(console.warn).toHaveBeenCalledTimes(6);
+		});
+		
+		//CHeck the resolution scope element (4 cases)
+		it('verify the resolution setting scope element', function() {
+			//Case 1 : English setting with isAuto
+			$rootScope.langKey = 'en';
+			$scope.setResolution(240,120,true);
+			expect(console.log).toHaveBeenCalledWith('Resolution set to 160 * 120');
+			expect(console.log).toHaveBeenCalledWith('Auto_EN');
+			//Case 2 : French setting with isAuto
+			$rootScope.langKey = 'fr';
+			$scope.setResolution(240,120,true);
+			expect(console.log).toHaveBeenCalledWith('Resolution set to 160 * 120');
+			expect(console.log).toHaveBeenCalledWith('Auto_FR');
+			//Case 3 : French setting without isAuto
+			$scope.setResolution(240,120,false);
+			expect(console.log).toHaveBeenCalledWith('Resolution set to 240 * 120');
+			expect(console.log).toHaveBeenCalledWith('Not_Auto_FR');
+			//Case 4 : Engish setting without isAuto
+			$rootScope.langKey = 'en';
+			$scope.setResolution(240,120,false);
+			expect(console.log).toHaveBeenCalledWith('Resolution set to 240 * 120');
+			expect(console.log).toHaveBeenCalledWith('Not_Auto_EN');
+		});
+		
+		//Check the constraints renewel function and associated scopes - renewCOnstraints(compositeOptions)
+		it('verify the constraints renewal function and associated $scope- renewCOnstraint(), $scope.allTracks(), $scope.watchOnly(), $scope.microOnly()', function() {
+		//participants.add("1515184",'Jean');
+		//$scope.allTracks();
+		//expect(console.warn).toHaveBeenCalledTimes(7);
+		//expect(console.log).toHaveBeenCalledWith('normal');
+		//$scope.watchOnly();
+		//expect(console.warn).toHaveBeenCalledTimes(8);
+		//expect(console.log).toHaveBeenCalledWith('watchOnly');
+		//$scope.microOnly();
+		//expect(console.warn).toHaveBeenCalledTimes(9);
+		//expect(console.log).toHaveBeenCalledWith('audioOnly');
+		expect('Test').toBe('Written but not functionnal - Need to find how to correct the error due to sendStream that could not work offline');
+		});
+		
+		/**
+		* After the last test, every function called exclusively by receiving a * message couldn't be directly test while we havn't find a way to 
+		* direcly call controller function
+		*/
+		
+		//Check the on presenter ready function 
+		//it('verify the onPresenterReady function', function(){
+		//this.onPresenterReady('test');	
+		//});
+		
+    });   
+	
 });

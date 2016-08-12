@@ -359,16 +359,24 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
         constraints.setRes(width, height, isAuto);
         if (isAuto) {
             if ($rootScope.langKey === 'en') {
-            notifications.notify('Resolution auto adjustment', 'account-plus')
+            notifications.notify('Resolution auto adjustment', 'account-plus');
+				//The console.log that follow is only here for temporary test purpose
+				console.log("Auto_EN");
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify('Ajustement automatique de la résolution', 'account-plus')    
+            notifications.notify('Ajustement automatique de la résolution', 'account-plus');
+				//The console.log that follow is only here for temporary test purpose
+				console.log("Auto_FR");
             };  
             console.log('Resolution auto adjustment');
         } else {
             if ($rootScope.langKey === 'en') {
-            notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');  
+            notifications.notify('Resolution set to : '+width+' * '+height, 'account-plus');
+				//The console.log that follow is only here for temporary test purpose
+				console.log("Not_Auto_EN");
             } else if ($rootScope.langKey === 'fr') {
-            notifications.notify('Resolution choisie : '+width+' * '+height, 'account-plus');      
+            notifications.notify('Resolution choisie : '+width+' * '+height, 'account-plus');
+				//The console.log that follow is only here for temporary test purpose
+				console.log("Not_Auto_FR");
             };
             console.log('Resolution set to : '+width+' * '+height);
         }
