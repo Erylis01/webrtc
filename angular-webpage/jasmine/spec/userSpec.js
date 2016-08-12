@@ -1,5 +1,8 @@
 /**
 * Test file for user.js controller 
+*
+* 50% covered. The join function need to be impleted with sharper test and usage 
+* of mock.
 */
 
 describe('General parameters for testing controller', function() {
@@ -61,7 +64,7 @@ describe('General parameters for testing controller', function() {
         });
         
         it('verify the joining process - $scope.join()', function() {
-        expect('Tests').toBe('Not implemented yet'); 
+        expect('Tests').toBe('Not implemented yet - Trouble with the offline mode, need to falsify all socket function, might be a better solution'); 
         });
         
         it('verify the creation of used Id - $scope.createGuid()', function() {

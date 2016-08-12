@@ -1,7 +1,7 @@
 /**
 * Test file for constraints.js factory 
 *
-* In charge of the user media. 
+* In charge of the user media. This class is 100% covered by test a this point.
 */
 
 describe('Unit testing for constraints factory', function() {
@@ -110,7 +110,7 @@ expect(constraints.isChromeExtensionInstalled()).toBeTruthy;
 });
 
 //Check the warning getter - getWarning()
-it('verify the warning getter', function() {
+it('verify the warning getter - getWarning()', function() {
 expect(constraints.getWarning()).toBeNull;   
 });
 

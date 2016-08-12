@@ -1,8 +1,7 @@
 /**
 * Test file for participants.js factory 
 *
-* We consider that getter is fully functionnal. The webSocket is used with angular 
-* mocks.js. This testfile could be run with grunt without setting up application.
+* Factory related to particant function. 100% covered by test at this point.
 */
 
 describe('Unit testing for participants factory', function() {

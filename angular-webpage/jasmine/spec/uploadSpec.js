@@ -1,7 +1,9 @@
 /**
 * Test file for upload.js factory 
 *
-* Relative to upload-speed-tester
+* Relative to upload-speed-tester. Mock could be usefull for this factory, 
+* altought, there isn't access to the function that calculate him. According to
+* the dom, 100% covered by test.
 */
 
 describe('Unit testing for upload factory', function() {

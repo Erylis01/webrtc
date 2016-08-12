@@ -1,8 +1,9 @@
 /**
 * Test file for websocket.js factory 
 *
-* In charge of the server socket - Miss ever case when the 
-* socket is open
+* In charge of the server socket - In this file, many improvments could be done 
+* by finding how to test the $on event. 100% of the DOM were covered, but, 
+* relative to last sentece : 80% total work is done.
 */
 
 describe('Unit testing for websocket factory', function() {
@@ -43,9 +44,15 @@ beforeEach(function() {
     
   //Test the function get()  
   it("verify the socket getter - get()", function() {
-      expect(websocket.get().readyState).not.toBe(undefined);
+    expect(websocket.get().readyState).not.toBe(undefined);
   });
     
+  //Test the function getMessage()
+  it('verify the message getter - getMessage()', function() {
+  //While nothing as set it, only declaration could be verified
+  expect(websocket.getMessage()).not.toBe(undefined);
+  });
+	
   //Test the function prepareJoiningRoom()  
   it("verify the ability to prepare a room entering - prepareJoiningRoom(m)", function() {
       var m = JSON.stringify({'A':'B'});

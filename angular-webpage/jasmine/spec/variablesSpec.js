@@ -2,7 +2,9 @@
 * Test file for variables.js factory 
 *
 * There is only one getter but it's the config.json one, so it's 
-* important
+* important - Couldn't check inside the file because it's offline testing. 
+* 100% of the DOM were covered, but precision had to be improved. 50% of total 
+* factory covered so.
 */
 
 describe('Unit testing for variables factory', function() {
