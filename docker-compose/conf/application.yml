@@ -2,9 +2,9 @@ server:
    port: 8080
 kurento:
    websocket: ws://147.32.211.89:8888/kurento
-xivo:
-   websocket: ws://147.32.211.89:8082/xivo
+asterisk:
+   websocket: ws://147.32.211.89:8082/asterisk
    rest:
       uri: https://147.32.211.90:5060/1.1/lines_sip
-      login: test
+      login: kurento-based-application
       password: test
