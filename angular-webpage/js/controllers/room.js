@@ -26,7 +26,7 @@ function RoomCtrl($scope, $rootScope, $location, $window, $params, $timeout, soc
 	$scope.roomName = $params.roomName;
 
 	//FOR SIP MERGING / DO NOT EXIST IN SIP BRANCH  : $scope.lineAvailable = false;
-    $scope.lineAvailable = false;
+    $scope.lineAvailable = true;
     
 	$scope.lineExtension = '';
 
