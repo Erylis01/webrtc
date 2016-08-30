@@ -48,17 +48,17 @@ public class GroupCallApp implements WebSocketConfigurer {
 	@Value("${kurento.websocket}")
 	private String kms_uri;
 
-	@Value("${asterisk.websocket}")
-	private String asterisk_ws;
+	@Value("${xivo.websocket}")
+	private String xivo_ws;
 
-	@Value("${asterisk.rest.uri}")
-	private String asterisk_rest_uri;
+	@Value("${xivo.rest.uri}")
+	private String xivo_rest_uri;
 
-	@Value("${asterisk.rest.login}")
-	private String asterisk_rest_login;
+	@Value("${xivo.rest.login}")
+	private String xivo_rest_login;
 
-	@Value("${asterisk.rest.password}")
-	private String asterisk_rest_password;
+	@Value("${xivo.rest.password}")
+	private String xivo_rest_password;
 
 	@Bean
 	public WebRegistry registry() {
@@ -77,13 +77,13 @@ public class GroupCallApp implements WebSocketConfigurer {
 
 	@Bean
 	public SipHandler sipHandler() throws URISyntaxException {
-		URI uri = new URI(asterisk_ws);
+		URI uri = new URI(xivo_ws);
 		return new SipHandler(uri.getHost());
 	}
 
 	@Bean
 	public LineRegistry sipRegistry() {
-		return new LineRegistry(asterisk_rest_uri, asterisk_rest_login, asterisk_rest_password);
+		return new LineRegistry(xivo_rest_uri, xivo_rest_login, xivo_rest_password);
 	}
 
 	@Bean
@@ -92,7 +92,7 @@ public class GroupCallApp implements WebSocketConfigurer {
 		ArrayList<String> protocols = new ArrayList<>();
 		protocols.add("sip");
 		WebSocketConnectionManager manager = new WebSocketConnectionManager(new StandardWebSocketClient(), sipHandler(),
-				asterisk_ws);
+				xivo_ws);
 		manager.setSubProtocols(protocols);
 		manager.setAutoStartup(true);
 		return manager;
