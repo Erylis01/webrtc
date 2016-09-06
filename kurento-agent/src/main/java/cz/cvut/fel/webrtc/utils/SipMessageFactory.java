@@ -52,6 +52,8 @@ public class SipMessageFactory {
 	}
 	
 	public Response createResponseFromRequest(Request request, int statusCode) throws ParseException, InvalidArgumentException {
+		String testrequest = tostring(request);
+		system.out.println(testrequest);
 		Address sender = ((FromHeader) request.getHeader("From")).getAddress();
 		Address receiver = ((ToHeader) request.getHeader("To")).getAddress();
 
